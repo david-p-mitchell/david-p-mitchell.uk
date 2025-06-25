@@ -1,0 +1,83 @@
+/* components.css */
+.logo {
+  @apply flex-shrink-0 flex items-center;
+}
+.logo-link {
+  @apply text-xl font-bold text-white;
+}
+
+.desktop-menu-items {
+  @apply ml-10 flex items-baseline space-x-4;
+}
+
+.menu-button {
+  @apply text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors duration-200;
+}
+
+.dropdown-menu {
+  @apply absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 transition-all duration-200;
+}
+
+.dropdown-item {
+  @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200;
+}
+
+.mobile-menu-container {
+  @apply md:hidden transition-all duration-300 ease-in-out overflow-hidden;
+}
+
+.mobile-menu-open {
+  @apply max-h-96 opacity-100;
+}
+
+.mobile-menu-closed {
+  @apply max-h-0 opacity-0;
+}
+
+.mobile-menu-items {
+  @apply px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200;
+}
+
+.mobile-menu-dropdown-button {
+  @apply w-full text-left text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center justify-between transition-colors duration-200;
+}
+
+.mobile-dropdown-menu {
+  @apply transition-all duration-200 overflow-hidden;
+}
+
+.mobile-dropdown-open {
+  @apply max-h-48 opacity-100;
+}
+
+.mobile-dropdown-closed {
+  @apply max-h-0 opacity-0;
+}
+
+.mobile-dropdown-item {
+  @apply text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200;
+}
+
+.mobile-dropdown-item2.text-sm {
+  @apply text-gray-600 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-sm transition-colors duration-200;
+}
+
+.navbar {
+  @apply bg-blue-950 text-white shadow-lg border-b border-gray-200;
+}
+
+.navbar-inner {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.navbar-flex {
+  @apply flex justify-between items-center h-16;
+}
+
+.desktop-menu-container {
+  @apply hidden md:block;
+}
+
+.mobile-menu-button {
+  @apply text-white hover:text-blue-300 focus:outline-none focus:text-blue-300 transition-colors duration-200;
+}

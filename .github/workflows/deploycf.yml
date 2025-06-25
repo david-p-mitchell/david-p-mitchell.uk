@@ -1,0 +1,33 @@
+name: Deploy Nuxt 3 to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main  # Deploy when changes are pushed to 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Checkout the code from your repository
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Use Node.js version 16 or any version you're using
+
+      - name: Install dependencies
+        run: npm install  # Install project dependencies
+
+      - name: Build Nuxt 3 site
+        run: npm run generate  # Generate the static files for the Nuxt 3 site
+
+      - name: Deploy to Cloudflare Pages
+        run: |
+          curl -sL https://github.com/cloudflare/pages-action/releases/download/v2.0.0/pages-action-linux-x64.tar.gz | tar xz
+          ./pages-action-linux-x64 deploy \
+            --token ${{ secrets.CLOUDFLARE_API_TOKEN }} \
+            --project-name your-cloudflare-project-name \
+            --directory dist  # Specify the build directory where Nuxt static files are generated
