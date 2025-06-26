@@ -78,7 +78,7 @@ const menuItems = [
             <template v-else>
               <!-- Menu icon -->
               <svg
-                class="h-6 w-6"
+                class="h-6 w-6 mt-1"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
