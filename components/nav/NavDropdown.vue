@@ -8,7 +8,7 @@ defineProps({
 
 <template>
   <div
-    class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 transition-all duration-200"
+    class="absolute left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10 transition-all duration-200"
     :class="{
       'opacity-100 visible': isActive,
       'opacity-0 invisible': !isActive,
