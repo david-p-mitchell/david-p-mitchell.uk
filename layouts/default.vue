@@ -8,6 +8,6 @@
 </template>
 
 <script setup>
-import NavBar from '~/Components/nav/NavBar.vue'
+import NavBar from '~/components/nav/NavBar.vue'
 // You can add layout-specific logic here if needed
 </script>
