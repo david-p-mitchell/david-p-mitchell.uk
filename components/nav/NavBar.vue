@@ -30,7 +30,17 @@ const menuItems = [
       { name: 'Consulting', href: '/services/consulting' }
     ]
   },
+  
   { name: 'Portfolio', href: '/portfolio' },
+  { 
+    name: 'Hobbies', 
+    href: '/hobbies',
+    dropdown: [
+      { name: 'Sport', href: '/services/sport' },
+      { name: 'Development', href: '/services/development' },
+      { name: 'Music', href: '/services/music' }
+    ]
+  },
   { name: 'Contact', href: '/contact' }
 ]
 </script>
