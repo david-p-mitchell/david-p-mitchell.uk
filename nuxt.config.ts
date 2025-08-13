@@ -5,4 +5,8 @@ export default defineNuxtConfig({
   css: ['@/assets/css/main.css'], 
   modules: ['@nuxtjs/tailwindcss'],
   ssr: true,
+  tailwindcss: {
+    cssPath: '~/assets/css/main.css',
+    configPath: 'tailwind.config.js'
+  }
 })
