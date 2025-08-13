@@ -1,41 +1,25 @@
 <template>
     <div class="body">
-  <div class="container mx-auto px-4 py-12">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-bold text-gray-800 mb-6">Welcome Home</h1>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        This is the home page of your Nuxt 3 application with a responsive navigation menu.
-      </p>
-    </div>
-    
-    <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <div class="text-blue-600 text-4xl mb-4">🚀</div>
-        <h3 class="text-xl font-semibold mb-2">Fast Performance</h3>
-        <p class="text-gray-600">Built with Nuxt 3 for optimal performance and SEO.</p>
+      <div class="container mx-auto px-4 py-4">
+        <div class="text-center mb-2">
+          <h1 class="text-5xl font-bold text-gray-800 mb-3 py-0 my-0">David Mitchell</h1>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer</p>
+        </div>
       </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <div class="text-blue-600 text-4xl mb-4">📱</div>
-        <h3 class="text-xl font-semibold mb-2">Responsive Design</h3>
-        <p class="text-gray-600">Works perfectly on desktop, tablet, and mobile devices.</p>
-      </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md text-center">
-        <div class="text-blue-600 text-4xl mb-4">🎨</div>
-        <h3 class="text-xl font-semibold mb-2">Beautiful UI</h3>
-        <p class="text-gray-600">Styled with Tailwind CSS for a modern look.</p>
-      </div>
-    </div>
-  </div>
+      <About />
+      <footer class="mt-12">
+        <Footer />
+      </footer>
   </div>
 </template>
 
 <script setup>
+import About from '@/components/About.vue';
+
 useHead({
-  title: 'Home - My Nuxt App',
+  title: 'David Mitchell',
   meta: [
-    { name: 'description', content: 'Welcome to my Nuxt 3 application' }
+    { name: 'description', content: 'David Mitchell, Software Developer, working in .net, C#, Vue.js and Reactjs' }
   ]
 })
 </script>
