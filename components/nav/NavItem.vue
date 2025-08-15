@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import NavDropdown from './NavDropdown.vue'
 
 const props = defineProps({
