@@ -25,7 +25,7 @@
         <div class="absolute pt-1  pl-1 left-1 top-1">
           <VerticalLeap />
         </div>
-        <div class="absolute pt-1  pl-1 right-1 top-1 bg-green-500 text-white rounded-md pr-2 text-sm">
+        <div class="absolute pt-1  pl-1 right-1 top-1 bg-green-700 text-white rounded-md pr-2 text-sm">
           Full time employed by Vertical Leap
         </div>
         <p class="text-xs">
