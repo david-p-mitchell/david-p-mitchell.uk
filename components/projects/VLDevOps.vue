@@ -2,7 +2,7 @@
     <div class="p-0">
         
     <ProjectComponent
-        heading="Dev Ops"
+        heading="VL Dev Ops"
         subheading="Infrastructure and DevOps"
         summary="Created and oversaw infrastructure for the new tools platforms, including CI/CD pipelines, monitoring, and deployment strategies."
         dates="June 2023- January 2024">
