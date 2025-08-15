@@ -4,7 +4,8 @@
             <div class="bg-white p-6 rounded-lg shadow-md text-center transform transition-transform duration-300 hover:scale-105">
             
             <h2 class="text-xl font-semibold mb-2">{{ heading }}</h2>
-            <p class="text-gray-600">{{ subheading }}</p>
+            <p class="text-gray-600 text-lg">{{ subheading }}</p>
+            <p class="text-black-600 text-sm p-2 m-4">{{ summary }}</p>
             <slot/>
           </div>
         </div>    
