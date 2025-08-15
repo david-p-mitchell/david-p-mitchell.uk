@@ -1,6 +1,6 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" width="118.885" height="66.358" viewBox="0 0 118.885 66.358">
-        <g transform="scale(0.5)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60.885" height="30.358" viewBox="0 0 63.885 36.358">
+        <g transform="scale(0.5) translate(5,0)">
         <g id="Group_7" data-name="Group 7" transform="translate(-4.989 -3.558)">
             <g id="Group_4" data-name="Group 4" transform="translate(4.989 3.558)">
             <g id="Group_2" data-name="Group 2">
