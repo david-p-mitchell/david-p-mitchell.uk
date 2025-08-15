@@ -1,5 +1,5 @@
 <template>
-    <div style="display: inline-block; position: relative;">
+    
         <BubbleLogo
             :name="'Markdown'"
             :size="size"
@@ -11,7 +11,7 @@
             </path>
         </g>
         </BubbleLogo>
-    </div>
+    
 </template>
 
 <script setup>

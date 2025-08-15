@@ -1,5 +1,5 @@
 <template>
-  <div style="display: inline-block; position: relative;">
+  
     
     <BubbleLogo
       :name="'jQuery'"
@@ -18,7 +18,7 @@
         
     </g>
       </BubbleLogo>
-  </div>
+  
 </template>
 
 <script setup>

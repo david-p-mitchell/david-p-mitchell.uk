@@ -1,5 +1,5 @@
 <template>
-  <div style="display: inline-block; position: relative;">
+  
     <BubbleLogo
       :name="'CSS'"
       :size="size"
@@ -20,7 +20,7 @@
         />
         </g>
     </BubbleLogo>
-  </div>
+  
 </template>
 
 <script setup>

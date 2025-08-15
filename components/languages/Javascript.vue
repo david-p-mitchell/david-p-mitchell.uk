@@ -1,5 +1,5 @@
 <template>
-    <div style="display: inline-block; position: relative;">
+    
 
         <BubbleLogo
             :name="'JavaScript'"
@@ -21,7 +21,6 @@
         </g>
         </g>
         </BubbleLogo>
-    </div>
 </template>
 
 <script setup>

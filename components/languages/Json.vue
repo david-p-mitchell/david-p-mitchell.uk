@@ -1,6 +1,5 @@
 <template>
-  <div style="display: inline-block; position: relative;">
-    
+  
     <BubbleLogo
       :name="'json'"
       :size="size"
@@ -16,7 +15,7 @@
         </g>
     </g>
       </BubbleLogo>
-  </div>
+  
 </template>
 
 <script setup>

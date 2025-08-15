@@ -7,7 +7,7 @@
       <svg
         :width="size"
         :height="size"
-        viewBox="0 0 120 120"
+        viewBox="0 0 120 140"
         xmlns="http://www.w3.org/2000/svg"
         aria-label="Logo"
         :class="[
@@ -18,8 +18,8 @@
         @mouseleave="onMouseLeave"
       >
       <defs>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.5)" />
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="rgba(0,0,0,0.5)" />
     </filter>
   </defs>
         <circle

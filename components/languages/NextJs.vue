@@ -1,5 +1,5 @@
 <template>
-  <div style="display: inline-block; position: relative;">
+  
     <BubbleLogo
       :name="'Next.js'"
       :size="size"
@@ -23,7 +23,7 @@
           </linearGradient>
         </defs>
     </BubbleLogo>
-  </div>
+  
 </template>
 
 <script setup>

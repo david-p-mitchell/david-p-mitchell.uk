@@ -1,6 +1,4 @@
 <template>
-    <div style="display: inline-block; position: relative;">
-        
         <BubbleLogo
             :name="'Node.js'"
             :size="size"
@@ -14,7 +12,6 @@
             </g>
             </g>
         </BubbleLogo>
-    </div>
 </template>
 
 <script setup>

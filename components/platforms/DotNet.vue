@@ -1,19 +1,11 @@
 <template>
-  <div style="display: inline-block; position: relative;">
-    
-      
     <BubbleLogo
       :name="'.Net'"
       :size="size"
       :link="link"
       :showName="showName">
-    <!-- .NET icon (simplified) -->
-        <text x="60" y="50" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="32" font-weight="bold">.NET</text>
-        
-        </BubbleLogo>
-
-    
-  </div>
+      <text x="60" y="50" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="32" font-weight="bold">.NET</text>
+    </BubbleLogo>
 </template>
 
 <script setup>

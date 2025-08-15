@@ -1,10 +1,10 @@
 
 <template>
-  <div style="display: inline-block; position: relative;">
-    <BubbleLogo
-      :name="'XML'"
-      :size="size"
-      :link="link">
+  <BubbleLogo
+    :name="'XML'"
+    :size="size"
+    :link="link"
+    :showName="showName">
       <g transform="translate(0,0) scale(1)">
         <g id="xml-carrier"> 
             <g transform="translate(30,15) scale(0.8) translate(10,10)">
@@ -14,13 +14,15 @@
                 </path> 
             </g> 
         </g>
-        </g>
-    </BubbleLogo>
-  </div>
+      </g>
+  </BubbleLogo>
+  
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
-const props = defineProps({ size: { type: [Number, String], default: 96 }, link: { type: String, default: '/languages/xml' } });
+const props = defineProps({ 
+  size: { type: [Number, String], default: 96 }, 
+  link: { type: String, default: '/languages/xml' }, 
+  showName: { type: Boolean, default: true } });
 </script>

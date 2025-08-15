@@ -1,6 +1,4 @@
 <template>
-    <div style="display: inline-block; position: relative;">
-        
         <BubbleLogo
             :name="'Require.js'"
             :size="size"
@@ -16,9 +14,9 @@
                 <g stroke-miterlimit="10" fill="none" stroke="#fff" stroke-width="2">
                     <path d="M95.817 26.33l9.583 9.5m-16.583-9.5l9.583 9.5m-16.583-9.5l9.583 9.5m0 0l-9.584 9.5" />
                     <path d="M98.4 35.83l-9.584 9.5m16.584-9.5l-9.584 9.5m7-19l9.584 9.5m-.001 0l-9.584 9.5"/>
-            </g></g>
+                </g>
+            </g>
         </BubbleLogo>
-    </div>
 </template>
 
 <script setup>

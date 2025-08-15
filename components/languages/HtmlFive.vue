@@ -1,5 +1,5 @@
 <template>
-  <div style="display: inline-block; position: relative;">
+  
     <BubbleLogo
       :name="'HTML5'"
       :size="size"
@@ -19,7 +19,6 @@
             <polygon fill="#FFFFFF" points="255.843,176.305 255.843,204.509 255.843,221.605 255.843,221.716 365.385,221.716 365.385,221.716 365.531,221.716 366.442,211.509 368.511,188.488 369.597,176.305"/>
       </g>
     </BubbleLogo>
-  </div>
 </template>
 
 <script setup>
