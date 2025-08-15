@@ -24,8 +24,7 @@
 </template>
 
 <script setup>
-import HalliburtonLogo from '../WorkTypeLogo/HalliburtonLogo.vue';
-import VerticalLeap from '../WorkTypeLogo/VerticalLeap.vue';
+import HalliburtonLogo from '../../WorkTypeLogo/HalliburtonLogo.vue';
 defineProps({
   heading: {
     type: String,
