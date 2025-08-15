@@ -1,6 +1,6 @@
 <template>
     
-    <svg xmlns="http://www.w3.org/2000/svg" width="118.885" height="30.358" viewBox="0 0 118.885 5.358">
+    <svg xmlns="http://www.w3.org/2000/svg" width="118.885" height="26.358" viewBox="0 0 118.885 4">
         <g transform="scale(0.7)">
         <path
      id="path119"
