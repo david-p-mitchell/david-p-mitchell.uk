@@ -25,6 +25,6 @@
 
 <script setup lang="ts">
 import { LanguagesCss, LanguagesHtmlFive, LanguagesMarkdown, LanguagesNuxt, LanguagesTypescript, LanguagesVue, PlatformsGit } from '#components';
-import ProjectComponent from './ProjectComponent.vue';
+import ProjectComponent from './templates/ProjectComponent.vue';
 const size = 35;
 </script>

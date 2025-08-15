@@ -10,18 +10,13 @@
         <LanguagesMarkdown :size="iconsize" :show-name="false" />
         <LanguagesYAML :size="iconsize" :show-name="false" />
         <LanguagesBash :size="iconsize" :show-name="false" />
-        
-        
-        <p class="text-xs">
-            All company logos and images are the property of Vertical Leap / GAIN. They are used here for illustrative purposes to show past employment and projects.
-        </p>
         </ProjectComponent>
         </div>
 </template>
 
 <script setup lang="ts">
 import VerticalLeap from '../WorkTypeLogo/VerticalLeap.vue';
-import ProjectComponent from './ProjectComponent.vue';
+import ProjectComponent from './templates/ProjectComponent.vue';
 
 
 defineProps({

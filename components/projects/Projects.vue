@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import ApolloInsights from './ApolloInsights.vue';
 import Halliburton from './Halliburton.vue';
-import HalliburtonProjectComponent from './HalliburtonProjectComponent.vue';
+import HalliburtonProjectComponent from './templates/HalliburtonProjectComponent.vue';
 import VLDevOps from './VLDevOps.vue';
-import VLProjectComponent from './VLProjectComponent.vue';
+import VLProjectComponent from './templates/VLProjectComponent.vue';
 const size = 70; // Default size for icons, can be adjusted as needed
 const loadsize = 40; // Default size for icons, can be adjusted as needed
 </script>

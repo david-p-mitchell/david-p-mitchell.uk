@@ -19,8 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import HalliburtonLogo from '../WorkTypeLogo/HalliburtonLogo.vue';
-import ProjectComponent from './ProjectComponent.vue';
+import ProjectComponent from './templates/ProjectComponent.vue';
 defineProps({
   iconsize: {
     type: Number,
