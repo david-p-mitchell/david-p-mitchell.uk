@@ -36,7 +36,7 @@
         <PlatformsGit :size="size" />      
       </div> 
       <div class="text-center mt-12 mb-6">
-        Some Projects I have worked on:
+        Projects I have contributed to::
         <div class="flex justify-center mt-4">
         <Projects />  
         </div>    
