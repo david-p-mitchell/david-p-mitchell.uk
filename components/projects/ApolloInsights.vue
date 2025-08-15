@@ -2,8 +2,8 @@
     <div>
     <ProjectComponent
         heading="Apollo Insights"
-        subheading="A Search Marketing platform "
-        summary="This project involved building a comprehensive analytics dashboard for monitoring GraphQL performance and usage metrics.">
+        subheading="A search marketing platform "
+        summary="Maintaining and building a comprehensive data and analytics dashboards for digital search data and providing actionable insights.">
         <PlatformsAws :size="size" :show-name="false" />
         <LanguagesCSharp :size="size" :show-name="false" />
         <LanguagesCss :size="size" :show-name="false" />
