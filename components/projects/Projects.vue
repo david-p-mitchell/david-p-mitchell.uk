@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ApolloInsights from './ApolloInsights.vue';
-import EnonWebsite from './EnonWebsite.vue';
 import Halliburton from './Halliburton.vue';
 
 </script>
@@ -10,7 +9,7 @@ import Halliburton from './Halliburton.vue';
         
         
         <!-- Project Components -->
-        <EnonWebsite />
+        
         <ApolloInsights />
         <Halliburton />
     </div>
