@@ -18,6 +18,11 @@
     </div>
   </div>
         <slot/>
+
+        <p class="text-xs px-2">
+            All company logos and images are the property of Halliburton. <br />
+            They are used here for illustrative purposes to show past employment and projects.
+        </p>
       </div>
     </div>
   </div>

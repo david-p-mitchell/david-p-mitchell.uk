@@ -17,14 +17,10 @@
       Full time employed by Vertical Leap
     </div>
   </div>
-
-        
-  
-
-        
         <slot/>
       <p class="text-xs mx-2 mb-2">
-            All company logos and images are the property of Vertical Leap / GAIN. They are used here for illustrative purposes to show past employment and projects.
+            All company logos and images are the property of Vertical Leap. <br />
+            They are used here for illustrative purposes to show past employment and projects.
         </p>  
       </div>
       
