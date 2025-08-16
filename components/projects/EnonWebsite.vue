@@ -1,5 +1,5 @@
 <template>
-    <div>
+    
         
     <ProjectComponent
         heading="Enon Baptist Church"
@@ -14,17 +14,12 @@
         <LanguagesTypescript :size="size" :show-name="false" />
         <LanguagesVue :size="size" :show-name="false" />
         <PlatformsGit :size="size" :show-name="false" />
+    </ProjectComponent>
         
-        <div class="absolute pt-1  pl-1 right-1 top-1 bg-yellow-500 text-black rounded-md pr-2 text-sm">
-          Volunteer
-        </div>
-        
-        </ProjectComponent>
-        </div>
 </template>
 
 <script setup lang="ts">
 import { LanguagesCss, LanguagesHtmlFive, LanguagesMarkdown, LanguagesNuxt, LanguagesTypescript, LanguagesVue, PlatformsGit } from '#components';
 import ProjectComponent from './templates/ProjectComponent.vue';
-const size = 35;
+const size = 50;
 </script>
