@@ -1,4 +1,7 @@
 <template>
+  <p class="text-md text-center text-gray-800 p-3">
+    Here are some of the technologies I have worked with:
+  </p>
 <div class="flex flex-wrap justify-center items-center"> 
         <LanguagesBash :size="size" />
         <LanguagesCSharp :size="size" />
@@ -12,7 +15,6 @@
         <LanguagesNodeJs :size="size"/>
         <LanguagesRequireJs :size="size"/>
         <LanguagesReact :size="size"/>
-        
         <LanguagesSQL :size="size"/>
         <LanguagesJavascript :size="size"/>
         <LanguagesTypescript :size="size"/>
