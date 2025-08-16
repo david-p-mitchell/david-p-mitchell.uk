@@ -19,7 +19,7 @@
         and deliver great user experiences.
 
         <br />
-        Below are some of the skills and technologies I have worked with:
+        
       </p>
     </section>
   </div>
