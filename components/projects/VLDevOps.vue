@@ -10,15 +10,13 @@
         <LanguagesMarkdown :size="iconsize" :show-name="false" />
         <LanguagesYAML :size="iconsize" :show-name="false" />
         <LanguagesBash :size="iconsize" :show-name="false" />
+        <PlatformsDocker :size="iconsize" :show-name="false" />
         </ProjectComponent>
         </div>
 </template>
 
 <script setup lang="ts">
-import VerticalLeap from '../WorkTypeLogo/VerticalLeap.vue';
 import ProjectComponent from './templates/ProjectComponent.vue';
-
-
 defineProps({
   iconsize: {
     type: Number,
