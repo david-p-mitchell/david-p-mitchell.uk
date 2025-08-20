@@ -1,8 +1,8 @@
 <template>
-    <div class="text-center font-bold rounded-lg shadow-lg">
+    <div class="text-center font-bold">
         This site has been built using Nuxt 4, Vue 3 and Tailwind CSS.
     </div>
-    <div class="text-center font-bold rounded-lg shadow-lg">
+    <div class="text-center">
         
     <LanguagesNuxt :show-name="false" :size="size" />
     <LanguagesVue :show-name="false" :size="size"/>
