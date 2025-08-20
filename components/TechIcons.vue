@@ -1,4 +1,4 @@
-<!-- TechIcons.vue -->
+
 <template>
   <div class="flex flex-wrap justify-center items-center">
     <component
