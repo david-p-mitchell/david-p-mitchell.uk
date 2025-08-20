@@ -22,7 +22,6 @@
           cy="60"
           r="55"
           :fill="circleFillColor"
-          :alt="name"
           filter="url(#shadow)"
         />
         
