@@ -59,12 +59,11 @@ const props = defineProps({
   isSearchIcon: { type: Boolean, default: false }
 });
 
-
 // If no array is passed, render all icons
 const techToRender = computed(() => props.tech?.length ? props.tech : Object.keys(iconMap));
 
-
 const selectLanguage = (lang: string | null) => {
+  if(!props.isSearchIcon) return;
   if(lang=== languageStore.selectedLanguage) languageStore.selectedLanguage = null;
   else languageStore.selectedLanguage = lang
 }
