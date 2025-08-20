@@ -20,30 +20,30 @@ const setActiveDropdown = (index) => {
   activeDropdown.value = index
 }
 
-const menuItems = [
-  { name: 'About', href: '/about' },
-  { 
-    name: 'Services', 
-    href: '/services',
-    dropdown: [
-      { name: 'Web Design', href: '/services/web-design' },
-      { name: 'Development', href: '/services/development' },
-      { name: 'Consulting', href: '/services/consulting' }
-    ]
-  },
+// const menuItems = [
+//   { name: 'About', href: '/about' },
+//   { 
+//     name: 'Services', 
+//     href: '/services',
+//     dropdown: [
+//       { name: 'Web Design', href: '/services/web-design' },
+//       { name: 'Development', href: '/services/development' },
+//       { name: 'Consulting', href: '/services/consulting' }
+//     ]
+//   },
   
-  { name: 'Portfolio', href: '/portfolio' },
-  { 
-    name: 'Hobbies', 
-    href: '/hobbies',
-    dropdown: [
-      { name: 'Sport', href: '/services/sport' },
-      { name: 'Development', href: '/services/development' },
-      { name: 'Music', href: '/services/music' }
-    ]
-  },
-  { name: 'Contact', href: '/contact' }
-]
+//   { name: 'Portfolio', href: '/portfolio' },
+//   { 
+//     name: 'Hobbies', 
+//     href: '/hobbies',
+//     dropdown: [
+//       { name: 'Sport', href: '/services/sport' },
+//       { name: 'Development', href: '/services/development' },
+//       { name: 'Music', href: '/services/music' }
+//     ]
+//   },
+//   { name: 'Contact', href: '/contact' }
+// ]
 </script>
 
 <template>
@@ -51,7 +51,7 @@ const menuItems = [
     <div class="mx-auto px-4 ">
       <div class="flex justify-between items-center h-8">
         <NavLogo />
-        <div class="hidden md:block">
+        <!-- <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
             <NavItem
               v-for="(item, index) in menuItems"
@@ -62,23 +62,24 @@ const menuItems = [
               :setActiveDropdown="setActiveDropdown"
             />
           </div>
-        </div>
+        </div> -->
 
         <!-- Mobile menu button -->
+<!--          
          <MobileMenu 
           :isOpen="isOpen" :toggleMenu="toggleMenu"
-           />
+           /> -->
       </div>
     </div>
     
 
-    <!-- Mobile Menu -->
+    <!-- 
     <NavMobileMenu
       :menuItems="menuItems"
       :activeDropdown="activeDropdown"
       :toggleDropdown="toggleDropdown"
       v-if="isOpen"
-    />
+    /> -->
     
   </nav>
 </template>
