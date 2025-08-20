@@ -5,7 +5,7 @@
         </p>  
 </template> 
 <script setup lang="ts">
-import { CompanyNameMap } from '#imports';
+import { CompanyNameMap } from '@/utils/companyNameMap';
 defineProps<{
   company: 'VL' | 'Halliburton';
 }>();
