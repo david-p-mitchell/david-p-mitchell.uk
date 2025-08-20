@@ -1,6 +1,6 @@
 
 <template>
-  <div class="flex flex-wrap justify-center items-center">
+  <div class="flex flex-wrap justify-center items-center py-5">
     <component
       v-for="t in techToRender"
       :key="t"
