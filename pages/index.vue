@@ -8,8 +8,10 @@
     </div>
 
     <About />
-<!-- <Skills /> -->
-    <!-- Language Filter using TechIcons -->
+    <div >
+      <p class="text-center font-bold"> Here are some of the technologies I've used over my career: </p>
+      <p class="text-center font-italic text-sm pb-3">(Feel free to click on a technology to filter the projects I've contributed to, unclick to show all technologies) </p>
+    </div>
     <div class="flex gap-2 flex-wrap justify-center">
       <TechIcons
         :iconsize="70"
@@ -17,8 +19,6 @@
         :isSearchIcon="true"
       />
     </div>
-
-    <!-- Projects filtered by selected language -->
     <div class="text-center mt-12 mb-6">
       Projects I have contributed to:
       <div class="flex justify-center mt-4">
