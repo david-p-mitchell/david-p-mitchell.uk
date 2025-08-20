@@ -7,7 +7,7 @@
         aria-label="Logo"
         :class="[
           'block transform transition-transform duration-200 ease-in-out mx-0.5 my-0.5',
-          hovering ? 'scale-125' : 'scale-100'
+          hovering ? 'scale-150' : 'scale-100'
         ]"
         @mousemove="onMouseMove"
         @mouseleave="onMouseLeave"
@@ -71,20 +71,16 @@ const props = defineProps({
   }
 })
 
-const circleFillColor = computed(() => {
-  // If store isn’t ready yet during SSR, always return a stable color
-  if (!languageStore.selectedLanguage) return '#272554' // safe default
-
-  // Once hydrated, run your conditional
-  return props.isSearchIcon && codeNameVal.value.toLowerCase() === languageStore.selectedLanguage.toLowerCase()  ? '#C7DCFB' : '#272554';
+const isActive = computed(() => {
+  if (!languageStore.selectedLanguage) return false
+  return (
+    props.isSearchIcon &&
+    codeNameVal.value.toLowerCase() === languageStore.selectedLanguage.toLowerCase()
+  )
 })
 
-const textColor = computed(() => {
-  if (!languageStore.selectedLanguage) return '#ffffff' // safe default
-  
-  
-  return props.isSearchIcon && codeNameVal.value.toLowerCase() === languageStore.selectedLanguage!.toLowerCase()  ? '#272554' : '#ffffff';
-})
+const circleFillColor = computed(() => (isActive.value ? '#C7DCFB' : '#272554'))
+const textColor = computed(() => (isActive.value ? '#272554' : '#ffffff'))
 
 onMounted(() => {
   if (!languageStore.selectedLanguage) {
