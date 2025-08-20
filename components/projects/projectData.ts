@@ -1,7 +1,9 @@
 import { Project } from '~/types/Project';
-const smallIcons = 35;
-const medIcons = 60;
-const lgIcons = 60;
+const halliburtonIconSize = 70;
+const vlDevOpsIcons = 45;
+const vlToolsIcons = 40;
+const apolloInsightsIcons = 30;
+const enonIcons = 40;
 export const projects: Project[] = [
     new Project({ 
     name: 'Enon Website', 
@@ -10,7 +12,7 @@ export const projects: Project[] = [
     subheading:'New Website',
     summary:'Initiated and developed a new website for Enon Baptist Church, focusing on modern and responsive design, continuous development and improving user experience.',
     dates:'September 2024 - Present',
-    iconSize: medIcons,
+    iconSize: enonIcons,
     toShow: false
   }),
   new Project({ 
@@ -18,10 +20,10 @@ export const projects: Project[] = [
     company:'VL', 
     tech: ['Aws', 'Markdown', 'Css', 'CSharp', 'Git', 'HtmlFive', 'Javascript', 'Json', 'Typescript', 'NextJs', 'Nuxt', 'React'], 
     heading:"VL Tools",
-    subheading:'Standalone Tools for Vertical Leap Staff',
+    subheading:'Standalone Tools',
     summary:'Developed endpoints and refactored code to improve performance and reliability. Updated packages for tools.',
     dates:'June 2023 - June 2025',
-    iconSize: medIcons,
+    iconSize: vlToolsIcons,
     toShow: true
   }),
   new Project({ 
@@ -32,7 +34,7 @@ export const projects: Project[] = [
     subheading:'Infrastructure and DevOps',
     summary:'Created and oversaw infrastructure for the new tools platforms, including CI/CD pipelines, monitoring, and deployment strategies.',
     dates:'June 2023 - June 2025',
-    iconSize: lgIcons,
+    iconSize: vlDevOpsIcons,
     toShow: true
   }),
   new Project({ 
@@ -43,7 +45,7 @@ export const projects: Project[] = [
     subheading:'A search marketing platform',
     summary:'Maintaining and building a comprehensive platform with data and analytics dashboards for digital search data and providing actionable insights.',
     dates:'January 2017 - June 2023',
-    iconSize: smallIcons,
+    iconSize: apolloInsightsIcons,
     toShow: true
   }),
   new Project({ 
@@ -52,9 +54,9 @@ export const projects: Project[] = [
     tech: ['DotNet', 'SQL', 'CSharp'], 
     heading:"Sperry Drilling (Halliburton)",
     subheading:'MWD Tool Software Development',
-    summary:'Completed a software engineering placement at Halliburton\'s Sperry Drilling division, contributing to the development and testing of high-performance Measurement While Drilling (MWD) tools for extreme downhole environments.',
+    summary:'Contributed to the development and testing of high-performance Measurement While Drilling (MWD) tools for extreme downhole environments.',
     dates:'September 2014 - August 2015',
-    iconSize: medIcons,
+    iconSize: halliburtonIconSize,
     toShow: true
   })
   
