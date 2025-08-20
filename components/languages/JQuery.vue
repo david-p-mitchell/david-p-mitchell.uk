@@ -4,7 +4,7 @@
     <BubbleLogo
       :name="'jQuery'"
       :size="size"
-      :link="link"
+      :isSearchIcon="isSearchIcon"
       :showName="showName">
       <g transform=" scale(1.8) translate(16,7)">
         
@@ -25,8 +25,8 @@
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
     size: { type: [Number, String], default: 96 },
-    link: { type: String, default: '/languages/jQuery' },
-    showName: { type: Boolean, default: true }
+    showName: { type: Boolean, default: true },
+    isSearchIcon: { type: Boolean, default: false}
 });
 </script>
 

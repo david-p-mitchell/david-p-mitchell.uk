@@ -3,7 +3,7 @@
     <BubbleLogo
       :name="'Next.js'"
       :size="size"
-      :link="link"
+      :isSearchIcon="isSearchIcon"
       :showName="showName">
       <g transform="translate(-20,-30) scale(0.5) translate(70,45)">
             <path
@@ -27,31 +27,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
   size: { type: [Number, String], default: 96 },
-  link: { type: String, default: '/languages/next-js' },
-  showName: { type: Boolean, default: true }
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
 });
-
-const hovering = ref(false);
-
-function onMouseMove(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const svgSize = 180;
-  const scale = rect.width / svgSize;
-  const cx = 90 * scale;
-  const cy = 90 * scale;
-  const r = 90 * scale;
-  const dx = x - cx;
-  const dy = y - cy;
-  hovering.value = dx * dx + dy * dy <= r * r;
-}
-
-function onMouseLeave() {
-  hovering.value = false;
-}
 </script>

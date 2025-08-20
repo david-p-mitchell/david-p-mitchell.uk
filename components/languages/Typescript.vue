@@ -2,7 +2,7 @@
     <BubbleLogo
         :name="'TypeScript'"
         :size="size"
-        :link="link"
+        :isSearchIcon="isSearchIcon"
         :showName="showName">
             <g transform="translate(60,45) scale(0.2) translate(-135,-140)">
                 
@@ -25,17 +25,8 @@
 import BubbleLogo from '@/components/BubbleLogo.vue';
 
 const props = defineProps({
-    size: {
-        type: [Number, String],
-        default: 96
-    },
-    link: {
-        type: String,
-        default: '/languages/typescript'
-    },
-    showName: {
-        type: Boolean,
-        default: true
-    }
+    size: { type: [Number, String], default: 96 },
+    showName: { type: Boolean, default: true },
+    isSearchIcon: { type: Boolean, default: false}
 });
 </script>

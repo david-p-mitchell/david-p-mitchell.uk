@@ -3,7 +3,7 @@
     <BubbleLogo
       :name="'CSS'"
       :size="size"
-      :link="link"
+      :isSearchIcon="isSearchIcon"
       :showName="showName" >
     <g transform="translate(-20,-30) scale(0.8) translate(40,35)">
         <path
@@ -24,26 +24,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
   size: { type: [Number, String], default: 96 },
-  link: { type: String, default: '/languages/css' },
-  showName: { type: Boolean, default: true }
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false }
 });
-
-const hovering = ref(false);
-
-function onMouseMove(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const scale = rect.width / 120;
-  hovering.value =
-    (x - 60 * scale) ** 2 + (y - 60 * scale) ** 2 <= (55 * scale) ** 2;
-}
-
-function onMouseLeave() {
-  hovering.value = false;
-}
 </script>

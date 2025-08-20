@@ -3,7 +3,7 @@
   <BubbleLogo
     :name="'XML'"
     :size="size"
-    :link="link"
+    :isSearchIcon="isSearchIcon"
     :showName="showName">
       <g transform="translate(0,0) scale(1)">
         <g id="xml-carrier"> 
@@ -22,7 +22,8 @@
 <script setup>
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({ 
-  size: { type: [Number, String], default: 96 }, 
-  link: { type: String, default: '/languages/xml' }, 
-  showName: { type: Boolean, default: true } });
+  size: { type: [Number, String], default: 96 },
+    showName: { type: Boolean, default: true },
+    isSearchIcon: { type: Boolean, default: false}
+  });
 </script>

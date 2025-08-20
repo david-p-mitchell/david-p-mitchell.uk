@@ -1,9 +1,10 @@
 <template>
         <BubbleLogo
             :name="'Require.js'"
+            :codeName="'requirejs'"
             :size="size"
             :showName="showName"
-            :link="link">
+            :isSearchIcon="isSearchIcon">
             <g transform="translate(-100,30) scale(0.2) translate(640,180)">
                 <circle r="109.519" cy="-104.536" cx="160.115" fill="#DDD"/>
                 <circle r="73" cy="-104.267" cx="160.5" fill="#AAA"/>
@@ -20,20 +21,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
-    size: {
-        type: [Number, String],
-        default: 96
-    },
-    link: {
-        type: String,
-        default: '/languages/requirejs'
-    },
-    showName: {
-        type: Boolean,
-        default: true
-    }
+    size: { type: [Number, String], default: 96 },
+    showName: { type: Boolean, default: true },
+    isSearchIcon: { type: Boolean, default: false}
 });
 </script>

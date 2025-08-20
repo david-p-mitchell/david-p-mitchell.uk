@@ -3,7 +3,7 @@
             :name="'Node.js'"
             :size="size"
             :showName="showName"
-            :link="link">
+            :isSearchIcon="isSearchIcon">
             <g transform="translate(-50, 90) scale(0.17) translate(405,-350)">
                 
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -15,20 +15,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
-    size: {
-        type: [Number, String],
-        default: 96
-    },
-    link: {
-        type: String,
-        default: '/languages/nodejs'
-    },
-    showName: {
-        type: Boolean,
-        default: true
-    }
+  size: { type: [Number, String], default: 96 },
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
 });
 </script>
