@@ -2,8 +2,9 @@
     <BubbleLogo
       :name="'AWS'"
       :size="size"
-      :link="link"
-      :showName="showName">
+      :showName="showName"
+      :isSearchIcon="isSearchIcon"
+      >
       <g transform="translate(0,-20) scale(0.8) translate(15,15)">
         <text
             x="60"
@@ -32,7 +33,7 @@
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
   size: { type: [Number, String], default: 96 },
-  link: { type: String, default: '/languages/aws' },
-  showName: { type: Boolean, default: true }
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
 });
 </script>
