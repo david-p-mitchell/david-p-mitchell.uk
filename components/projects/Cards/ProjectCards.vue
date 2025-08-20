@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center mt-4 max-w-sm">
+    <div class="flex flex-col justify-center mt-4 max-w-sm">
     <div class="flex flex-wrap justify-center gap-4">
       <div class="relative bg-white rounded-lg shadow-md text-center transform transition-transform duration-300 hover:scale-105">
     <EmployedHeaders v-if="employed" :type="company!" />
@@ -9,9 +9,10 @@
     <p class="text-gray-600 text-md p-0 mb-4">{{ dates }}</p>
     <p class="text-gray-600 text-lg p-0">{{ subheading }}</p>
     <p class="text-black-600 text-sm p-0 mt-2 mx-1 mb-1">{{ summary }}</p>
-
     <TechIcons v-if="tech && tech.length" :tech="tech" :iconsize="iconsize" :isSearchIcon="false" />
+    <div class="mt-4" >
     <Disclaimer v-if="employed" :company="company!" />
+    </div>
 
     </div>
     </div>
