@@ -1,7 +1,7 @@
 import { Project } from '~/types/Project';
 const halliburtonIconSize = 70;
-const vlDevOpsIcons = 45;
-const vlToolsIcons = 40;
+const vlDevOpsIcons = 50;
+const vlToolsIcons = 45;
 const apolloInsightsIcons = 30;
 const enonIcons = 40;
 export const projects: Project[] = [
