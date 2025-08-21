@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg">
+    <section id="about" class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg">
       <h1 class="mb-4 text-2xl text-gray-800 text-center">About Me</h1>
       <p class="text-lg text-gray-600 leading-relaxed text-md">
         Hi! I’m David, a full-stack software developer with a passion for building web applications that solve real problems and make life quicker, easier and ultimately better.
@@ -19,7 +19,7 @@
         <br /><br />
         Later on in my time at Vertical Leap, I moved to the Process Innovation team, where I was able to work on a variety of projects, including the development of a new platform for managing and automating business processes.
         This role allowed me to work with a range of front end technologies, including Nuxt.js, Next.js and React.js, as well as with the technology cloud provider AWS.
-        Here as well as developing full stack, I took on Dev Ops role to help with infrastucture and to aid on the occassions of migrating AWS accounts.
+        Here as well as developing full stack, I took on Dev Ops role to help with infrastucture and to aid migration of AWS accounts when the occassion arose.
         
 
         
