@@ -20,7 +20,7 @@ export const projects: Project[] = [
     name: 'The Bible Society', 
     tech: [ 'JQuery', 'Css', 'HtmlFive', 'Javascript', 'Git'], 
     heading:"The Bible Society",
-    subheading:'New Bible Text Word Add In',
+    subheading:'Bible Bolt',
     summary:'Collaborated in a very small team at Kingdom Code\'s 24 hour Hackathon (Build) to create a new Word add-in to make pasting bible verses easy and efficient.',
     dates:'11 October 2024 - 12 October 2024',
     iconSize: bibleSocIcons,
