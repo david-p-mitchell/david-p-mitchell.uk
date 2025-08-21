@@ -1,15 +1,22 @@
 <template>
   <div class="body">
+    
     <div class="container mx-auto px-4 py-4">
+      
       <div class="text-center mb-2">
+        <div class="justify-items-center text-center">
+          <Gravatar />
+        </div>
         <h1 class="text-5xl font-bold text-gray-800 mb-3 py-0 my-0">David Mitchell</h1>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer</p>
       </div>
     </div>
 
     <About />
-<!-- <Skills /> -->
-    <!-- Language Filter using TechIcons -->
+    <div >
+      <p class="text-center font-bold"> Here are some of the technologies I've used over my career: </p>
+      <p class="text-center font-italic text-sm pb-3">(Feel free to click on a technology to filter the projects I've contributed to, unclick to show all technologies) </p>
+    </div>
     <div class="flex gap-2 flex-wrap justify-center">
       <TechIcons
         :iconsize="70"
@@ -17,13 +24,9 @@
         :isSearchIcon="true"
       />
     </div>
-
-    <!-- Projects filtered by selected language -->
     <div class="text-center mt-12 mb-6">
-      Projects I have contributed to:
-      <div class="flex justify-center mt-4">
-        <Projects />
-      </div>
+      
+      <Projects />
     </div>
 
     <footer class="mt-12">

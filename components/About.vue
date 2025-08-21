@@ -1,24 +1,28 @@
 <template>
   <div>
-    <section class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg">
+    <section id="about" class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg">
       <h1 class="mb-4 text-2xl text-gray-800 text-center">About Me</h1>
       <p class="text-lg text-gray-600 leading-relaxed text-md">
-        Hi, I am David, a passionate full stack software developer with a focus on building robust and user-friendly web applications. 
+        Hi! I’m David, a full-stack software developer with a passion for building web applications that solve real problems and make life quicker, easier and ultimately better.
 
         <br />
-        I have worked in the Digital Search Marketing industry for over 8 years, where I have honed my skills in software and web development.
-        My great passion is creating technical solutions that solve real-world problems and enhance user experiences.
-        Whether that be in time saving, cost saving or just making life easier.
-        <br />
-        I have a strong background in software development, with expertise in both front-end and back-end.
-        I have experience in various technologies including .NET, C#, Vue.js, and React.js.
+        My software working life started at Halliburton where I worked on my placement year from Middlesex University, as a software engineer.
+        There I worked on a project in connecting to an oven to control the temperature for the testing of drilling equipment. 
+        Within this role, I worked with different managers to deliver a winforms app to help and see testing results of the equipment.
+<br /><br />
+        My first job after graduating, was in the Digital Search Marketing Industry for a company called Vertical Leap, where I worked as a software developer on the Apollo Insights team.
+        In this role, I was able to apply and develop my skills in software development to aid a platform that ultimately helped businesses improve their online presence.
+        Within the Apollo Insights team at Vertical Leap, I gained experience across the stack, using .NET and ASP.NET MVC alongside C#, while also working with frontend libraries and frameworks such as jQuery, RequireJS, and Vue.js.
+        Also, within the team I was involved with database design, queries and optimisations including stored procedures, pagination and designing database tables.
+        Within my time in this role, I also took on a support role to quicken my problem solving skills and to fix issues, so much so I was mentioned at a company meeting for my impact.
+        As my experience grew, so did my tech stack.
+        <br /><br />
+        Later on in my time at Vertical Leap, I moved to the Process Innovation team, where I was able to work on a variety of projects, including the development of a new platform for managing and automating business processes.
+        This role allowed me to work with a range of front end technologies, including Nuxt.js, Next.js and React.js, as well as with the technology cloud provider AWS.
+        Here as well as developing full stack, I took on Dev Ops role to help with infrastucture and to aid migration of AWS accounts when the occassion arose.
+        
 
-        I enjoy working with modern JavaScript frameworks like Vue.js and am always eager to learn new
-        technologies. 
-        My goal is to create solutions that make a positive impact
-        and deliver great user experiences.
-
-        <br />
+        
         
       </p>
     </section>

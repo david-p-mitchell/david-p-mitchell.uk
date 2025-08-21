@@ -1,5 +1,4 @@
 <template>
-  
     <BubbleLogo
       :name="'React'"
       :size="size"
@@ -17,7 +16,7 @@
 </template>
 
 <script setup>
-import BubbleLogo from '@/components/BubbleLogo.vue';
+import BubbleLogo from '@/components/icons/BubbleLogo.vue';
 const props = defineProps({
   size: { type: [Number, String], default: 96 },
   showName: { type: Boolean, default: true},

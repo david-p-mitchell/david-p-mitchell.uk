@@ -3,26 +3,31 @@ import VerticalLeap from '@/components/WorkTypeLogo/VerticalLeap.vue'
 import HalliburtonLogo from '@/components/WorkTypeLogo/HalliburtonLogo.vue'
 
 const props = defineProps<{
-  type: 'VL' | 'Halliburton'
+  type: 'VL' | 'Halliburton' | 'VLGain'
 }>();
 
 const componentMap = {
   VL: VerticalLeap,
-  Halliburton: HalliburtonLogo
+  Halliburton: HalliburtonLogo,
+  VLGain: VerticalLeapGain
 }
 import { CompanyNameMap } from '@/utils/companyNameMap';
+import VerticalLeapGain from '~/components/WorkTypeLogo/VerticalLeapGain.vue';
 </script>
 
-<template>  <div class="relative flex justify-between items-center w-full">
+<template>  
+<div class="bg-green-700 text-white text-sm  text-center z-20 rounded-md py-1">
+      Full time employed
+    </div>
     <!-- Logo - positioned on left with lower z-index -->
-    <div class="flex justify-center z-10 ml-1">
+    <div class="flex justify-center z-10 ml-1 pt-4 ">
       <component :is="componentMap[type]" />
     </div>
     
+
+    
     <!-- Badge - positioned on right with higher z-index -->
-    <div class="bg-green-700 text-white text-xs rounded-md px-1 py-1 text-right z-20 whitespace-nowrap">
-      Full time employed by {{CompanyNameMap[type]}}
-    </div>
-  </div>
+    
+  
       
 </template>

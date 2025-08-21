@@ -1,4 +1,5 @@
 export const CompanyNameMap = {
   VL: "Vertical Leap",
-  Halliburton: "Halliburton"
+  Halliburton: "Halliburton",
+  VLGain:"Vertical Leap / GAIN"
 };

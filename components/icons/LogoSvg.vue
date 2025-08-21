@@ -7,7 +7,8 @@
         aria-label="Logo"
         :class="[
           'block transform transition-transform duration-200 ease-in-out mx-0.5 my-0.5',
-          hovering ? 'scale-150' : 'scale-100'
+          hovering ? 'scale-150' : 'scale-100',
+          hovering && props.isSearchIcon ? 'cursor-pointer' : 'cursor-default'
         ]"
         @mousemove="onMouseMove"
         @mouseleave="onMouseLeave"
@@ -78,8 +79,8 @@ const isActive = computed(() => {
   )
 })
 
-const circleFillColor = computed(() => (isActive.value ? '#C7DCFB' : '#272554'))
-const textColor = computed(() => (isActive.value ? '#272554' : '#ffffff'))
+const circleFillColor = computed(() => (isActive.value ? '#C7DCFB' : '#172554'))
+const textColor = computed(() => (isActive.value ? '#172554' : '#ffffff'))
 
 onMounted(() => {
   if (!languageStore.selectedLanguage) {

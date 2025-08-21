@@ -18,30 +18,30 @@
 import { defineProps, computed } from 'vue';
 
 // Tech / Language icon imports
-import Aws from './platforms/Aws.vue';
-import Docker from './platforms/Docker.vue';
-import DotNet from './platforms/DotNet.vue';
-import DotNetCore from './platforms/DotNetCore.vue';
-import Git from './platforms/Git.vue';
+import Aws from './icons/platforms/Aws.vue';
+import Docker from './icons/platforms/Docker.vue';
+import DotNet from './icons/platforms/DotNet.vue';
+import DotNetCore from './icons/platforms/DotNetCore.vue';
+import Git from './icons/platforms/Git.vue';
 
-import Bash from './languages/Bash.vue';
-import CSharp from './languages/CSharp.vue';
-import Css from './languages/Css.vue';
-import HtmlFive from './languages/HtmlFive.vue';
-import Javascript from './languages/Javascript.vue';
-import JQuery from './languages/JQuery.vue';
-import Json from './languages/Json.vue';
-import Markdown from './languages/Markdown.vue';
-import NextJs from './languages/NextJs.vue';
-import NodeJs from './languages/NodeJs.vue';
-import Nuxt from './languages/Nuxt.vue';
-import React from './languages/React.vue';
-import RequireJs from './languages/RequireJs.vue';
-import SQL from './languages/SQL.vue';
-import Typescript from './languages/Typescript.vue';
-import Vue from './languages/Vue.vue';
-import XML from './languages/XML.vue';
-import YAML from './languages/YAML.vue';
+import Bash from './icons/languages/Bash.vue';
+import CSharp from './icons/languages/CSharp.vue';
+import Css from './icons/languages/Css.vue';
+import HtmlFive from './icons/languages/HtmlFive.vue';
+import Javascript from './icons/languages/Javascript.vue';
+import JQuery from './icons/languages/JQuery.vue';
+import Json from './icons/languages/Json.vue';
+import Markdown from './icons/languages/Markdown.vue';
+import NextJs from './icons/languages/NextJs.vue';
+import NodeJs from './icons/languages/NodeJs.vue';
+import Nuxt from './icons/languages/Nuxt.vue';
+import React from './icons/languages/React.vue';
+import RequireJs from './icons/languages/RequireJs.vue';
+import SQL from './icons/languages/SQL.vue';
+import Typescript from './icons/languages/Typescript.vue';
+import Vue from './icons/languages/Vue.vue';
+import XML from './icons/languages/XML.vue';
+import YAML from './icons/languages/YAML.vue';
 import { languageStore } from '~/stores/languageStore'
 
 // Map string names to components
