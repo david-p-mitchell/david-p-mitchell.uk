@@ -26,7 +26,6 @@ const closeMenu = () => {
 const menuItems = [
   { name: 'About', href: '#about' },
   { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '/Contact' },
   { name: 'CV', href: '/David Mitchell CV.pdf' }
 ]
 </script>
