@@ -5,6 +5,7 @@ const props = defineProps({
   menuItems: Array,
   activeDropdown: Number,
   toggleDropdown: Function,
+  closeMenu: Function, // new prop to close the menu
 })
 
 </script>
@@ -48,6 +49,7 @@ const props = defineProps({
                 :key="dropIndex"
                 :href="dropItem.href"
                 class="text-gray-600 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-sm transition-colors duration-200"
+                @click="props.closeMenu && props.closeMenu()"
               >
                 {{ dropItem.name }}
               </a>
@@ -58,6 +60,7 @@ const props = defineProps({
           <a
             :href="item.href"
             class="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+            @click="props.closeMenu && props.closeMenu()"
           >
             {{ item.name }}
           </a>
