@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import BubbleLogo from '../BubbleLogo.vue';
+import BubbleLogo from '@/components/icons/BubbleLogo.vue';
 const name = 'Nuxt';
 const props = defineProps({
     size: { type: [Number, String], default: 96 },
