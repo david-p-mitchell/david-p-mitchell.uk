@@ -3,7 +3,7 @@
     <BubbleLogo
       :name="'json'"
       :size="size"
-      :link="link"
+      :isSearchIcon="isSearchIcon"
       :showName="showName">
       <g transform=" scale(2) translate(18,9)">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -19,11 +19,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
     size: { type: [Number, String], default: 96 },
-    link: { type: String, default: '/languages/json' },
-    showName: { type: Boolean, default: true }
+    showName: { type: Boolean, default: true },
+    isSearchIcon: { type: Boolean, default: false}
 });
 </script>

@@ -3,7 +3,7 @@
             :name="'Bash'"
             :size="size"
             :showName="showName"
-            :link="link">
+            :isSearchIcon="isSearchIcon">
         <g transform="translate(32,10) scale(0.45)">
     <path fill="none"  stroke-width="2"
           d="M4.24 4.24h119.53v119.53H4.24z"/>
@@ -31,6 +31,9 @@ const props = defineProps({
     showName: {
         type: Boolean,
         default: true
+    },
+    isSearchIcon : {
+        type: Boolean
     }
 });
 </script>

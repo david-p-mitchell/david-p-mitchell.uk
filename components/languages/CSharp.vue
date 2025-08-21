@@ -1,10 +1,10 @@
-<template>
-    
+<template>   
         <BubbleLogo
             :name="'C#'"
             :size="size"
             :showName="false"
-            :link="link">
+            :codeName="'csharp'"
+            :isSearchIcon="isSearchIcon">
         <text x="50%" y="50" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="40" font-weight="bold">
             C#
         </text>
@@ -15,13 +15,7 @@
 <script setup>
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
-    size: {
-        type: [Number, String],
-        default: 96
-    },
-    link: {
-        type: String,
-        default: '/languages/c-sharp'
-    }
+    size: { type: [Number, String], default: 96 },
+    isSearchIcon: { type: Boolean, default: false }
 });
 </script>

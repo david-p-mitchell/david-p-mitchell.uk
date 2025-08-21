@@ -3,7 +3,7 @@
     <BubbleLogo
       :name="'.Net Core'"
       :size="size"
-      :link="link"
+      :isSearchIcon="isSearchIcon"
       :showName="showName">
       <g id="dockercarrier" transform="scale(0.45) translate(70,30)"> 
         <g fill="#fff">
@@ -16,8 +16,8 @@
 <script setup>
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({ 
-  size: { type: [Number, String], default: 60 }, 
-  link: { type: String, default: '/languages/dotnetcore' }, 
-  showName: { type: Boolean, default: true } 
+  size: { type: [Number, String], default: 96 },
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
 });
 </script>

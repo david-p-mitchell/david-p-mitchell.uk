@@ -3,7 +3,7 @@
   <BubbleLogo
     :name="'Docker'"
     :size="size"
-    :link="link"
+    :isSearchIcon="isSearchIcon"
     :showName="showName">
       
       <g id="dockercarrier" transform="scale(0.1) translate(60,-50)">     
@@ -16,5 +16,9 @@
 <script setup>
 import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
-const props = defineProps({ size: { type: [Number, String], default: 60 }, link: { type: String, default: '/languages/docker' }, showName: { type: Boolean, default: true } });
+const props = defineProps({ 
+  size: { type: [Number, String], default: 96 },
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
+});
 </script>

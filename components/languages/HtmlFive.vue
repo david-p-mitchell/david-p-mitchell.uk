@@ -3,8 +3,8 @@
     <BubbleLogo
       :name="'HTML5'"
       :size="size"
-      :link="link"
-      :showName="showName">
+      :showName="showName"
+      :isSearchIcon="isSearchIcon">
       <!-- HTML5 icon (simplified shield) -->
        <g transform="translate(100,-10) scale(0.1) translate(-650, 275)">
             <polygon fill="#555" points="107.644,470.877 74.633,100.62 437.367,100.62 404.321,470.819 255.778,512 			"/>
@@ -22,7 +22,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
-const props = defineProps({ size: { type: [Number, String], default: 96 }, link: { type: String, default: '/languages/html5' }, showName: { type: Boolean, default: true } });
+const props = defineProps({ 
+  size: { type: [Number, String], default: 96 },
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false }
+  });
 </script>

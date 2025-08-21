@@ -3,7 +3,7 @@
   <BubbleLogo
       :name="'Git'"
       :size="size"
-      :link="link"
+      :isSearchIcon="isSearchIcon"
       :showName="showName">
     <g transform="translate(60,45) scale(0.5) translate(-48.5,-48.5)">
       <path
@@ -19,8 +19,8 @@ import BubbleLogo from '../BubbleLogo.vue';
 
 const props = defineProps({
   size: { type: [Number, String], default: 96 },
-  link: { type: String, default: '/languages/git' },
-  showName: { type: Boolean, default: true }
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
 });
 
 

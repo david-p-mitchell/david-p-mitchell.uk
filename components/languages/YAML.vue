@@ -3,7 +3,8 @@
   <BubbleLogo
     :name="'YAML'"
     :size="size"
-    :link="link">
+    :showName="showName"
+    :isSearchIcon="isSearchIcon">
       <g id="yamlcarrier"> 
           <g transform="translate(30,15) scale(0.1) translate(50,10)">
               <polygon id="Y" fill="#fff" points="235.793 0 143.978 137.674 143.978 224.949 87.702 224.949 87.702 137.674 0 0 63.25 0 119.018 88.646 175.243 0 235.793 0 235.793 0" />
@@ -16,7 +17,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import BubbleLogo from '@/components/BubbleLogo.vue';
-const props = defineProps({ size: { type: [Number, String], default: 60 }, link: { type: String, default: '/languages/yaml' } });
+const props = defineProps({ 
+  size: { type: [Number, String], default: 96 },
+    showName: { type: Boolean, default: true },
+    isSearchIcon: { type: Boolean, default: false}
+});
 </script>

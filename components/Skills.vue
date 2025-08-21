@@ -27,10 +27,13 @@
         <PlatformsDocker :size="size" />
         <PlatformsDotNetCore :size="size" />
         <PlatformsDotNet :size="size" />
-        <PlatformsGit :size="size" />      
-      </div> 
+        <PlatformsGit :size="size" />  
+            
+      </div>
+       
 </template>
 
 <script setup>
 const size = 70;
+
 </script>

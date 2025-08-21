@@ -2,7 +2,7 @@
   <BubbleLogo
     :name="'SQL'"
     :size="size"
-    :link="link"
+    :isSearchIcon="isSearchIcon"
     :showName="showName">
       <g transform="translate(60,60) scale(2.3) translate(-10,-19)">
         <g id="sql_iconCarrier">
@@ -18,7 +18,7 @@
 import BubbleLogo from '@/components/BubbleLogo.vue';
 const props = defineProps({
   size: { type: [Number, String], default: 96 },
-  link: { type: String, default: '/languages/sql-server' },
-  showName: { type: Boolean, default: true }
+  showName: { type: Boolean, default: true },
+  isSearchIcon: { type: Boolean, default: false}
 });
 </script>
