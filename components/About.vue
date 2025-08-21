@@ -2,29 +2,31 @@
   <div>
     <section id="about" class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg">
       <h1 class="mb-4 text-2xl text-gray-800 text-center">About Me</h1>
-      <p class="text-lg text-gray-600 leading-relaxed text-md">
-        Hi! I’m David, a full-stack software developer with a passion for building web applications that solve real problems and make life quicker, easier and ultimately better.
+      <div class="text-lg text-gray-600 leading-relaxed text-md  m-auto max-w-5xl ">
+<p class="mb-6">
+Hi! I’m David, a full-stack software developer with experience building web applications that solve real problems and improve processes. I enjoy tackling challenges that require both technical skill and practical problem-solving.
+</p>
 
-        <br />
-        My software working life started at Halliburton where I worked on my placement year from Middlesex University, as a software engineer.
-        There I worked on a project in connecting to an oven to control the temperature for the testing of drilling equipment. 
-        Within this role, I worked with different managers to deliver a winforms app to help and see testing results of the equipment.
-<br /><br />
-        My first job after graduating, was in the Digital Search Marketing Industry for a company called Vertical Leap, where I worked as a software developer on the Apollo Insights team.
-        In this role, I was able to apply and develop my skills in software development to aid a platform that ultimately helped businesses improve their online presence.
-        Within the Apollo Insights team at Vertical Leap, I gained experience across the stack, using .NET and ASP.NET MVC alongside C#, while also working with frontend libraries and frameworks such as jQuery, RequireJS, and Vue.js.
-        Also, within the team I was involved with database design, queries and optimisations including stored procedures, pagination and designing database tables.
-        Within my time in this role, I also took on a support role to quicken my problem solving skills and to fix issues, so much so I was mentioned at a company meeting for my impact.
-        As my experience grew, so did my tech stack.
-        <br /><br />
-        Later on in my time at Vertical Leap, I moved to the Process Innovation team, where I was able to work on a variety of projects, including the development of a new platform for managing and automating business processes.
-        This role allowed me to work with a range of front end technologies, including Nuxt.js, Next.js and React.js, as well as with the technology cloud provider AWS.
-        Here as well as developing full stack, I took on Dev Ops role to help with infrastucture and to aid migration of AWS accounts when the occassion arose.
-        
+<p class="mb-6">
+I started my career during my placement year at Halliburton, developing a WinForms application to monitor oven temperatures for testing drilling equipment. Working closely with engineers and managers, I delivered software that directly supported critical testing processes — an experience that taught me the importance of precision, collaboration, and understanding user needs.
+</p>
 
-        
-        
-      </p>
+<p class="mb-6">
+After graduating from Middlesex University, I joined Vertical Leap in the Digital Search Marketing industry. On the Apollo Insights team, I worked across the stack with .NET, ASP.NET MVC, C#, and frontend frameworks including Vue.js, jQuery, and RequireJS. I also designed and optimised databases, implemented stored procedures, and supported critical business processes. One of my contributions was recognised at a company-wide meeting for its impact.
+</p>
+
+<p class="mb-6">
+Later, I moved to Vertical Leap’s Process Innovation team, building platforms to automate and improve business processes. I worked with Nuxt.js, Next.js, React.js, and AWS, including DevOps tasks such as domain migrations and cost management. These experiences helped me develop a strong understanding of how technology supports business goals.
+</p>
+
+<p class="mb-6">
+Outside of work, I enjoy volunteering and side projects. I’m currently leading the development of a <strong>church website</strong>, applying modern frontend and deployment practices. I’ve also taken part in a <NuxtLink to="https://kingdomcode.org.uk/build/2024/"><strong>hackathon</strong></NuxtLink>, building a working prototype under tight deadlines — a great exercise in collaboration and rapid problem-solving.
+</p>
+
+<p class="mb-6">
+Today, I focus on building scalable, full-stack applications with modern frameworks and cloud technologies, delivering software that works well and meets real needs.
+</p>
+      </div>
     </section>
   </div>
 </template>
