@@ -7,7 +7,8 @@
         aria-label="Logo"
         :class="[
           'block transform transition-transform duration-200 ease-in-out mx-0.5 my-0.5',
-          hovering ? 'scale-150 cursor-pointer' : 'scale-100 cursor-default'
+          hovering ? 'scale-150' : 'scale-100',
+          hovering && props.isSearchIcon ? 'cursor-pointer' : 'cursor-default'
         ]"
         @mousemove="onMouseMove"
         @mouseleave="onMouseLeave"
