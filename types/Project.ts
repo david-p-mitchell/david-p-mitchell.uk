@@ -1,6 +1,6 @@
 export class Project {
   name!: string;
-  company?: "VL" | "Halliburton" | null;
+  company?: "VL" | "Halliburton" | "VLGain" | null;
   tech!: string[];
   heading!: string;
   subheading!: string;
