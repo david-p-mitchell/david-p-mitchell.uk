@@ -1,7 +1,12 @@
 <template>
   <div class="body">
+    
     <div class="container mx-auto px-4 py-4">
+      
       <div class="text-center mb-2">
+        <div class="justify-items-center text-center">
+          <Gravatar />
+        </div>
         <h1 class="text-5xl font-bold text-gray-800 mb-3 py-0 my-0">David Mitchell</h1>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer</p>
       </div>
@@ -20,10 +25,8 @@
       />
     </div>
     <div class="text-center mt-12 mb-6">
-      Projects I have contributed to:
-      <div class="flex justify-center mt-4">
-        <Projects />
-      </div>
+      
+      <Projects />
     </div>
 
     <footer class="mt-12">
