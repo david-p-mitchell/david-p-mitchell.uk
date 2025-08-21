@@ -13,9 +13,10 @@ const filteredProjects = computed(() => {
   if (!languageStore.selectedLanguage) {
     return projects.filter(p=> p.toShow).slice(0, maxNumProjects.value)
   }
-  return projects.filter(p =>
-    p.tech.includes(languageStore.selectedLanguage as string) && p.toShow
-  ).slice(0, maxNumProjects.value)
+  else return projects.filter(p =>
+                        p.tech.includes(languageStore.selectedLanguage as string) && 
+                        p.toShow)
+                      .slice(0, maxNumProjects.value)
 })
 const maxedProjects = computed(() => {
   if (!languageStore.selectedLanguage) return maxNumProjects.value >= projects.length;
@@ -27,6 +28,11 @@ const maxedProjects = computed(() => {
     return maxNumProjects.value > projCount;
   }
 })
+
+watch(
+  () => languageStore.selectedLanguage,
+  () => { maxNumProjects.value = 4; }
+);
 
 </script>
 
