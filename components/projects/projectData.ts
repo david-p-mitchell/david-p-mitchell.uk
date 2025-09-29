@@ -51,7 +51,7 @@ export const projects: Project[] = [
   new Project({ 
     name: 'Apollo Insights', 
     company:'VL', 
-    tech: ['Aws', 'CSharp', 'Css','Git', 'HtmlFive', 'Javascript', 'JQuery', 'Json', 'Bash', 'RequireJs', 'SQL', 'NodeJs', 'Vue', 'DotNet', 'DotNetCore', 'Docker', 'XML'], 
+    tech: ['Aws', 'Bootstrap', 'CSharp', 'Css','Git', 'HtmlFive', 'Javascript', 'JQuery', 'Json', 'Bash', 'RequireJs', 'SQL', 'NodeJs', 'Vue', 'DotNet', 'DotNetCore', 'Docker', 'XML'], 
     heading:"Apollo Insights",
     subheading:'A search marketing platform',
     summary:'Maintaining and building a comprehensive platform with data and analytics dashboards for digital search data and providing actionable insights.',

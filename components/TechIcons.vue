@@ -25,6 +25,7 @@ import DotNetCore from './icons/platforms/DotNetCore.vue';
 import Git from './icons/platforms/Git.vue';
 
 import Bash from './icons/languages/Bash.vue';
+import Bootstrap from './icons/languages/Bootstrap.vue';
 import CSharp from './icons/languages/CSharp.vue';
 import Css from './icons/languages/Css.vue';
 import HtmlFive from './icons/languages/HtmlFive.vue';
@@ -47,7 +48,7 @@ import { languageStore } from '~/stores/languageStore'
 // Map string names to components
 const iconMap: Record<string, any> = {
   Aws, Docker, DotNet, DotNetCore, Git,
-  Bash, CSharp, Css, HtmlFive, Javascript, JQuery, Json, Markdown,
+  Bash, Bootstrap, CSharp, Css, HtmlFive, Javascript, JQuery, Json, Markdown,
   NextJs, NodeJs, Nuxt, React, RequireJs, SQL, Typescript, Vue, XML, YAML
 };
 

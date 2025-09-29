@@ -1,4 +1,5 @@
 export { default as Bash } from './Bash.vue';
+export { default as Bootstrap } from './Bootstrap.vue';
 export { default as CSharp } from './CSharp.vue';
 export { default as Css } from './Css.vue';
 export { default as HtmlFive } from './HtmlFive.vue';
