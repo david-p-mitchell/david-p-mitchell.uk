@@ -24,10 +24,6 @@ const props = defineProps({
         type: [Number, String],
         default: 96
     },
-    link: {
-        type: String,
-        default: '/languages/bash'
-    },
     showName: {
         type: Boolean,
         default: true
