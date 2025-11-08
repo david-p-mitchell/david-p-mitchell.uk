@@ -14,7 +14,7 @@ export const projects: Project[] = [
     summary:'Initiated and developed a new website for Enon Baptist Church, focusing on modern and responsive design, continuous development and improving user experience.',
     dates:'September 2024 - Present',
     iconSize: enonIcons,
-    toShow: false
+    toShow: true
   }),
   new Project({ 
     name: 'The Bible Society', 
