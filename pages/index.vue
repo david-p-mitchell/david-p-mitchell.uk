@@ -8,7 +8,7 @@
           <Gravatar />
         </div>
         <h1 class="text-5xl font-bold text-gray-800 mb-3 py-0 my-0">David Mitchell</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer</p>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer @ <a href="https://www.goalsfootball.co.uk/">GoalsFootball</a></p>
       </div>
     </div>
 
