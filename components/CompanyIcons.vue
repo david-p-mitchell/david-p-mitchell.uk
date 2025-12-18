@@ -34,7 +34,7 @@ const iconMap: Record<string, any> = {
 
 // Props
 const props = defineProps({
-  iconScale: { type: Number, default: 3 },
+  iconScale: { type: Number, default: 2 },
   companies: { type: Array as () => string[] }, // optional now
   showName: { type: Boolean, default: false },
     showTime: { type: Boolean, default: false },

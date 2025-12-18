@@ -4,7 +4,7 @@
       :class="hovering && isFilterable ? 'scale-125 cursor-pointer' : 'scale-100 cursor-default'"
       @mouseenter="hovering = true"
       @mouseleave="hovering = false">
-    <svg xmlns="http://www.w3.org/2000/svg" :width="58.885 * iconScale" :height="30.358 *iconScale" viewBox="0 0 118.885 4" :class="isFilterable ? 'min-h-[110px]' : ''">
+    <svg xmlns="http://www.w3.org/2000/svg" :width="68.885 * iconScale" :height="30.358 *iconScale" viewBox="0 0 118.885 4" :class="isFilterable ? 'min-h-[110px]' : ''">
         <g transform="scale(0.7)">
         <path
      id="path119"
