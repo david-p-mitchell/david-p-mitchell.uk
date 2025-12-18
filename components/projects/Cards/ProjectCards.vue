@@ -7,7 +7,14 @@
         <EmployedHeaders v-if="employed" :type="company!" />
         <VolunteerHeader v-else />
 
-        <h2 class="text-xl font-semibold pt-1">{{ heading }}</h2>
+        <ClientOnly>
+          <template v-if="url">
+            <a :href="url">{{ heading }}</a>
+          </template>
+          <template v-else>
+            {{ heading }}
+          </template>
+        </ClientOnly>
         <p class="text-gray-600 text-sm p-0">({{ dates }})</p>
         <p class="text-gray-600 text-lg p-2">{{ subheading }}</p>
         <p class="text-black-600 text-sm px-2 mt-2 mx-1 mb-1">{{ summary }}</p>
@@ -38,5 +45,6 @@ const props = defineProps<{
   dates: string;
   tech: string[];
   iconsize: number;
+  url: string;
 }>();
 </script>

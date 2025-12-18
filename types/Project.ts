@@ -1,6 +1,7 @@
 export class Project {
   name!: string;
-  company?: "VL" | "Halliburton" | "VLGain" | "GoalsFootball" | null | undefined;
+  company?: "VerticalLeap" | "Halliburton" | "VerticalLeap / Gain" | "GoalsFootball" | null | undefined;
+  volunteerCompany?: string;
   tech!: string[];
   heading!: string;
   subheading!: string;
