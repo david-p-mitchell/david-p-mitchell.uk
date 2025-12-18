@@ -1,6 +1,6 @@
 export class Project {
   name!: string;
-  company?: "VL" | "Halliburton" | "VLGain" | null | undefined;
+  company?: "VL" | "Halliburton" | "VLGain" | "GoalsFootball" | null | undefined;
   tech!: string[];
   heading!: string;
   subheading!: string;
@@ -8,6 +8,7 @@ export class Project {
   dates!: string;
   iconSize!: number;
   toShow!: boolean;
+  url?: string;
 
   constructor(data: Omit<Project, "employed">) {
     Object.assign(this, data);
