@@ -9,14 +9,14 @@
 
         <ClientOnly>
           <template v-if="url">
-            <a :href="url">{{ heading }}</a>
+            {{ heading }}
           </template>
           <template v-else>
             {{ heading }}
           </template>
         </ClientOnly>
         <p class="text-gray-600 text-sm p-0">({{ dates }})</p>
-        <p class="text-gray-600 text-lg p-2">{{ subheading }}</p>
+        <p class="text-gray-600 text-lg p-2"><a :href="url">{{ subheading }}</a></p>
         <p class="text-black-600 text-sm px-2 mt-2 mx-1 mb-1">{{ summary }}</p>
 
         <TechIcons
@@ -34,6 +34,7 @@
 import EmployedHeaders from "../CardHeaders/EmployedHeader.vue";
 import VolunteerHeader from "../CardHeaders/VolunteerHeader.vue";
 import type { ProjectCompany } from "@/types/Project"; // adjust path
+import TechIcons from "@/components/TechIcons.vue";
 
 // ✅ Use TS interface instead of runtime options
 const props = defineProps<{

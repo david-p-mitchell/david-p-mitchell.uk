@@ -17,6 +17,28 @@ export const projects: Project[] = [
     iconSize: enonIcons,
     toShow: false,
     url: 'https://www.goalsfootball.co.uk/'
+  }),
+  new Project({ 
+    name: 'Church Tools for Enon Baptist Church',
+    tech: [ 'TailwindCss', 'HtmlFive', 'Git', 'Markdown'], 
+    heading:"Enon Baptist Church",
+    subheading:'Church Tools Suite',
+    summary:'A suite of tools to assist with repetitive administrative tasks within the church, enhancing efficiency and organization.',
+    dates:'November 2025 - Present',
+    iconSize: enonIcons,
+    toShow: true,
+    url: 'https://enonbaptistchurch.github.io/'
+  }), 
+  new Project({ 
+    name: 'Song Selector for Enon Baptist Church',
+    tech: ['Astro', 'Vue', 'Typescript', 'Javascript', 'Css', 'HtmlFive', 'Git', 'Markdown', 'TailwindCss', 'GithubActions'], 
+    heading:"Enon Baptist Church",
+    subheading:'Song Selector Tool',
+    summary:'Created a tool to help select songs for church services, reformating data and serving external media services.',
+    dates:'December 2025 - Present',
+    iconSize: enonIcons,
+    toShow: true,
+    url: 'https://enonbaptistchurch.github.io/song-selector/'
   }),  
   new Project({ 
     name: 'Enon Website', 
@@ -42,7 +64,7 @@ export const projects: Project[] = [
   new Project({ 
     name: 'VL Tools', 
     company:'VerticalLeap / Gain', 
-    tech: ['Aws', 'Markdown', 'Css', 'CSharp', 'Git', 'HtmlFive', 'Javascript', 'Json', 'Typescript', 'NextJs', 'Nuxt', 'React'], 
+    tech: ['Aws', 'Markdown', 'Css', 'CSharp', 'Git', 'HtmlFive', 'Javascript', 'Json', 'Typescript', 'NextJs', 'Nuxt', 'React', 'GithubActions'], 
     heading:"VL / Gain Tools",
     subheading:'Standalone Tools',
     summary:'Developed endpoints and refactored code to improve performance and reliability. Updated packages for tools.',
@@ -64,7 +86,7 @@ export const projects: Project[] = [
   new Project({ 
     name: 'Apollo Insights', 
     company:'VerticalLeap', 
-    tech: ['Aws', 'Bootstrap', 'CSharp', 'Css','Git', 'HtmlFive', 'Javascript', 'JQuery', 'Json', 'Bash', 'RequireJs', 'SQL', 'NodeJs', 'Vue', 'DotNet','TFS', 'DotNetCore', 'Docker', 'XML'], 
+    tech: ['Aws', 'Bootstrap', 'CSharp', 'Css','Git', 'HtmlFive', 'Javascript', 'JQuery', 'Json', 'Bash', 'RequireJs', 'SQL', 'NodeJs', 'Vue', 'DotNet','TFS', 'DotNetCore', 'Docker', 'XML', 'GithubActions'], 
     heading:"Apollo Insights",
     subheading:'A search marketing platform',
     summary:'Maintaining and building a comprehensive platform with data and analytics dashboards for digital search data and providing actionable insights.',

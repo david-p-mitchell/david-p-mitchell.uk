@@ -15,18 +15,26 @@ const filteredProjects = computed(() => {
     return projects.filter(p=> p.toShow).slice(0, maxNumProjects.value)
   }
   else if (companyStore.selectedCompany) {
-
     return projects.filter(p =>
                         p.company?.toLowerCase().includes(companyStore.selectedCompany!) && 
                         p.toShow)
   }
-  else return projects.filter(p =>
+  else {
+    return projects.filter(p =>
                         p.tech.includes(languageStore.selectedLanguage as string) && 
                         p.toShow)
                       .slice(0, maxNumProjects.value)
+  }
 });
 const maxedProjects = computed(() => {
-  if (!languageStore.selectedLanguage) return maxNumProjects.value >= projects.length;
+  if (!languageStore.selectedLanguage && !companyStore.selectedCompany) return maxNumProjects.value >= projects.length;
+  else if (companyStore.selectedCompany) {
+    let projCount = projects.filter(p =>
+      p.company?.toLowerCase().includes(companyStore.selectedCompany!) && p.toShow
+    ).length
+    console.log(projCount, maxNumProjects.value);
+    return maxNumProjects.value >= projCount;
+  }
   else {
     let projCount = projects.filter(p =>
     p.tech.includes(languageStore.selectedLanguage as string) && p.toShow
@@ -38,6 +46,11 @@ const maxedProjects = computed(() => {
 
 watch(
   () => languageStore.selectedLanguage,
+  () => { maxNumProjects.value = 4; }
+);
+
+watch(
+  () => companyStore.selectedCompany,
   () => { maxNumProjects.value = 4; }
 );
 
