@@ -43,10 +43,6 @@ import About from '@/components/About.vue';
 import Projects from '~/components/projects/Projects.vue';
 import TechIcons from '~/components/TechIcons.vue';
 
-
-
-
-
 useHead({
   title: 'David Mitchell',
   meta: [
