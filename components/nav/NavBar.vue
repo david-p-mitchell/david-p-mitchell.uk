@@ -2,8 +2,9 @@
 import { ref } from 'vue'
 import NavLogo from './NavLogo.vue'
 import NavItem from './NavItem.vue'
-import MobileMenu from './MobileMenu.vue'
+import MobileMenuButton from './MobileMenuButton.vue'
 import NavMobileMenu from './NavMobileMenu.vue'
+import Logos from '../Logos.vue'
 
 const isOpen = ref(false)
 const activeDropdown = ref(null)
@@ -64,7 +65,7 @@ const menuItems = [
     <Logos />
   </div>
           <!-- Mobile menu button -->
-          <MobileMenu :isOpen="isOpen" :toggleMenu="toggleMenu" />
+          <MobileMenuButton :isOpen="isOpen" :toggleMenu="toggleMenu" />
         </div>  
         </div>
       </div>
