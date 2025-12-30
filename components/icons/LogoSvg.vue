@@ -33,12 +33,12 @@
         <text
           v-if="showName"
           x="60"
-          y="90"
+          y="85"
           text-anchor="middle"
           :fill="textColor"
           class="font-bold"
           font-family="Arial, sans-serif"
-          font-size="16"
+          font-size="14"
         >
           {{ name }}
         </text>
