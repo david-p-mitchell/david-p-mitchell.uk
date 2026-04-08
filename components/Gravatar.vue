@@ -11,5 +11,5 @@
 import { getGravatarUrl } from '~/utils/gravatar'
 
 const email = 'davidpmitchell92@googlemail.com'
-const avatarUrl = getGravatarUrl(email, 250)
+const avatarUrl = getGravatarUrl(email, 150)
 </script>
