@@ -1,5 +1,10 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" width="60.885" height="30.358" viewBox="0 0 63.885 36.358">
+    <div class="text-center">
+        <div class="inline-block transition-transform duration-200 ease-in-out"
+      :class="hovering && isFilterable ? 'scale-125 cursor-pointer' : 'scale-100 cursor-default'"
+      @mouseenter="hovering = true"
+      @mouseleave="hovering = false">
+    <svg xmlns="http://www.w3.org/2000/svg" :width="60.885 * iconScale" :height="30.358 * iconScale" viewBox="0 0 63.885 36.358" :class="isFilterable ? 'min-h-[110px]' : ''">
         <g transform="scale(0.5) translate(5,0)">
         <g id="Group_7" data-name="Group 7" transform="translate(-4.989 -3.558)">
             <g id="Group_4" data-name="Group 4" transform="translate(4.989 3.558)">
@@ -25,4 +30,22 @@
         </g>
         </g>
     </svg>
+    </div>
+    <p v-if="showName" class="text-center text-md font-medium">Vertical Leap</p>
+    <p v-if="showTime" class="text-center text-sm text-gray-500">Software Engineer</p>
+    <p v-if="showTime" class="text-center text-xs text-gray-500">January 2017 - March 2025</p>
+    </div>
 </template>
+
+<script setup lang="ts">
+    import { ref } from 'vue';
+
+const hovering = ref(false);
+    defineProps({
+        iconScale: { type: Number, default: 1 },
+        showName: { type: Boolean, default: false },
+        showTime: { type: Boolean, default: false },
+        showTitle: { type: Boolean, default: false },
+        isFilterable: { type: Boolean, default: false }
+    });
+</script>

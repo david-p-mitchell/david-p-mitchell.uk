@@ -27,7 +27,8 @@
         <PlatformsDocker :size="size" />
         <PlatformsDotNetCore :size="size" />
         <PlatformsDotNet :size="size" />
-        <PlatformsGit :size="size" />  
+        <PlatformsGit :size="size" />
+        <PlatformsTFS :size="size" />  
             
       </div>
        

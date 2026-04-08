@@ -3,6 +3,7 @@ import { languageStore } from '~/stores/languageStore'
 import ProjectCards from './Cards/ProjectCards.vue';
 import { projects } from './projectData'; // adjust the path
 import { ref } from 'vue';
+import { companyStore } from '~/stores/companyStore';
 
 const maxNumProjects = ref(4);
 const moreProjects = () => {
@@ -10,16 +11,30 @@ const moreProjects = () => {
   console.log(maxNumProjects.value);
 }
 const filteredProjects = computed(() => {
-  if (!languageStore.selectedLanguage) {
+  if (!languageStore.selectedLanguage && !companyStore.selectedCompany) {
     return projects.filter(p=> p.toShow).slice(0, maxNumProjects.value)
   }
-  else return projects.filter(p =>
+  else if (companyStore.selectedCompany) {
+    return projects.filter(p =>
+                        p.company?.toLowerCase().includes(companyStore.selectedCompany!) && 
+                        p.toShow)
+  }
+  else {
+    return projects.filter(p =>
                         p.tech.includes(languageStore.selectedLanguage as string) && 
                         p.toShow)
                       .slice(0, maxNumProjects.value)
-})
+  }
+});
 const maxedProjects = computed(() => {
-  if (!languageStore.selectedLanguage) return maxNumProjects.value >= projects.length;
+  if (!languageStore.selectedLanguage && !companyStore.selectedCompany) return maxNumProjects.value >= projects.length;
+  else if (companyStore.selectedCompany) {
+    let projCount = projects.filter(p =>
+      p.company?.toLowerCase().includes(companyStore.selectedCompany!) && p.toShow
+    ).length
+    console.log(projCount, maxNumProjects.value);
+    return maxNumProjects.value >= projCount;
+  }
   else {
     let projCount = projects.filter(p =>
     p.tech.includes(languageStore.selectedLanguage as string) && p.toShow
@@ -34,10 +49,25 @@ watch(
   () => { maxNumProjects.value = 4; }
 );
 
+watch(
+  () => companyStore.selectedCompany,
+  () => { maxNumProjects.value = 4; }
+);
+
 </script>
 
 <template>
   
+  <SectionHeader id="Companies" text="Companies I have worked for:" />
+  <p class="text-center font-italic text-sm pb-3">(Feel free to click on a company to filter the projects I've contributed to, unclick to show all projects) </p>
+  <CompanyIcons class="py-1 m-4"
+      :iconsize="70"
+      :showName="true"
+      :isSearchIcon="true"
+      :showTime="true"
+      :show-title="true"
+    />
+    
   <SectionHeader id="projects" text="Projects I have contributed to:" />
     
 <div :class="[
@@ -47,6 +77,8 @@ watch(
     filteredProjects.length === 3 ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-5xl mx-auto' :
     'md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 mx-1 mb-2 lg:mx-auto xl:mx-0'
   ]" >
+  <ClientOnly>
+    
     <ProjectCards
       v-for="p in filteredProjects"
       :key="p.name"
@@ -58,7 +90,9 @@ watch(
       :company="p.company"
       :employed="p.employed"
       :iconsize="p.iconSize"
+      :url="p.url || ''"
     />
+    </ClientOnly>
     </div>
     
     <div class="p-5">
