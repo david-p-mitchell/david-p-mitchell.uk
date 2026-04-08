@@ -1,7 +1,10 @@
 <template>
-  <div class="flex justify-center items-center">
-    <img :src="avatarUrl" alt="User Avatar" class="rounded-full" />
-  </div>
+  
+    <div class="flex justify-center items-center">
+      <ClientOnly>
+        <img :src="avatarUrl" alt="User Avatar" class="rounded-full" />
+      </ClientOnly>
+    </div>
 </template>
 
 <script setup>

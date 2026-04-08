@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import VerticalLeap from '@/components/WorkTypeLogo/VerticalLeap.vue'
-import HalliburtonLogo from '@/components/WorkTypeLogo/HalliburtonLogo.vue'
 
 const props = defineProps<{
-  type: 'VL' | 'Halliburton' | 'VLGain'
+  type: 'VerticalLeap' | 'Halliburton' | 'VerticalLeap / Gain' | 'GoalsFootball'
 }>();
 
 const componentMap = {
-  VL: VerticalLeap,
+  'VerticalLeap': VerticalLeapLogo,
   Halliburton: HalliburtonLogo,
-  VLGain: VerticalLeapGain
+  'VerticalLeap / Gain': VerticalLeapGain,
+  GoalsFootball: GoalsFootballLogo
 }
 import { CompanyNameMap } from '@/utils/companyNameMap';
+import HalliburtonLogo from '~/components/WorkTypeLogo/HalliburtonLogo.vue';
+import VerticalLeapLogo from '~/components/WorkTypeLogo/VerticalLeapLogo.vue';
 import VerticalLeapGain from '~/components/WorkTypeLogo/VerticalLeapGain.vue';
+import GoalsFootballLogo from '~/components/WorkTypeLogo/GoalsFootballLogo.vue';
 </script>
 
 <template>  
