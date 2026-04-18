@@ -1,8 +1,8 @@
 <template>
   <div>
-    <section id="about" class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg">
+    <section id="about" class="mx-auto mt-2 p-6 bg-gray-100 rounded-lg ">
       <h1 class="mb-4 text-2xl text-gray-800 text-center">About Me</h1>
-      <div class="text-lg text-gray-600 leading-relaxed text-md  m-auto max-w-5xl ">
+      <div class="text-lg text-gray-600 leading-relaxed text-md max-w-[66ch] mx-auto">
 <p class="mb-6">
 Hi! I’m David, a full-stack software developer with experience building web applications that solve real problems and improve processes. I enjoy tackling challenges that require both technical skill and practical problem-solving.
 </p>

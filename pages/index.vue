@@ -8,7 +8,7 @@
           <Gravatar />
         </div>
         <h1 class="text-5xl font-bold text-gray-800 mb-3 py-0 my-0">David Mitchell</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer</p>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto py-0 mb-0">Software Developer @ <a href="https://www.goalsfootball.co.uk/">GoalsFootball</a></p>
       </div>
     </div>
 
@@ -37,15 +37,10 @@
 
 <script setup>
 
-import { useHead } from '@vueuse/head';
 import Footer from '@/components/Footer.vue';
 import About from '@/components/About.vue';
 import Projects from '~/components/projects/Projects.vue';
 import TechIcons from '~/components/TechIcons.vue';
-
-
-
-
 
 useHead({
   title: 'David Mitchell',

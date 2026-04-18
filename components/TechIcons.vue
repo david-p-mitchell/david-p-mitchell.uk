@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from 'vue';
+import { computed } from 'vue';
 
 // Tech / Language icon imports
 import Aws from './icons/platforms/Aws.vue';
@@ -23,7 +23,10 @@ import Docker from './icons/platforms/Docker.vue';
 import DotNet from './icons/platforms/DotNet.vue';
 import DotNetCore from './icons/platforms/DotNetCore.vue';
 import Git from './icons/platforms/Git.vue';
+import GithubActions from './icons/platforms/GithubActions.vue';
+import TFS from './icons/platforms/TFS.vue';
 
+import Astro from './icons/languages/Astro.vue';
 import Bash from './icons/languages/Bash.vue';
 import Bootstrap from './icons/languages/Bootstrap.vue';
 import CSharp from './icons/languages/CSharp.vue';
@@ -39,6 +42,7 @@ import Nuxt from './icons/languages/Nuxt.vue';
 import React from './icons/languages/React.vue';
 import RequireJs from './icons/languages/RequireJs.vue';
 import SQL from './icons/languages/SQL.vue';
+import TailwindCss from './icons/languages/TailwindCss.vue';
 import Typescript from './icons/languages/Typescript.vue';
 import Vue from './icons/languages/Vue.vue';
 import XML from './icons/languages/XML.vue';
@@ -47,9 +51,9 @@ import { languageStore } from '~/stores/languageStore'
 
 // Map string names to components
 const iconMap: Record<string, any> = {
-  Aws, Docker, DotNet, DotNetCore, Git,
-  Bash, Bootstrap, CSharp, Css, HtmlFive, Javascript, JQuery, Json, Markdown,
-  NextJs, NodeJs, Nuxt, React, RequireJs, SQL, Typescript, Vue, XML, YAML
+  Aws, Docker, DotNet, DotNetCore, Git, GithubActions, TFS,
+  Astro, Bash, Bootstrap, CSharp, Css, HtmlFive, Javascript, JQuery, Json, Markdown,
+  NextJs, NodeJs, Nuxt, React, RequireJs, SQL, TailwindCss, Typescript, Vue, XML, YAML
 };
 
 // Props
