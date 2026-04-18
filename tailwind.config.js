@@ -5,6 +5,8 @@ export default {
     './pages/**/*.vue',
     './app.vue'
   ],
-  theme: { extend: {} },
-  plugins: [],
+  theme: {
+    extend: {}
+  },
+  plugins: []
 }

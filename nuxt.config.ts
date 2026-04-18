@@ -4,18 +4,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   postcss: {
     plugins: {
-      '@tailwindcss/postcss': {},
+      '@tailwindcss/postcss': {
+        config: './tailwind.config.js'
+      },
       autoprefixer: {}
     }
   },
   // Only let the Tailwind module handle CSS
-  modules: ['@nuxtjs/tailwindcss'],
   ssr: true,
-  tailwindcss: {
-    cssPath: '~/assets/css/main.css',  // your main Tailwind entry
-    configPath: 'tailwind.config.js'
-  },
-
   app: {
     head: {
       title: 'David P Mitchell',
@@ -36,5 +32,6 @@ export default defineNuxtConfig({
         } as any
       ]
     }
-  }
+  },
+  css:['~/assets/css/main.css']
 })
