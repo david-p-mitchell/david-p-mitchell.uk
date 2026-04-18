@@ -37,7 +37,6 @@
 
 <script setup>
 
-import { useHead } from '@vueuse/head';
 import Footer from '@/components/Footer.vue';
 import About from '@/components/About.vue';
 import Projects from '~/components/projects/Projects.vue';
