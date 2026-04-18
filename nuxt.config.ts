@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   postcss: {
     plugins: {
-      tailwindcss: {},
+      '@tailwindcss/postcss': {},
       autoprefixer: {}
     }
   },
