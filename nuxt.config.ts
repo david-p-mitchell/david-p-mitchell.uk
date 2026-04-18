@@ -2,15 +2,16 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-
-  // Only let the Tailwind module handle CSS
-  modules: ['@nuxtjs/tailwindcss'],
-  ssr: true,
-  tailwindcss: {
-    cssPath: '~/assets/css/main.css',  // your main Tailwind entry
-    configPath: 'tailwind.config.js'
+  postcss: {
+    plugins: {
+      '@tailwindcss/postcss': {
+        config: './tailwind.config.js'
+      },
+      autoprefixer: {}
+    }
   },
-
+  // Only let the Tailwind module handle CSS
+  ssr: true,
   app: {
     head: {
       title: 'David P Mitchell',
@@ -31,5 +32,6 @@ export default defineNuxtConfig({
         } as any
       ]
     }
-  }
+  },
+  css:['~/assets/css/main.css']
 })
