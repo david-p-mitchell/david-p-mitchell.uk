@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MediaTable from "../components/MediaTable.vue";
+import { links } from "../data/movies";
+---
+
+<html>
+  <head>
+    <title>Resources</title>
+  </head>
+  <Layout>
+  <body>
+    <main>
+      <h1>Video Resources</h1>
+      <MediaTable client:load content={links} />
+    </main>
+  </body>
+  </Layout> 
+</html>

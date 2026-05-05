@@ -1,11 +1,74 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+	---
+  import Layout from "../layouts/Layout.astro";
+// src/pages/index.astro
+const sections = [
+  {
+    title: "Resources",
+    links: [
+      { name: "Bible Gateway", url: "https://www.biblegateway.com" },
+      { name: "Blue Letter Bible", url: "https://www.blueletterbible.org" }
+    ]
+  },
+  {
+    title: "Christian Movies",
+    links: [
+      { name: "Through the Eyes of Spurgeon", url: "https://youtu.be/4a6R96XhPaA?si=kENu0mqQ9PiyqDdy", publiclyFree: true },
+      { name: "Revival: The Work of God", url: "https://youtu.be/QfpdKnJicZo?si=zdcBeEhZ7qKOcG-w", publiclyFree: true },
+      { name: "Matthew Henry: The Life and Times of the Bible Commentator", url: "https://youtu.be/yPX9ARk-JkU?si=AHEXGyOBxCfQtXjK", publiclyFree: true },
+      { name: "Welsh Awakenings: The Story of God's Work in Wales", url: "https://youtu.be/2ZwmXRgIO_Y?si=wexOH5B-DLL0o1O1", publiclyFree: true },
+      { name: "Luther: The Life and Legacy of the German Reformer", url: "https://youtu.be/6VK0p-tuuao?si=QrpvsfC6wWMEXKEy", publiclyFree: true },
+      { name: "American Gospel: Christ Alone", url: "https://youtu.be/bUOLt99JnAk?si=VQN5qar2hfSqti33", publiclyFree: true },
+      { name: "Pilgrim's Progress", url: "https://youtu.be/ksu-zTG9HHg?si=5ppYQ-8gf2ME33Tx", publiclyFree: true },
+      { name: "Knox: The Life and Legacy of Scotland's Controversial Reformer", url: "https://youtu.be/Bw3mzvtuO7A?si=7VtXiseSh6m-wgmT", publiclyFree: true },
+      { name: "John Wycliffe: Morningstar", url: "https://youtu.be/CXY4lV0brds?si=plWNsHvkuCCrkdW3", publiclyFree: true },
+      { name: "Amazing Love: The Story of Hosea", url: "https://youtu.be/A7wHoafxLUY?si=9oaKUz9b8s67rOqz", publiclyFree: true }
+    ]
+  },
+  {
+    title: "Christian Documentaries",
+    links: [
+      { name: "EPIC", url: "https://www.youtube.com/watch?v=DHxDjexosvU&list=PLBe-C_x3E4HuI0Z4CtgXRXYNcJjSKZ5ka", publiclyFree: true },
+      { name: "From the Rising of the Sun", url: "https://watch.studygateway.com/products/from-the-rising-of-the-sun", publiclyFree: false }
+    ]
+  },
+  {
+    title: "Reformed Blogs",
+    links: [
+      { name: "Ligonier Ministries", url: "https://www.ligonier.org" },
+      { name: "The Gospel Coalition", url: "https://www.thegospelcoalition.org" }
+    ]
+  }
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My Links</title>
+  </head>
+  <Layout>
+  <body class="bg-blue-950 text-slate-200 min-h-screen p-8">
+    <h1 class="text-3xl font-bold text-center mb-8">Useful Links</h1>
+
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {sections.map(section => (
+        <div class="bg-slate-800 rounded-2xl p-5 shadow-lg">
+          <h2 class="text-xl font-semibold mb-3">{section.title}</h2>
+          <ul class="space-y-2">
+            {section.links.map(link => (
+              <li>
+                <a href={link.url} target="_blank" class="text-sky-400 hover:underline">
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </body>
+  </Layout>
+</html>
+
