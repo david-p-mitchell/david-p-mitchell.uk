@@ -5,13 +5,13 @@ import { links } from "../data/movies";
 ---
 
 <html>
+  <Layout>
   <head>
     <title>Resources</title>
   </head>
-  <Layout>
+  
   <body>
     <main>
-      <h1>Video Resources</h1>
       <MediaTable client:load content={links} />
     </main>
   </body>
