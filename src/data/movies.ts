@@ -5,6 +5,13 @@ export type BaseItem = {
   tags: string[];
   cost: Cost
   director?: string[]; // Optional field for docuseries
+  show?: boolean; // Optional field to control visibility of the item, default to true if not provided
+};
+
+export type Documentary = BaseItem & {
+  type: "documentary";
+  url: string;
+  duration: string;
 };
 
 export type Movie = BaseItem & {
@@ -15,20 +22,22 @@ export type Movie = BaseItem & {
 
 export type Docuseries = BaseItem & {
   type: "docuseries";
+  url?: string; // Optional field for docuseries, as it may have a main page instead of individual URLs
   episodes: {
     title: string;
     url: string;
     tags?: string[];
     duration: string;
     cost?: Cost; // Optional field for episodes, default to true if not provided
+    description?: string; // Optional field for episode description
   }[]
 };
 
-export type ContentItem = Movie | Docuseries;
+export type ContentItem = Movie | Docuseries | Documentary;
 
 export const links: ContentItem[] = [
   {
-    type: "movie",
+    type: "documentary",
     name: "Through the Eyes of Spurgeon",
     url: "https://youtu.be/4a6R96XhPaA?si=kENu0mqQ9PiyqDdy",
     cost: "Free",
@@ -38,7 +47,7 @@ export const links: ContentItem[] = [
       duration: "1:57:40"
   },
   {
-    type: "movie",
+    type: "documentary",
     name: "Revival: The Work of God",
     url: "https://youtu.be/QfpdKnJicZo?si=zdcBeEhZ7qKOcG-w",
     cost: "Free",
@@ -48,7 +57,7 @@ export const links: ContentItem[] = [
       duration: "1:55:43"
   },
   {
-    type: "movie",
+    type: "documentary",
     name: "Matthew Henry: The Life and Times of the Bible Commentator",
     url: "https://youtu.be/yPX9ARk-JkU?si=AHEXGyOBxCfQtXjK",
     cost: "Free",
@@ -58,7 +67,7 @@ export const links: ContentItem[] = [
       duration: "2:05:01"
   },
   {
-    type: "movie",
+    type: "documentary",
     name: "Welsh Awakenings: The Story of God's Work in Wales",
     url: "https://youtu.be/2ZwmXRgIO_Y?si=wexOH5B-DLL0o1O1",
     cost: "Free",
@@ -68,7 +77,7 @@ export const links: ContentItem[] = [
       duration: "2:12:20"
   },
   {
-    type: "movie",
+    type: "documentary",
     name: "Luther: The Life and Legacy of the German Reformer",
     url: "https://youtu.be/6VK0p-tuuao?si=QrpvsfC6wWMEXKEy",
     cost: "Free",
@@ -93,12 +102,13 @@ export const links: ContentItem[] = [
     url: "https://youtu.be/ksu-zTG9HHg?si=5ppYQ-8gf2ME33Tx",
     cost: "Free",
     tags: ["Allegory", "John Bunyan", "Classic", "Christian Journey", "Kids", "Children"],
+    show: false, // Hide this item by default
     description:
       "A visual retelling of John Bunyan's classic allegory of the Christian journey.",
       duration: "1:53:13"
   },
   {
-    type: "movie",
+    type: "documentary",
     name: "Knox: The Life and Legacy of Scotland's Controversial Reformer",
     url: "https://youtu.be/Bw3mzvtuO7A?si=7VtXiseSh6m-wgmT",
     cost: "Free",
@@ -108,7 +118,7 @@ export const links: ContentItem[] = [
       duration: "1:17:39"
   },
   {
-    type: "movie",
+    type: "documentary",
     name: "John Wycliffe: Morningstar",
     url: "https://youtu.be/CXY4lV0brds?si=plWNsHvkuCCrkdW3",
     cost: "Free",
@@ -127,6 +137,16 @@ export const links: ContentItem[] = [
       "A dramatized account of the prophet Hosea, illustrating God's covenant love for His people.",
     duration: "1:20:17"
   },
+  {
+    type: "documentary",
+    name: "Yembiyembi: Unto the Nations",
+    url: "https://www.youtube.com/watch?v=ExXTXfCaNok",
+    cost: "Free",
+    tags: ["Missions", "PNG", "World", "Missionary Biography"],
+    description:
+      "Though Brooks Buser's old home and mission field looks quite different from how it once did, what remains is everlasting. Learn about the Busers' labors with the Yembiyembi for the sake of the good news made known.",
+    duration: "30:37"
+  },
 
   {
   type: "docuseries",
@@ -135,7 +155,7 @@ export const links: ContentItem[] = [
   cost: "Free",
   tags: ["Overview", "Bible Story", "Theology", "Church History"],
   description:
-    "A visual journey through the storyline of Scripture from creation to new creation.",
+    "Tim Challies travels to twenty-four countries, directed by Stephen McCaskell, offers an immersive travelogue introducing you to thirty-three key objects that help tell the history of Christianity.",
   episodes: [
     {
       title: "Episode 1: Israel & Italy",
@@ -212,6 +232,7 @@ export const links: ContentItem[] = [
   {
   type: "docuseries",
   name: "Missionary: Obeying the Great Commission",
+  url: "https://www.missionary.com/docuseries",
   director: ["Brooks Buser", "Stephen McCaskell"],
   cost: "Partial Free",
   tags: ["Overview", "Mission", "Church History"],
@@ -223,7 +244,8 @@ export const links: ContentItem[] = [
       url: "https://youtu.be/CRAbG_u-nKo?si=u_w08MwnMkxnI_Wq",
       duration: "43:45",
       tags: ["Church History", "William Tyndale"],
-      cost: "Free"
+      cost: "Free",
+      description: "A continental manhunt, a shipwreck, and prison could not stop William Tyndale from giving the English speaking church its first English language Bible. 75 years before the authorization of the King James Version of the Bible, William Tyndale gave his life as a martyr so that Christians could read and understand God's word themselves."
     }
   ]
 }
