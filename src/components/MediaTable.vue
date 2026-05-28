@@ -45,7 +45,7 @@ const allDurationMinutes = computed(() => {
   for (const item of props.content) {
     if (item.type === "movie" || item.type === "documentary") {
       mins.push(parseDurationMinutes(item.duration));
-    } else if(item.type === "docuseries") {
+    } else if (item.type === "docuseries") {
       for (const ep of item.episodes) {
         mins.push(parseDurationMinutes(ep.duration));
       }
@@ -61,7 +61,7 @@ const rangeMin = ref(0);
 const rangeMax = ref(9999);
 
 function getItemDurationMinutes(item: ContentItem): number {
-  if (item.type === "movie") return parseDurationMinutes(item.duration);
+  if (item.type === "movie" || item.type === "documentary") return parseDurationMinutes(item.duration);
   return seriesTotalMinutes(item);
 }
 
@@ -76,18 +76,37 @@ const durationFilterActive = computed(
   () => rangeMin.value > sliderMin.value || rangeMax.value < sliderMax.value
 );
 
-function onMinInput(e: Event) {
-  const v = Number((e.target as HTMLInputElement).value);
-  if (v <= rangeMax.value - 5) rangeMin.value = v;
-}
-function onMaxInput(e: Event) {
-  const v = Number((e.target as HTMLInputElement).value);
-  if (v >= rangeMin.value + 5) rangeMax.value = v;
+// ── Custom dual-thumb slider (touch-safe) ─────────────────────
+// One ref shared — both desktop & drawer sliders use the same state,
+// only one is visible at a time so a single ref is fine.
+const sliderTrackRef = ref<HTMLElement | null>(null);
+const mobileSliderTrackRef = ref<HTMLElement | null>(null);
+type DragThumb = "min" | "max" | null;
+const dragging = ref<DragThumb>(null);
+
+function getValueFromClientX(clientX: number, track: HTMLElement): number {
+  const { left, width } = track.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (clientX - left) / width));
+  return Math.round(sliderMin.value + ratio * (sliderMax.value - sliderMin.value));
 }
 
-function onSliderTouchMove(e: TouchEvent) {
-  // Prevent the page from scrolling while the user drags a range thumb
+function startDrag(thumb: DragThumb, e: MouseEvent | TouchEvent) {
   e.preventDefault();
+  e.stopPropagation();
+  dragging.value = thumb;
+}
+
+function onDragMove(e: MouseEvent | TouchEvent, track: HTMLElement | null) {
+  if (!dragging.value || !track) return;
+  e.preventDefault();
+  const clientX = "touches" in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
+  const v = getValueFromClientX(clientX, track);
+  if (dragging.value === "min" && v <= rangeMax.value - 5) rangeMin.value = v;
+  if (dragging.value === "max" && v >= rangeMin.value + 5) rangeMax.value = v;
+}
+
+function stopDrag() {
+  dragging.value = null;
 }
 
 const fillLeft = computed(() =>
@@ -318,7 +337,6 @@ function toggle(item: ContentItem) {
             </svg>
             Documentaries
           </button>
-
           <button
             @click="toggleType('docuseries')"
             :class="[
@@ -338,7 +356,7 @@ function toggle(item: ContentItem) {
           </button>
         </div>
 
-        <!-- Duration -->
+        <!-- Duration (desktop) -->
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-between">
             <p class="text-[11px] font-medium tracking-wider uppercase text-neutral-500 m-0">Duration</p>
@@ -348,17 +366,39 @@ function toggle(item: ContentItem) {
             <span :class="durationFilterActive ? 'text-violet-400' : 'text-neutral-500'">{{ formatMinutes(rangeMin) }}</span>
             <span :class="durationFilterActive ? 'text-violet-400' : 'text-neutral-500'">{{ formatMinutes(rangeMax) }}</span>
           </div>
-          <div class="relative h-5 flex items-center">
-            <div class="absolute inset-x-0 h-1 bg-neutral-800 rounded-full">
+
+          <!-- Custom dual-thumb track (desktop) -->
+          <div
+            ref="sliderTrackRef"
+            class="relative h-6 flex items-center select-none touch-none"
+            @mousemove="onDragMove($event, sliderTrackRef)"
+            @mouseup="stopDrag"
+            @mouseleave="stopDrag"
+            @touchmove.prevent="onDragMove($event, sliderTrackRef)"
+            @touchend="stopDrag"
+            @touchcancel="stopDrag"
+          >
+            <div class="absolute inset-x-0 h-1 bg-neutral-800 rounded-full pointer-events-none">
               <div
                 class="absolute h-full rounded-full transition-colors"
                 :class="durationFilterActive ? 'bg-violet-600' : 'bg-neutral-600'"
                 :style="{ left: fillLeft + '%', right: fillRight + '%' }"
               />
             </div>
-            <input type="range" :min="sliderMin" :max="sliderMax" :value="rangeMin" @input="onMinInput" @touchmove.prevent class="absolute inset-0 w-full appearance-none bg-transparent cursor-pointer range-thumb" />
-            <input type="range" :min="sliderMin" :max="sliderMax" :value="rangeMax" @input="onMaxInput" @touchmove.prevent class="absolute inset-0 w-full appearance-none bg-transparent cursor-pointer range-thumb" />
+            <div
+              class="absolute w-4 h-4 rounded-full bg-violet-600 border-2 border-violet-900 shadow cursor-grab active:cursor-grabbing -translate-x-1/2 z-10"
+              :style="{ left: fillLeft + '%' }"
+              @mousedown.stop="startDrag('min', $event)"
+              @touchstart.prevent.stop="startDrag('min', $event)"
+            />
+            <div
+              class="absolute w-4 h-4 rounded-full bg-violet-600 border-2 border-violet-900 shadow cursor-grab active:cursor-grabbing -translate-x-1/2 z-10"
+              :style="{ left: (100 - fillRight) + '%' }"
+              @mousedown.stop="startDrag('max', $event)"
+              @touchstart.prevent.stop="startDrag('max', $event)"
+            />
           </div>
+
           <div class="flex gap-1.5 flex-wrap">
             <button
               v-for="p in durationPresets"
@@ -420,10 +460,10 @@ function toggle(item: ContentItem) {
             <div class="bg-blue-50/95 dark:bg-neutral-900 px-3 py-2">
               <div class="flex items-center gap-2 mb-3">
                 <span :class="['text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded', item.type === 'movie' ? 'bg-amber-950 text-amber-500 border border-amber-900' : item.type === 'documentary' ? 'bg-violet-950 text-violet-200 border border-violet-800' : 'bg-blue-950 text-blue-400 border border-blue-900']">
-                  {{ item.type === 'movie' ? 'Film'  : item.type === 'documentary' ? 'Documentary' : 'Series' }}
+                  {{ item.type === 'movie' ? 'Film' : item.type === 'documentary' ? 'Documentary' : 'Series' }}
                 </span>
                 <span v-if="item.cost === 'Free'" class="text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-green-950 text-green-500 border border-green-900">Free</span>
-                <span v-else-if="item.cost === 'Partial Free'" class="text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-500 text-yellow-950 border border-yellow-950">Partial Free</span>
+                <span v-else-if="item.cost === 'Partial Free'" class="text-[10px] font-medium tracking-widests uppercase px-2 py-0.5 rounded bg-yellow-500 text-yellow-950 border border-yellow-950">Partial Free</span>
                 <span class="ml-auto flex items-center gap-1 text-xs text-neutral-500 tabular-nums">
                   <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6L7.5 7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                   <template v-if="item.type === 'movie' || item.type === 'documentary'">{{ displayDuration(item.duration) }}</template>
@@ -444,7 +484,7 @@ function toggle(item: ContentItem) {
                   >{{ tag }}</button>
                 </div>
                 <div class="ml-auto flex items-center gap-3">
-                  <a v-if="item.type === 'movie' || (item.type === 'docuseries' && item.url)" :href="item.url" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-amber-500 hover:gap-3 transition-all">
+                  <a v-if="item.type === 'movie' || item.type === 'documentary' || (item.type === 'docuseries' && item.url)" :href="item.url" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-amber-500 hover:gap-3 transition-all">
                     Watch now
                     <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </a>
@@ -491,56 +531,40 @@ function toggle(item: ContentItem) {
 
       <!-- Mobile sticky top bar -->
       <header class="sticky top-0 z-20 bg-neutral-950/95 backdrop-blur border-b border-neutral-900 px-4 py-3 flex items-center justify-between gap-3">
-        <!-- Sort chips -->
         <div class="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
-          <button
-            @click="sortMode = 'name'"
-            :class="['shrink-0 text-xs px-3 py-1.5 rounded-full border transition-all', sortMode === 'name' ? 'bg-blue-950 border-blue-700 text-blue-300' : 'bg-neutral-900 border-neutral-800 text-neutral-500']"
-          >A–Z</button>
-          <button
-            @click="sortMode = 'duration-asc'"
-            :class="['shrink-0 text-xs px-3 py-1.5 rounded-full border transition-all', sortMode === 'duration-asc' ? 'bg-violet-950 border-violet-700 text-violet-300' : 'bg-neutral-900 border-neutral-800 text-neutral-500']"
-          >Shortest</button>
-          <button
-            @click="sortMode = 'duration-desc'"
-            :class="['shrink-0 text-xs px-3 py-1.5 rounded-full border transition-all', sortMode === 'duration-desc' ? 'bg-violet-950 border-violet-700 text-violet-300' : 'bg-neutral-900 border-neutral-800 text-neutral-500']"
-          >Longest</button>
+          <button @click="sortMode = 'name'" :class="['shrink-0 text-xs px-3 py-1.5 rounded-full border transition-all', sortMode === 'name' ? 'bg-blue-950 border-blue-700 text-blue-300' : 'bg-neutral-900 border-neutral-800 text-neutral-500']">A–Z</button>
+          <button @click="sortMode = 'duration-asc'" :class="['shrink-0 text-xs px-3 py-1.5 rounded-full border transition-all', sortMode === 'duration-asc' ? 'bg-violet-950 border-violet-700 text-violet-300' : 'bg-neutral-900 border-neutral-800 text-neutral-500']">Shortest</button>
+          <button @click="sortMode = 'duration-desc'" :class="['shrink-0 text-xs px-3 py-1.5 rounded-full border transition-all', sortMode === 'duration-desc' ? 'bg-violet-950 border-violet-700 text-violet-300' : 'bg-neutral-900 border-neutral-800 text-neutral-500']">Longest</button>
         </div>
-
-        <!-- Filter button -->
         <button
           @click="filterDrawerOpen = true"
           class="shrink-0 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-neutral-800 bg-neutral-900 text-neutral-400 active:bg-neutral-800 transition-colors"
         >
-          <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none">
-            <path d="M1.5 3.5h11M3.5 7h7M5.5 10.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11M3.5 7h7M5.5 10.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           Filters
           <span v-if="activeFilterCount > 0" class="bg-blue-600 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-bold">{{ activeFilterCount }}</span>
         </button>
       </header>
 
-      <!-- Active filter chips (mobile) -->
+      <!-- Active filter chips -->
       <div v-if="activeFilterCount > 0" class="px-4 pt-3 pb-1 flex gap-2 overflow-x-auto scrollbar-hide">
         <button v-for="tag in activeTags" :key="tag" @click="toggleTag(tag)" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-amber-950/60 text-amber-400 border border-amber-800">
-          {{ tag }}
-          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          {{ tag }}<svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
         <button v-if="activeTypes.includes('movie')" @click="toggleType('movie')" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-amber-950/60 text-amber-400 border border-amber-800">
-          Films <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </button>
-        <button v-if="activeTypes.includes('docuseries')" @click="toggleType('docuseries')" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-blue-950/60 text-blue-400 border border-blue-800">
-          Series <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Films<svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
         <button v-if="activeTypes.includes('documentary')" @click="toggleType('documentary')" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-violet-950/60 text-violet-400 border border-violet-800">
-          Documentaries <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Documentaries<svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </button>
+        <button v-if="activeTypes.includes('docuseries')" @click="toggleType('docuseries')" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-blue-950/60 text-blue-400 border border-blue-800">
+          Series<svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
         <button v-if="freeOnly" @click="freeOnly = false" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-green-950/60 text-green-400 border border-green-800">
-          Free <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Free<svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
         <button v-if="durationFilterActive" @click="resetDuration" class="shrink-0 flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full bg-violet-950/60 text-violet-400 border border-violet-800">
-          {{ formatMinutes(rangeMin) }}–{{ formatMinutes(rangeMax) }}
-          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          {{ formatMinutes(rangeMin) }}–{{ formatMinutes(rangeMax) }}<svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
       </div>
 
@@ -562,10 +586,8 @@ function toggle(item: ContentItem) {
           :class="['rounded-xl border transition-colors overflow-hidden', isOpen(item) ? 'border-blue-700' : 'border-blue-950']"
         >
           <div class="bg-neutral-900 px-4 py-3">
-            <!-- Type + cost + duration row -->
             <div class="flex items-center gap-2 mb-2">
-              <span :class="['text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded', 
-              item.type === 'movie' ? 'bg-amber-950 text-amber-500 border border-amber-900' : item.type === 'documentary' ? 'bg-violet-950 text-violet-400 border border-violet-800' : 'bg-blue-950 text-blue-400 border border-blue-900']">
+              <span :class="['text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded', item.type === 'movie' ? 'bg-amber-950 text-amber-500 border border-amber-900' : item.type === 'documentary' ? 'bg-violet-950 text-violet-400 border border-violet-800' : 'bg-blue-950 text-blue-400 border border-blue-900']">
                 {{ item.type === 'movie' ? 'Film' : item.type === 'documentary' ? 'Documentary' : 'Series' }}
               </span>
               <span v-if="item.cost === 'Free'" class="text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-green-950 text-green-500 border border-green-900">Free</span>
@@ -576,13 +598,8 @@ function toggle(item: ContentItem) {
                 <template v-else>{{ item.episodes.length }} ep</template>
               </span>
             </div>
-
-            <!-- Title -->
             <h2 class="font-serif text-base font-medium text-neutral-100 leading-snug mb-1">{{ item.name }}</h2>
-            <!-- Description -->
             <p class="text-sm text-neutral-500 leading-relaxed mb-3">{{ item.description }}</p>
-
-            <!-- Tags -->
             <div class="flex flex-wrap gap-1.5 mb-3">
               <button
                 v-for="tag in item.tags"
@@ -591,10 +608,8 @@ function toggle(item: ContentItem) {
                 :class="['text-[11px] px-2.5 py-0.5 rounded-full border transition-all', activeTags.includes(tag) ? 'bg-amber-950/50 text-amber-400 border-amber-800' : 'bg-blue-950 text-blue-400 border border-blue-900/50']"
               >{{ tag }}</button>
             </div>
-
-            <!-- Actions -->
             <div class="flex items-center justify-end gap-4">
-              <a v-if="item.type === 'movie' || (item.type === 'docuseries' && item.url)" :href="item.url" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500">
+              <a v-if="item.type === 'movie' || item.type === 'documentary' || (item.type === 'docuseries' && item.url)" :href="item.url" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500">
                 Watch now
                 <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
@@ -634,15 +649,12 @@ function toggle(item: ContentItem) {
       </main>
 
       <!-- ── MOBILE FILTER DRAWER ── -->
-      <!-- Backdrop -->
       <Transition name="fade">
         <div v-if="filterDrawerOpen" @click="filterDrawerOpen = false" class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm" />
       </Transition>
 
-      <!-- Drawer panel -->
       <Transition name="slide-up">
         <div v-if="filterDrawerOpen" class="fixed bottom-0 inset-x-0 z-40 bg-neutral-950 border-t border-neutral-800 rounded-t-2xl max-h-[85vh] flex flex-col">
-          <!-- Handle + header -->
           <div class="flex flex-col items-center pt-3 pb-2 px-5 border-b border-neutral-900">
             <div class="w-10 h-1 rounded-full bg-neutral-700 mb-3" />
             <div class="w-full flex items-center justify-between">
@@ -659,7 +671,6 @@ function toggle(item: ContentItem) {
             </div>
           </div>
 
-          <!-- Scrollable filter content -->
           <div class="overflow-y-auto flex-1 px-5 py-4 flex flex-col gap-6">
 
             <!-- Availability -->
@@ -678,31 +689,22 @@ function toggle(item: ContentItem) {
             <div class="flex flex-col gap-3">
               <p class="text-[11px] font-medium tracking-wider uppercase text-neutral-500 m-0">Format</p>
               <div class="grid grid-cols-2 gap-2">
-                <button
-                  @click="toggleType('movie')"
-                  :class="['flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all', activeTypes.includes('movie') ? 'bg-amber-950 border-amber-700 text-amber-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400']"
-                >
+                <button @click="toggleType('movie')" :class="['flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all', activeTypes.includes('movie') ? 'bg-amber-950 border-amber-700 text-amber-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400']">
                   <svg class="w-4 h-4 shrink-0" viewBox="0 0 14 14" fill="none"><rect x="1" y="2.5" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 5L9.5 7L5.5 9V5Z" fill="currentColor"/></svg>
                   Films
                 </button>
-                <button
-                  @click="toggleType('documentary')"
-                  :class="['flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all', activeTypes.includes('documentary') ? 'bg-violet-950 border-violet-700 text-violet-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400']"
-                >
+                <button @click="toggleType('documentary')" :class="['flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all', activeTypes.includes('documentary') ? 'bg-violet-950 border-violet-700 text-violet-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400']">
                   <svg class="w-4 h-4 shrink-0" viewBox="0 0 14 14" fill="none"><rect x="1" y="2.5" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 5L9.5 7L5.5 9V5Z" fill="currentColor"/></svg>
-                  Documentaries
+                  Docs
                 </button>
-                <button
-                  @click="toggleType('docuseries')"
-                  :class="['flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all', activeTypes.includes('docuseries') ? 'bg-blue-950 border-blue-700 text-blue-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400']"
-                >
+                <button @click="toggleType('docuseries')" :class="['flex items-center col-span-2 gap-2 px-4 py-3 rounded-xl border text-sm transition-all', activeTypes.includes('docuseries') ? 'bg-blue-950 border-blue-700 text-blue-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400']">
                   <svg class="w-4 h-4 shrink-0" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
                   Series
                 </button>
               </div>
             </div>
 
-            <!-- Duration -->
+            <!-- Duration (mobile drawer) — custom touch-safe slider -->
             <div class="flex flex-col gap-3">
               <div class="flex items-center justify-between">
                 <p class="text-[11px] font-medium tracking-wider uppercase text-neutral-500 m-0">Duration</p>
@@ -712,13 +714,37 @@ function toggle(item: ContentItem) {
                 <span :class="durationFilterActive ? 'text-violet-400' : 'text-neutral-500'">{{ formatMinutes(rangeMin) }}</span>
                 <span :class="durationFilterActive ? 'text-violet-400' : 'text-neutral-500'">{{ formatMinutes(rangeMax) }}</span>
               </div>
-              <div class="relative h-6 flex items-center">
-                <div class="absolute inset-x-0 h-1.5 bg-neutral-800 rounded-full">
+
+              <!-- Custom dual-thumb track (mobile) -->
+              <div
+                ref="mobileSliderTrackRef"
+                class="relative h-8 flex items-center select-none touch-none"
+                @mousemove="onDragMove($event, mobileSliderTrackRef)"
+                @mouseup="stopDrag"
+                @mouseleave="stopDrag"
+                @touchmove.prevent="onDragMove($event, mobileSliderTrackRef)"
+                @touchend="stopDrag"
+                @touchcancel="stopDrag"
+              >
+                <div class="absolute inset-x-0 h-1.5 bg-neutral-800 rounded-full pointer-events-none">
                   <div class="absolute h-full rounded-full" :class="durationFilterActive ? 'bg-violet-600' : 'bg-neutral-600'" :style="{ left: fillLeft + '%', right: fillRight + '%' }" />
                 </div>
-                <input type="range" :min="sliderMin" :max="sliderMax" :value="rangeMin" @input="onMinInput" @touchmove.prevent class="absolute inset-0 w-full appearance-none bg-transparent cursor-pointer range-thumb" />
-                <input type="range" :min="sliderMin" :max="sliderMax" :value="rangeMax" @input="onMaxInput" @touchmove.prevent class="absolute inset-0 w-full appearance-none bg-transparent cursor-pointer range-thumb" />
+                <!-- Min thumb -->
+                <div
+                  class="absolute w-6 h-6 rounded-full bg-violet-600 border-2 border-violet-900 shadow-lg cursor-grab active:cursor-grabbing -translate-x-1/2 z-10"
+                  :style="{ left: fillLeft + '%' }"
+                  @mousedown.stop="startDrag('min', $event)"
+                  @touchstart.prevent.stop="startDrag('min', $event)"
+                />
+                <!-- Max thumb -->
+                <div
+                  class="absolute w-6 h-6 rounded-full bg-violet-600 border-2 border-violet-900 shadow-lg cursor-grab active:cursor-grabbing -translate-x-1/2 z-10"
+                  :style="{ left: (100 - fillRight) + '%' }"
+                  @mousedown.stop="startDrag('max', $event)"
+                  @touchstart.prevent.stop="startDrag('max', $event)"
+                />
               </div>
+
               <div class="flex gap-2">
                 <button
                   v-for="p in durationPresets"
@@ -743,7 +769,6 @@ function toggle(item: ContentItem) {
             </div>
           </div>
 
-          <!-- Apply button -->
           <div class="px-5 py-4 border-t border-neutral-900">
             <button
               @click="filterDrawerOpen = false"
@@ -759,41 +784,6 @@ function toggle(item: ContentItem) {
 </template>
 
 <style scoped>
-.range-thumb {
-  pointer-events: none;
-}
-.range-thumb::-webkit-slider-thumb {
-  pointer-events: all;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #7c3aed;
-  border: 2px solid #4c1d95;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-}
-.range-thumb::-webkit-slider-thumb:hover {
-  background: #8b5cf6;
-  transform: scale(1.1);
-}
-.range-thumb::-moz-range-thumb {
-  pointer-events: all;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #7c3aed;
-  border: 2px solid #4c1d95;
-  cursor: pointer;
-}
-.range-thumb::-webkit-slider-runnable-track { background: transparent; }
-.range-thumb::-moz-range-track { background: transparent; }
-
-/* Prevent page scroll when dragging sliders on touch devices */
-.range-thumb {
-  touch-action: none;
-}
-
 /* Drawer transitions */
 .fade-enter-active, .fade-leave-active { transition: opacity 0.25s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
@@ -801,7 +791,6 @@ function toggle(item: ContentItem) {
 .slide-up-enter-active, .slide-up-leave-active { transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
 .slide-up-enter-from, .slide-up-leave-to { transform: translateY(100%); }
 
-/* Hide scrollbar on filter chips row */
 .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 </style>
