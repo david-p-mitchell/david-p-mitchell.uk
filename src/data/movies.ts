@@ -142,12 +142,11 @@ export const links: ContentItem[] = [
     name: "Yembiyembi: Unto the Nations",
     url: "https://www.youtube.com/watch?v=ExXTXfCaNok",
     cost: "Free",
-    tags: ["Missions", "PNG", "World", "Missionary Biography"],
+    tags: ["Mission", "PNG", "World", "Missionary Biography"],
     description:
       "Though Brooks Buser's old home and mission field looks quite different from how it once did, what remains is everlasting. Learn about the Busers' labors with the Yembiyembi for the sake of the good news made known.",
     duration: "30:37"
   },
-
   {
   type: "docuseries",
   name: "EPIC (by Tim Challies)",
