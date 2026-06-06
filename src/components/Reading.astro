@@ -1,0 +1,62 @@
+---
+interface Book {
+  title: string;
+  author: string;
+  progress?: number; // 0–100
+  coverColor?: string;
+  img?: string;
+}
+interface Props {
+  books: Book[];
+}
+const { books } = Astro.props;
+---
+
+<section class="bg-card border border-border rounded-2xl p-6 flex flex-col gap-4 y-overflow-auto ">
+
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Currently Reading</p>
+
+  <ul class="flex flex-col gap-4 max-h-[150px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+    {books.sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0)).map(book => (
+      <li class="flex items-start gap-4">
+
+        <!-- Book spine block -->
+        {book.img ? (
+        <img
+            src={book.img}
+            alt={book.title}
+            class="w-9 h-14 object-cover rounded-sm shrink-0"
+        />
+        ) : (
+        <div
+            class="shrink-0 w-9 h-14 rounded-sm flex items-center justify-center overflow-hidden"
+            style={{ backgroundColor: book.coverColor ?? "#252d40" }}
+        >
+            <span class="text-white text-[9px] font-mono font-semibold uppercase opacity-70 [writing-mode:vertical-rl] tracking-widest">
+            {book.title.slice(0, 8)}
+            </span>
+        </div>
+        )}
+
+        <div class="flex flex-col gap-1.5 flex-1 min-w-0">
+          <p class="font-display font-semibold text-sm text-text-primary leading-snug truncate">{book.title}</p>
+          <p class="font-mono text-xs text-text-muted">{book.author}</p>
+
+          {book.progress !== undefined && (
+            <div class="flex items-center gap-2 mt-0.5">
+              <div class="flex-1 h-1 bg-border rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-gold rounded-full transition-all duration-700"
+                  style={`width: ${book.progress}%`}
+                ></div>
+              </div>
+              <span class="font-mono text-xs text-text-muted shrink-0">{book.progress}%</span>
+            </div>
+          )}
+        </div>
+
+      </li>
+    ))}
+  </ul>
+
+</section>
