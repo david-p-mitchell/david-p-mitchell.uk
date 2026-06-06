@@ -1,0 +1,22 @@
+---
+interface Props { message: string; subtext?: string; }
+const { message, subtext } = Astro.props;
+---
+
+<div class="banner relative overflow-hidden rounded-tile px-8 py-6
+            flex items-center gap-6 border border-rim">
+
+  <!-- Glow orb — bg-gold with blur, pure Tailwind -->
+  <div class="absolute -top-10 -right-10 w-28 h-28 rounded-full
+              bg-gold opacity-[.08] blur-2xl pointer-events-none">
+  </div>
+
+  <span class="shrink-0 text-[1.8rem] text-gold opacity-70">✝</span>
+
+  <div>
+    <p class="font-display text-lg leading-snug">{message}</p>
+    {subtext && (
+      <p class="font-mono text-sm tracking-mild mt-1">{subtext}</p>
+    )}
+  </div>
+</div>

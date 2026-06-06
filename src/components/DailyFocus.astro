@@ -1,0 +1,15 @@
+---
+interface Props { focusItems: { label: string; value: string }[]; title?: string; }
+const { focusItems, title = "Today's Focus" } = Astro.props;
+---
+<div class="h-full rounded-tile px-6 py-6 bg-card border border-rim">
+  <span class="block font-mono font-semibold uppercase text-gold mb-4" style="font-size:.65rem;letter-spacing:.15em;">⊹ {title}</span>
+  <ul class="list-none p-0 m-0 flex flex-col gap-3">
+    {focusItems.map((item, i) => (
+      <li class={`flex flex-col gap-0.5 ${i < focusItems.length - 1 ? "pb-3 border-b border-rim" : ""}`}>
+        <span class="font-mono uppercase text-txm" style="font-size:.65rem;letter-spacing:.12em;">{item.label}</span>
+        <span class="text-tx1" style="font-size:.88rem;line-height:1.45;">{item.value}</span>
+      </li>
+    ))}
+  </ul>
+</div>
