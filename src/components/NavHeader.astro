@@ -5,12 +5,11 @@ export interface Props {
 }
 
 const {
-  siteName = "MySite",
+  siteName = "David Mitchell",
   links = [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
+    { label: "Media", href: "/media" },
     { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
   ],
 } = Astro.props;
 
@@ -19,7 +18,7 @@ const currentPath = Astro.url.pathname;
 
 <header class="nav-header">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">{siteName}</a>
+    <a href="/" class="nav-logo pl-2">{siteName}</a>
 
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span class="bar"></span>
