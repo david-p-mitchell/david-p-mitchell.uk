@@ -6,6 +6,13 @@ export type BaseItem = {
   cost: Cost
   director?: string[]; // Optional field for docuseries
   show?: boolean; // Optional field to control visibility of the item, default to true if not provided
+  platform?: Platform[];
+};
+
+type PlatformType = "YouTube" | "Vimeo" | "Netflix" | "Amazon Prime" | "Disney+" | "Other";
+export type Platform = {
+  name: PlatformType;
+  url: string;
 };
 
 export type Documentary = BaseItem & {
