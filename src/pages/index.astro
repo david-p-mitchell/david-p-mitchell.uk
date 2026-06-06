@@ -1,59 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Bio from "../components/Bio.astro";
+import Reading from "../components/Reading.astro";
+import DailyVerse from "../components/DailyVerse.astro";
+import DailyVideo from "../components/DailyVideo.astro";
 
-	---
-  import Layout from "../layouts/Layout.astro";
-// src/pages/index.astro
-const sections = [
-  {
-    title: "Resources",
-    links: [
-      { name: "Bible Gateway", url: "https://www.biblegateway.com" },
-      { name: "Blue Letter Bible", url: "https://www.blueletterbible.org" }
-    ]
-  },
-  {
-    title: "Christian Documentaries",
-    links: [
-      { name: "From the Rising of the Sun", url: "https://watch.studygateway.com/products/from-the-rising-of-the-sun", publiclyFree: false }
-    ]
-  },
-  {
-    title: "Reformed Blogs",
-    links: [
-      { name: "Ligonier Ministries", url: "https://www.ligonier.org" },
-      { name: "The Gospel Coalition", url: "https://www.thegospelcoalition.org" }
-    ]
-  }
+import { books } from "../data/books.ts";
+
+import { me } from "../data/me.ts";
+import { verses } from "../data/verses.ts";
+
+
+
+const videos = [
+  { id: "XBZ2Oigxu1g", title: "You Are Not Alone — Louie Giglio",          description: "A powerful reminder that God is always with you." },
+  { id: "JvbMPMFerCI", title: "Start With God — Steven Furtick",            description: "Why putting God first changes everything about your day." },
+  { id: "4T6jrYoJh6A", title: "God Is Bigger Than Your Fear — Craig Groeschel", description: "Let faith rise above fear today." },
+  { id: "XBZ2Oigxu1g", title: "What is Prayer?",            description: "Understanding the power and purpose of prayer." },
+  { id: "a2V3PaYMFwI", title: "Trust the Process — TD Jakes",               description: "God is working even when you can't see it." },
+  { id: "eCqBIjW5AzM", title: "Be Still — Bethel Music",                    description: "A worship moment grounded in Psalm 46." },
+  { id: "UDyU3zDdwKA", title: "Walk by Faith — Joyce Meyer",                description: "Choosing to trust God's word over your circumstances." },
 ];
+
+const dayOfYear = Math.floor(
+  (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86_400_000
+);
+const todayVerse = verses[dayOfYear % verses.length];
 ---
 
-<html lang="en">
-<Layout>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>My Links</title>
-  </head>
-  
-  <body class="bg-blue-950 text-slate-200 min-h-screen">
-    <h1 class="text-3xl font-bold text-center mb-8">Useful Links</h1>
-
-    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      {sections.map(section => (
-        <div class="bg-slate-800 rounded-2xl p-5 shadow-lg">
-          <h2 class="text-xl font-semibold mb-3">{section.title}</h2>
-          <ul class="space-y-2">
-            {section.links.map(link => (
-              <li>
-                <a href={link.url} target="_blank" class="text-sky-400 hover:underline">
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+<BaseLayout title={me.name}>
+  <div class="max-w-5xl mx-auto pt-4 flex flex-col gap-2">    
+    <div class="grid md:grid-cols-2 gap-2 animate-fade-up [animation-delay:0ms]">
+      <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
+      <Reading books={books} />
     </div>
-  </body>
-  </Layout>
-</html>
+    <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} />
 
+    <!-- Row 2: Daily Video | Daily Verse -->
+    <div class="grid grid-cols-1 gap-2 animate-fade-up [animation-delay:160ms]">
+      <DailyVideo videos={videos} />
+    </div>
+    
+
+    <footer class="mt-2 text-center font-mono text-xs text-text-muted animate-fade-up [animation-delay:240ms]">
+      Made in Love · {new Date().getFullYear()}
+    </footer>
+
+  </div>
+</BaseLayout>
