@@ -155,14 +155,14 @@ export const links: ContentItem[] = [
     duration: "30:37"
   },
   {
-  type: "docuseries",
-  name: "EPIC (by Tim Challies)",
-  director: ["Tim Challies", "Stephen McCaskell"],
-  cost: "Free",
-  tags: ["Overview", "Bible Story", "Theology", "Church History"],
-  description:
-    "Tim Challies travels to twenty-four countries, directed by Stephen McCaskell, offers an immersive travelogue introducing you to thirty-three key objects that help tell the history of Christianity.",
-  episodes: [
+    type: "docuseries",
+    name: "EPIC (by Tim Challies)",
+    director: ["Tim Challies", "Stephen McCaskell"],
+    cost: "Free",
+    tags: ["Overview", "Bible Story", "Theology", "Church History"],
+    description:
+      "Tim Challies travels to twenty-four countries, directed by Stephen McCaskell, offers an immersive travelogue introducing you to thirty-three key objects that help tell the history of Christianity.",
+    episodes: [
     {
       title: "Episode 1: Israel & Italy",
       url: "https://www.youtube.com/watch?v=DHxDjexosvU",
@@ -234,25 +234,61 @@ export const links: ContentItem[] = [
       cost: "Free" 
     }
   ]
-},
+  },
   {
-  type: "docuseries",
-  name: "Missionary: Obeying the Great Commission",
-  url: "https://www.missionary.com/docuseries",
-  director: ["Brooks Buser", "Stephen McCaskell"],
-  cost: "Partial Free",
-  tags: ["Overview", "Mission", "Church History"],
-  description:
-    "Experience the stories of the men and women who followed the Great Commission. The six-part docuseries tells the stories of William Tyndale, Hudson Taylor, Amy Carmichael, William Carey, David Livingstone, and John Paton",
-  episodes: [
-    {
-      title: "Episode 1: William Tyndale: The Necessity of the Word",
-      url: "https://youtu.be/CRAbG_u-nKo?si=u_w08MwnMkxnI_Wq",
-      duration: "43:45",
-      tags: ["Church History", "William Tyndale"],
-      cost: "Free",
-      description: "A continental manhunt, a shipwreck, and prison could not stop William Tyndale from giving the English speaking church its first English language Bible. 75 years before the authorization of the King James Version of the Bible, William Tyndale gave his life as a martyr so that Christians could read and understand God's word themselves."
-    }
-  ]
-}
+    type: "docuseries",
+    name: "Missionary: Obeying the Great Commission",
+    url: "https://www.missionary.com/docuseries",
+    director: ["Brooks Buser", "Stephen McCaskell"],
+    cost: "Partial Free",
+    tags: ["Overview", "Mission", "Church History"],
+    description:
+      "Experience the stories of the men and women who followed the Great Commission. The six-part docuseries tells the stories of William Tyndale, Hudson Taylor, Amy Carmichael, William Carey, David Livingstone, and John Paton",
+    episodes: [
+      {
+        title: "Episode 1: William Tyndale: The Necessity of the Word",
+        url: "https://youtu.be/CRAbG_u-nKo?si=u_w08MwnMkxnI_Wq",
+        duration: "43:45",
+        tags: ["Church History", "William Tyndale"],
+        cost: "Free",
+        description: "A continental manhunt, a shipwreck, and prison could not stop William Tyndale from giving the English speaking church its first English language Bible. 75 years before the authorization of the King James Version of the Bible, William Tyndale gave his life as a martyr so that Christians could read and understand God's word themselves."
+      }
+    ]
+  },
+  {
+    type: "docuseries",
+    name: "The Covenanter Story: A Banner Mini-series",
+    url: "https://www.youtube.com/playlist?list=PLUNl3x537t5LS3jQ2bqaXuKYGt9P4VO6w",
+    director: ["Banner of Truth"],
+    cost: "Free",
+    tags: ["Convenanters", "Church History"],
+    description: "A four-part introduction to the Scottish Covenanters, brought to life through the stories of four martyrs: James Guthrie, Hugh M'Kail, John Brown of Priesthill, and James Renwick.",
+    episodes: [
+      {
+        title: "The Sure-footed Guthrie | The Covenanter Story, Part 1",
+        url: "https://www.youtube.com/watch?v=V9HsIMGycyw&list=PLUNl3x537t5LS3jQ2bqaXuKYGt9P4VO6w&index=1",
+        duration: "13:12",
+        tags: ["Covenanters", "Church History", "James Guthrie"],
+        cost: "Free",
+        description: "James Guthrie's life and witness would shape the Covenanter movement from that moment on, with great consequences for the Kirk and nation of Scotland…"
+      },
+      {
+        title: "The Pentland Resistance | The Covenanter Story, Part 2",
+        url: "https://www.youtube.com/watch?v=VUapiGHk3IM&list=PLUNl3x537t5LS3jQ2bqaXuKYGt9P4VO6w&index=2",
+        duration: "15:09",
+        tags: ["Covenanters", "Church History", "Civil Disobedience", "Pentland Rising", "Rullion Green", "Hugh M'Kail"],
+        cost: "Free",
+        description: "James Guthrie was dead—executed for his refusal to acknowledge the king's authority over the Kirk. Others like him were now in the government’s crosshairs. The king’s dragoons ranged across Scotland's Southwest, letting loose a campaign of terror which would have devastating consequences for the Covenanters…"
+      },
+      {
+        title: "The John Brown of Priesthill | The Covenanter Story, Part 3",
+        url: "https://www.youtube.com/watch?v=XapTHW4segA&list=PLUNl3x537t5LS3jQ2bqaXuKYGt9P4VO6w&index=3",
+        duration: "10:22",
+        tags: ["Covenanters", "Church & State", "Martyr","Persecution", "Persecuted Church", "Church History", "John Brown"],
+        cost: "Free",
+        description: "The 1680s are known as \"the Killing Time\" in Scotland. The Crown, turning its full fury against the Covenanters, terrorised all who refused to fall into line, whether they were ordained ministers, or just ordinary lay-people. In this third instalment of The Covenanter Story we meet a Covenanting family from Ayrshire whose domestic joy and peace was brought to an abrupt end by the violence of James VII/II and his ambitious servants."
+      }
+
+    ]
+  }
 ];
