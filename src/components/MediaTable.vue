@@ -138,6 +138,7 @@ function key(item: ContentItem) {
 }
 
 function getAllTags(item: ContentItem): string[] {
+  if (item.show === false) return [];
   if (item.type === "movie" || item.type === "documentary") return item.tags;
   return [...item.tags, ...item.episodes.flatMap(ep => ep.tags ?? [])];
 }
