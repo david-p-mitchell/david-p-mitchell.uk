@@ -268,7 +268,7 @@ function toggle(item: ContentItem) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-neutral-950 text-neutral-200 font-sans">
+  <div class="min-h-screen dark:bg-neutral-950 text-neutral-200 font-sans">
 
     <!-- ── DESKTOP LAYOUT (md+) ────────────────────────────────── -->
     <div class="hidden md:flex gap-8 p-8">
