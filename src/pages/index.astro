@@ -13,13 +13,13 @@ import { verses } from "../data/verses.ts";
 
 
 const videos = [
-  { id: "XBZ2Oigxu1g", title: "You Are Not Alone — Louie Giglio",          description: "A powerful reminder that God is always with you." },
-  { id: "JvbMPMFerCI", title: "Start With God — Steven Furtick",            description: "Why putting God first changes everything about your day." },
-  { id: "4T6jrYoJh6A", title: "God Is Bigger Than Your Fear — Craig Groeschel", description: "Let faith rise above fear today." },
+  // { id: "XBZ2Oigxu1g", title: "You Are Not Alone — Louie Giglio",          description: "A powerful reminder that God is always with you." },
+  // { id: "JvbMPMFerCI", title: "Start With God — Steven Furtick",            description: "Why putting God first changes everything about your day." },
+  // { id: "4T6jrYoJh6A", title: "God Is Bigger Than Your Fear — Craig Groeschel", description: "Let faith rise above fear today." },
   { id: "XBZ2Oigxu1g", title: "What is Prayer?",            description: "Understanding the power and purpose of prayer." },
-  { id: "a2V3PaYMFwI", title: "Trust the Process — TD Jakes",               description: "God is working even when you can't see it." },
-  { id: "eCqBIjW5AzM", title: "Be Still — Bethel Music",                    description: "A worship moment grounded in Psalm 46." },
-  { id: "UDyU3zDdwKA", title: "Walk by Faith — Joyce Meyer",                description: "Choosing to trust God's word over your circumstances." },
+  // { id: "a2V3PaYMFwI", title: "Trust the Process — TD Jakes",               description: "God is working even when you can't see it." },
+  // { id: "eCqBIjW5AzM", title: "Be Still — Bethel Music",                    description: "A worship moment grounded in Psalm 46." },
+  // { id: "UDyU3zDdwKA", title: "Walk by Faith — Joyce Meyer",                description: "Choosing to trust God's word over your circumstances." },
 ];
 
 const dayOfYear = Math.floor(
@@ -34,7 +34,9 @@ const todayVerse = verses[dayOfYear % verses.length];
       <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
       <Reading books={books} />
     </div>
+    <div class="animate-fade-up [animation-delay:80ms]">
     <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} />
+    </div>
 
     <!-- Row 2: Daily Video | Daily Verse -->
     <div class="grid grid-cols-1 gap-2 animate-fade-up [animation-delay:160ms]">
