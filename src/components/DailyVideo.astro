@@ -21,17 +21,16 @@ const video = videos[dayOfYear % videos.length];
 const embedUrl = `https://www.youtube.com/embed/shorts/${video.id}?playlist=${video.id}`;
 ---
 
-<section class="bg-card border border-border rounded-2xl overflow-hidden flex flex-col">
+<section class="bg-card border border-border rounded-2xl overflow-hidden flex flex-col w-sm">
 
     <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">Today's Video Encouragement</p>
     <p class="font-display font-semibold text-sm text-text-primary leading-snug ml-4">{video.title}</p>
   <!-- 16:9 embed -->
-  <div class="relative w-full  aspect-video">
+  <div class="relative w-sm h-max-[300px] h-[300px]  aspect-video">
     <iframe
   src={`https://www.youtube.com/embed/${video.id}?wmode=opaque&autoplay=0&playlist=${video.id}&widgetid=1&vf=6`}
-  title={video.title}
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  class="w-full h-full border-0"
+  class="w-full h-full  border-0"
 ></iframe>
   </div>
 
