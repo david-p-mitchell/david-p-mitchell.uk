@@ -13,8 +13,7 @@ interface Props {
 const { books } = Astro.props;
 ---
 
-<section class="bg-card border border-border p-6 flex flex-col gap-4 overflow-y-auto w-sm:max-w-md sm:rounded-lg lg:rounded-2xl"> ">
-
+<section class="bg-card border border-border p-6 flex flex-col gap-4 overflow-y-auto w-sm:max-w-md sm:rounded-lg lg:rounded-2xl">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Currently Reading</p>
 
   <ul class="flex flex-col gap-4 max-h-[150px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
@@ -62,7 +61,7 @@ const { books } = Astro.props;
                   style={`width: ${book.progress}%`}
                 ></div>
               </div>
-              <span class="font-mono text-xs text-text-muted shrink-0">{book.progress}%</span>
+              <span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{book.progress}%</span>
             </div>
           )}
         </div>
