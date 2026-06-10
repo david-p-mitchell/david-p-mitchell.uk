@@ -1,44 +1,74 @@
 ---
-// Each entry is a YouTube video ID + title + optional description
-// The video shown rotates daily based on the day of the year
 interface Video {
-  id: string;       // YouTube video ID (e.g. "dQw4w9WgXcQ")
+  id: string;
   title: string;
-  description?: string;
 }
 
-interface Props {
-  videos: Video[];
-}
+const PLAYLIST_ID = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
 
-const { videos } = Astro.props;
-
-// Pick today's video deterministically from the pool
-const dayOfYear = Math.floor(
-  (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86_400_000
+// Fetch YouTube playlist RSS feed
+const res = await fetch(
+  `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`
 );
+
+const xml = await res.text();
+
+// Helper to decode XML entities
+const decode = (str: string) =>
+  str
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+
+// Extract each <entry> block
+const entryMatches = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
+
+const videos: Video[] = entryMatches
+  .map((entry) => {
+    const block = entry[1];
+
+    const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
+    const titleMatch = block.match(/<title>(.*?)<\/title>/);
+
+    const id = idMatch?.[1];
+    const title = titleMatch?.[1];
+
+    if (!id) return null;
+
+    return {
+      id,
+      title: decode(title ?? "YouTube Video"),
+    };
+  })
+  .filter(Boolean) as Video[];
+
+// Deterministic "daily video"
+const dayOfYear = Math.floor(
+  (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) /
+    86_400_000
+);
+
 const video = videos[dayOfYear % videos.length];
-const embedUrl = `https://www.youtube.com/embed/shorts/${video.id}?playlist=${video.id}`;
 ---
 
 <section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col max-w-md">
 
-    <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">Today's Video Encouragement</p>
-    <p class="font-display font-semibold text-sm text-text-primary leading-snug ml-4">{video.title}</p>
-  <!-- 16:9 embed -->
-  <div class="relative max-w-md h-max-[300px] h-[300px]  aspect-video">
-    <iframe
-  src={`https://www.youtube.com/embed/${video.id}?wmode=opaque&autoplay=0&playlist=${video.id}&widgetid=1&vf=6`}
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  class="w-full h-full  border-0"
-></iframe>
-  </div>
+  <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">
+    Today's Video Encouragement
+  </p>
 
-  <!-- Caption -->
-  <div class="p-5 flex flex-col gap-1.5">
-    {video.description && (
-      <p class="font-serif text-xs text-text-secondary leading-relaxed">{video.description}</p>
-    )}
+  <p class="font-display font-semibold text-sm text-text-primary leading-snug ml-4">
+    {video?.title}
+  </p>
+
+  <div class="relative max-w-md aspect-video">
+    <iframe
+      src={`https://www.youtube.com/embed/${video?.id}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=0&iv_load_policy=3`}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      class="w-full h-full border-0"
+    ></iframe>
   </div>
 
 </section>
