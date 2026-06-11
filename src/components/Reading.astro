@@ -6,6 +6,7 @@ interface Book {
   coverColor?: string;
   img?: string;
   tags: string[];
+  show?: boolean;
 }
 interface Props {
   books: Book[];
@@ -17,7 +18,7 @@ const { books } = Astro.props;
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Currently Reading</p>
 
   <ul class="flex flex-col gap-4 max-h-[150px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
-    {books.sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0)).map(book => (
+    {books.filter((book) => book.show ?? true).sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0)).map(book => (
       <li class="flex items-start gap-4">
 
         <!-- Book spine block -->
