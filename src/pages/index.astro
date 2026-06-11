@@ -4,7 +4,7 @@ import Bio from "../components/Bio.astro";
 import Reading from "../components/Reading.astro";
 import DailyVerse from "../components/DailyVerse.astro";
 import DailyVideo from "../components/DailyVideo.astro";
-
+import FeaturedCode from "../components/FeaturedBibleCode.astro";
 import { books } from "../data/books.ts";
 
 import { me } from "../data/me.ts";
@@ -25,15 +25,27 @@ const todayVerse = verses[daysSinceEpoch % verses.length];
   <div class="max-w-5xl mx-auto pt-4 flex flex-col gap-2">    
     <div class="grid md:grid-cols-2 gap-2 animate-fade-up items-start [animation-delay:0ms] w-full">
       <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
-      <Reading books={books} />
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+        <FeaturedCode
+            title="2 Corinthians 5:17"
+            code={`if (InChrist(you))
+{
+    you = new Creation();
+    PassAway([... things<Old>]);
+    Look([... things<New>]);
+}`}
+          />
+          
+        </div>
     </div>
     <div class="animate-fade-up [animation-delay:80ms]">
     <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} />
     </div>
 
     <!-- Row 2: Daily Video | Daily Verse -->
-    <div class="grid grid-cols-1 gap-2 animate-fade-up [animation-delay:160ms]">
+    <div class="grid md:grid-cols-2 gap-2 animate-fade-up [animation-delay:160ms]">
       <DailyVideo videos={videos} />
+          <Reading books={books} />
     </div>
     
 
