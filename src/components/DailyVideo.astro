@@ -53,7 +53,7 @@ const video =
     : null;
 ---
 
-<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col max-w-md">
+<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col ">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">
     Today's Video Encouragement
   </p>
@@ -62,11 +62,11 @@ const video =
     {video?.title}
   </p>
 
-  <div class="relative max-w-md aspect-video">
+  <div class="relative aspect-video">
     <iframe
       src={`https://www.youtube.com/embed/${video?.id}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=0&iv_load_policy=3`}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      class="w-full h-full border-0"
+      class="w-full h-full border-0 "
     ></iframe>
   </div>
 </section>
