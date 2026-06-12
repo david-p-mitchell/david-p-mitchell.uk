@@ -1,72 +1,102 @@
 ---
-interface Video {
-  id: string;
-  title: string;
-}
-
+// Astro Frontmatter: Runs only at build time.
+// We keep this static and lightweight.
 const PLAYLIST_ID = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
-
-// Fetch YouTube playlist RSS feed
-const res = await fetch(
-  `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`
-);
-
-const xml = await res.text();
-
-// Helper to decode XML entities
-const decode = (str: string) =>
-  str
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
-
-// Extract each <entry> block
-const entryMatches = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
-
-const videos: Video[] = entryMatches
-  .map((entry) => {
-    const block = entry[1];
-
-    const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
-    const titleMatch = block.match(/<title>(.*?)<\/title>/);
-
-    const id = idMatch?.[1];
-    const title = titleMatch?.[1];
-
-    if (!id) return null;
-
-    return {
-      id,
-      title: decode(title ?? "YouTube Video"),
-    };
-  })
-  .filter(Boolean) as Video[];
-
-// Deterministic daily video based on days since Unix epoch
-const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
-
-const video =
-  videos.length > 0
-    ? videos[daysSinceEpoch % videos.length]
-    : null;
 ---
 
-<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col ">
+<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">
     Today's Video Encouragement
   </p>
 
-  <p class="font-display font-semibold text-sm text-text-primary leading-snug ml-4">
-    {video?.title}
+  <p id="video-title" class="font-display font-semibold text-sm text-text-primary leading-snug ml-4 min-h-[1.25rem]">
+    Loading today's encouragement...
   </p>
 
-  <div class="relative aspect-video">
+  <div class="relative aspect-video mt-4">
     <iframe
-      src={`https://www.youtube.com/embed/${video?.id}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=0&iv_load_policy=3`}
+      id="video-iframe"
+      src=""
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      class="w-full h-full border-0 "
+      class="w-full h-full border-0 hidden"
     ></iframe>
+    
+    <div id="video-skeleton" class="absolute inset-0 bg-muted/20 animate-pulse flex items-center justify-center">
+      <span class="text-xs text-text-secondary">Preparing video...</span>
+    </div>
   </div>
 </section>
+
+<script define:vars={{ PLAYLIST_ID }}>
+  // Helper to decode basic XML entities right in the browser
+  const decodeEntities = (str) =>
+    str
+      .replace(/&amp;/g, "&")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">");
+
+  async function fetchDailyVideo() {
+    const titleEl = document.getElementById('video-title');
+    const iframeEl = document.getElementById('video-iframe');
+    const skeletonEl = document.getElementById('video-skeleton');
+
+    try {
+      // Fetch the RSS feed live from the user's browser
+      const res = await fetch(`https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`);
+      if (!res.ok) throw new Error("Failed to fetch RSS feed");
+      
+      const xml = await res.text();
+
+      // Extract each <entry> block
+      const entryMatches = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
+
+      const videos = entryMatches
+        .map((entry) => {
+          const block = entry[1];
+          const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
+          const titleMatch = block.match(/<title>(.*?)<\/title>/);
+
+          const id = idMatch?.[1];
+          const title = titleMatch?.[1];
+
+          if (!id) return null;
+
+          return {
+            id,
+            title: decodeEntities(title ?? "YouTube Video"),
+          };
+        })
+        .filter(Boolean);
+
+      if (videos.length === 0) throw new Error("No videos found in playlist");
+
+      // Deterministic daily video index based on the user's current local date
+      const daysSinceEpoch = Math.floor(Date.now() / 86400000);
+      const video = videos[daysSinceEpoch % videos.length];
+
+      // Update the DOM with the video details
+      if (titleEl && iframeEl) {
+        titleEl.textContent = video.title;
+        iframeEl.src = `https://www.youtube.com/embed/${video.id}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=0&iv_load_policy=3`;
+        
+        // Reveal iframe and hide loading skeleton
+        iframeEl.classList.remove('hidden');
+        if (skeletonEl) skeletonEl.classList.add('hidden');
+      }
+
+    } catch (error) {
+      console.error("Error loading daily video:", error);
+      if (titleEl) {
+        titleEl.textContent = "Check back later for daily encouragement!";
+      }
+      if (skeletonEl) {
+        skeletonEl.innerHTML = `<span class="text-xs text-text-secondary/60">Video momentarily unavailable</span>`;
+      }
+    }
+  }
+
+  // Execute immediately when the script runs on the client side
+  fetchDailyVideo();
+</script>
