@@ -1,6 +1,5 @@
 ---
 // Astro Frontmatter: Runs only at build time.
-// We keep this static and lightweight.
 const PLAYLIST_ID = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
 ---
 
@@ -43,9 +42,13 @@ const PLAYLIST_ID = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
     const skeletonEl = document.getElementById('video-skeleton');
 
     try {
-      // Fetch the RSS feed live from the user's browser
-      const res = await fetch(`https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`);
-      if (!res.ok) throw new Error("Failed to fetch RSS feed");
+      // Target YouTube URL
+      const targetUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+      
+      // Prefixing with corsproxy.io to bypass browser CORS blocking policy
+      const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(targetUrl)}`);
+      
+      if (!res.ok) throw new Error("Failed to fetch RSS feed via proxy");
       
       const xml = await res.text();
 
