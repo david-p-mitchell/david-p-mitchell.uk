@@ -1,72 +1,94 @@
 ---
-interface Video {
-  id: string;
-  title: string;
-}
-
+// Astro Frontmatter: Runs ONLY at build time on your server/CI.
+// It fetches the playlist once and extracts all IDs into a static array.
 const PLAYLIST_ID = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
+let videoDataArray = [];
 
-// Fetch YouTube playlist RSS feed
-const res = await fetch(
-  `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`
-);
 
-const xml = await res.text();
+try {
+  const res = await fetch(`https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`);
+  if (res.ok) {
+    const xml = await res.text();
+    const entryMatches = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
 
-// Helper to decode XML entities
-const decode = (str: string) =>
-  str
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
+    videoDataArray = entryMatches
+      .map((entry) => {
+        const block = entry[1];
+        const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
+        const titleMatch = block.match(/<title>(.*?)<\/title>/);
 
-// Extract each <entry> block
-const entryMatches = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
+        const id = idMatch?.[1];
+        const title = titleMatch?.[1];
 
-const videos: Video[] = entryMatches
-  .map((entry) => {
-    const block = entry[1];
+        if (!id) return null;
 
-    const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
-    const titleMatch = block.match(/<title>(.*?)<\/title>/);
+        // Decode basic XML entities on the server
+        const decodedTitle = (title ?? "YouTube Video")
+          .replace(/&amp;/g, "&")
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'")
+          .replace(/&lt;/g, "<")
+          .replace(/&gt;/g, ">");
 
-    const id = idMatch?.[1];
-    const title = titleMatch?.[1];
-
-    if (!id) return null;
-
-    return {
-      id,
-      title: decode(title ?? "YouTube Video"),
-    };
-  })
-  .filter(Boolean) as Video[];
-
-// Deterministic daily video based on days since Unix epoch
-const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
-
-const video =
-  videos.length > 0
-    ? videos[daysSinceEpoch % videos.length]
-    : null;
+        return { id, title: decodedTitle };
+      })
+      .filter(Boolean);
+  }
+} catch (error) {
+  console.error("Build-time fetch failed:", error);
+}
 ---
 
-<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col ">
+<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">
     Today's Video Encouragement
   </p>
 
-  <p class="font-display font-semibold text-sm text-text-primary leading-snug ml-4">
-    {video?.title}
+  <p id="video-title" class="font-display font-semibold text-sm text-text-primary leading-snug ml-4 min-h-[1.25rem]">
+    Loading today's encouragement...
   </p>
 
-  <div class="relative aspect-video">
+  <div class="relative aspect-video mt-4">
     <iframe
-      src={`https://www.youtube.com/embed/${video?.id}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=0&iv_load_policy=3`}
+      id="video-iframe"
+      src=""
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      class="w-full h-full border-0 "
+      class="w-full h-full border-0 hidden"
     ></iframe>
+    
+    <div id="video-skeleton" class="absolute inset-0 bg-muted/20 animate-pulse flex items-center justify-center">
+      <span class="text-xs text-text-secondary">Preparing video...</span>
+    </div>
   </div>
 </section>
+
+<script define:vars={{ videoDataArray }}>
+  function loadDailyVideo() {
+    const titleEl = document.getElementById('video-title');
+    const iframeEl = document.getElementById('video-iframe');
+    const skeletonEl = document.getElementById('video-skeleton');
+
+    // Fallback if the build-time fetch found nothing
+    if (!videoDataArray || videoDataArray.length === 0) {
+      if (titleEl) titleEl.textContent = "Check back later for daily encouragement!";
+      if (skeletonEl) skeletonEl.classList.add('hidden');
+      return;
+    }
+
+    // 1. Live math on the user's browser based on the current date
+    const daysSinceEpoch = Math.floor(Date.now() / 86400000);
+    const todayVideo = videoDataArray[daysSinceEpoch % videoDataArray.length];
+
+    // 2. Safely swap elements without ever hitting a CORS barrier
+    if (titleEl && iframeEl) {
+      titleEl.textContent = todayVideo.title;
+      iframeEl.src = `https://www.youtube.com/embed/${todayVideo.id}?autoplay=0&rel=0&modestbranding=1&showinfo=0&controls=0&iv_load_policy=3`;
+      
+      iframeEl.classList.remove('hidden');
+      if (skeletonEl) skeletonEl.classList.add('hidden');
+    }
+  }
+
+  // Run automatically on page execution
+  loadDailyVideo();
+</script>

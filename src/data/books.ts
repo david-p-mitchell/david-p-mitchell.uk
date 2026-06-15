@@ -12,7 +12,7 @@ export const books = [
   {
     title: "Foundations: Four Big Questions We Should Be Asking But Typically Don't",
     author: "Peter Mead",
-    progress: Math.round((1 / 96) * 100),
+    progress: Math.round((17 / 80) * 100),
     coverColor: "#2d4a3e",
     img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1438971069i/26058246.jpg",
     tags: ["Foundations", "Four Big Questions", "Relationship"]
