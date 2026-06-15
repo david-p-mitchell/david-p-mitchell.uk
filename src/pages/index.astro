@@ -26,15 +26,7 @@ const todayVerse = verses[daysSinceEpoch % verses.length];
     <div class="grid md:grid-cols-2 gap-2 animate-fade-up items-start [animation-delay:0ms] w-full">
       <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
       <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
-        <FeaturedCode
-            title="2 Corinthians 5:17"
-            code={`if (InChrist(you))
-{
-    you = new Creation();
-    PassAway([... things<Old>]);
-    Look([... things<New>]);
-}`}
-          />
+        <FeaturedCode client:load />
           
         </div>
     </div>
