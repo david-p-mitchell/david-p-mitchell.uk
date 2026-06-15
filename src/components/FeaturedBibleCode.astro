@@ -3,18 +3,42 @@ import { Code } from 'astro:components';
 import type { CodeLanguage } from 'astro';
 
 interface Props {
-  title: string;
-  code: string;
-  lang?: CodeLanguage;
   description?: string;
 }
 
-const {
-  title,
-  code,
-  lang = 'csharp',
-  description
-} = Astro.props;
+const { description } = Astro.props;
+
+const files = import.meta.glob('/src/code-snippets/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true
+});
+
+// Pick a deterministic "random" file for today
+const paths = Object.keys(files).sort();
+
+const today = new Date().toISOString().slice(0, 10);
+
+const hash = [...today].reduce(
+  (acc, char) => ((acc << 5) - acc + char.charCodeAt(0)) | 0,
+  0
+);
+console.log(paths)
+const selectedPath = paths[Math.abs(hash) % paths.length];
+const content = files[selectedPath] as string;
+
+// Parse the file
+const lines = content.trim().split('\n');
+const title = lines[0].trim();
+
+const codeMatch = content.match(
+  /```(?<lang>[^\n]*)\n(?<code>[\s\S]*?)```/
+);
+
+const lang = (codeMatch?.groups?.lang?.trim() ||
+  'csharp') as CodeLanguage;
+
+const code = codeMatch?.groups?.code?.trim() ?? '';
 ---
 
 <section class="bg-card border border-border p-2 flex flex-col gap-4 sm:rounded-lg lg:rounded-2xl min-w-sm">
