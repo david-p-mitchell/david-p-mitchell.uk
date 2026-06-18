@@ -5,11 +5,11 @@ export type Reading = {
   lastRead: Date | string;
 };
 const readings : Reading[] = [
-    // {
-    //     book: "Jude",
-    //     progress: 100,
-    //     lastRead: "2024-06-01"
-    // }
+     {
+         book: "Philemon",
+         progress: 100,
+         lastRead: "2026-06-18"
+     }
 ]
 
 export default readings
