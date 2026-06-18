@@ -289,12 +289,12 @@ export const links: ContentItem[] = [
         description: "The 1680s are known as \"the Killing Time\" in Scotland. The Crown, turning its full fury against the Covenanters, terrorised all who refused to fall into line, whether they were ordained ministers, or just ordinary lay-people. In this third instalment of The Covenanter Story we meet a Covenanting family from Ayrshire whose domestic joy and peace was brought to an abrupt end by the violence of James VII/II and his ambitious servants."
       },
       {
-        title: "The Martyrdom of James Renwick | The Covenanter Story, Part 4",
+        title: "James Renwick | The Covenanter Story, Part 4",
         url: "https://www.youtube.com/watch?v=zKU3yC_8IaI&list=PLUNl3x537t5LS3jQ2bqaXuKYGt9P4VO6w&index=4",
         duration: "17:26",
         tags: ["Covenanters", "Church History", "Martyr", "Persecution", "James Renwick"],
         cost: "Free",
-        description: "The final part of The Covenanter Story focuses on the martyrdom of James Renwick, a prominent Covenanter leader who was executed for his steadfast commitment to the Covenant and his refusal to compromise his principles."
+        description: "Facing relentless and bloody persecution, the Scottish Covenanters of the 1680s continued to entrust themselves to their faithful Saviour and King, the Lord Jesus Christ. Despite the risks, brave pastors continued to minister to Christ's 'scattered flock,' holding meetings in the moors at which believers were encouraged to stand fast under trial. In the final episode of our mini-series on the Covenanters, we meet one such pastor, whose courageous ministry was signally blessed by the Lord. James Renwick would lift high the Covenanting flag in desperate times, becoming the final prominent martyr to give his life for the cause of Christ's kingship in the Scottish Kirk"
       }
 
     ]
