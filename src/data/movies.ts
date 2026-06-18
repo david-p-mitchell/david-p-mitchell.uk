@@ -287,6 +287,14 @@ export const links: ContentItem[] = [
         tags: ["Covenanters", "Church & State", "Martyr","Persecution", "Persecuted Church", "Church History", "John Brown"],
         cost: "Free",
         description: "The 1680s are known as \"the Killing Time\" in Scotland. The Crown, turning its full fury against the Covenanters, terrorised all who refused to fall into line, whether they were ordained ministers, or just ordinary lay-people. In this third instalment of The Covenanter Story we meet a Covenanting family from Ayrshire whose domestic joy and peace was brought to an abrupt end by the violence of James VII/II and his ambitious servants."
+      },
+      {
+        title: "The Martyrdom of James Renwick | The Covenanter Story, Part 4",
+        url: "https://www.youtube.com/watch?v=zKU3yC_8IaI&list=PLUNl3x537t5LS3jQ2bqaXuKYGt9P4VO6w&index=4",
+        duration: "17:26",
+        tags: ["Covenanters", "Church History", "Martyr", "Persecution", "James Renwick"],
+        cost: "Free",
+        description: "The final part of The Covenanter Story focuses on the martyrdom of James Renwick, a prominent Covenanter leader who was executed for his steadfast commitment to the Covenant and his refusal to compromise his principles."
       }
 
     ]
