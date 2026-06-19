@@ -4,7 +4,7 @@
 if (InChrist(you))
 {
     you = new Creation();
-    PassAway([... things<Old>]);
-    here = Look([... things<New>]);
+    PassAway([... things<Old> ]);
+    here = Look([... things<New> ]);
 }
 ```
