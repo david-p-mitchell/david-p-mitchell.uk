@@ -1,4 +1,5 @@
 ---
+import RelativeDate from './RelativeDate.vue';
 interface Reading {
   book: string;
   progress: number;
@@ -10,27 +11,6 @@ interface Props {
 }
 const { readings } = Astro.props;
 
-function formatDate(dateString: string | Date): string {
-  const date = new Date(dateString);
-  const now = new Date();
-
-  // Normalize to midnight for accurate day diff
-  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const startOfDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
-  const diffMs = startOfToday.getTime() - startOfDate.getTime();
-  const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) return "Today";
-  if (diffDays === 1) return "Yesterday";
-  if (diffDays < 7) return `${diffDays} days ago`;
-
-  return date.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 // optional: clean + sort data once
 const activeReadings = readings
@@ -42,9 +22,9 @@ const activeReadings = readings
       new Date(a.lastRead).getTime()
   );
 ---
-
+<p class="text-sm text-slate-400 pb-4">Bible Reading</p>
 {activeReadings?.length > 0 && (
-  <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 text-white scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+  <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory py-2  text-white scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
     {activeReadings.map((reading) => (
       <article
         class="min-w-[150px] snap-start rounded-xl border border-slate-200 px-2 py-1 shadow-sm"
@@ -71,9 +51,9 @@ const activeReadings = readings
         <!-- BOTTOM ROW -->
         <div class="mt-2 flex items-center justify-between text-xs text-slate-500">
           <span>Last read</span>
-
+          
           <span class="text-slate-300">
-            {formatDate(reading.lastRead)}
+            <RelativeDate client:load date={reading.lastRead} />
           </span>
         </div>
       </article>
