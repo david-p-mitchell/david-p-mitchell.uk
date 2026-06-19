@@ -1,0 +1,11 @@
+---
+
+import BibleProgressChart from './BibleProgressChart.astro';
+import readings from '../data/bibleReading.ts';
+
+---
+
+<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden">
+    <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Bible Reading Progress</p>
+    <BibleProgressChart readings={readings} />
+</section>
