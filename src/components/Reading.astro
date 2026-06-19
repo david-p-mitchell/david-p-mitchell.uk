@@ -16,12 +16,15 @@ interface Props {
 const { books } = Astro.props;
 ---
 
-<section class="bg-card border border-border p-6 flex flex-col gap-4 overflow-y-auto w-sm:max-w-md sm:rounded-lg lg:rounded-2xl">
+<section class="bg-card border border-border pt-4 px-4 flex flex-col overflow-y-auto w-sm:max-w-md sm:rounded-lg lg:rounded-2xl">
+  
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Currently Reading</p>
+  
   <BibleReading readings={readings} />
+  <p class="text-sm text-slate-400 pb-4">Books Reading ({books.filter((book) => book.show ?? true).length})</p>
   <ul
   class={`flex flex-col gap-4 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent ${
-    readings?.length > 0 ? "max-h-[200px]" : "max-h-[400px]"
+    readings?.length > 0 ? "max-h-[150px]" : "max-h-[400px]"
   }`}
 >
     {books.filter((book) => book.show ?? true).sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0)).map(book => (
