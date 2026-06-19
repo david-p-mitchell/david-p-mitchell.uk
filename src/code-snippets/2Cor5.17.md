@@ -5,6 +5,6 @@ if (InChrist(you))
 {
     you = new Creation();
     PassAway([... things<Old>]);
-    Look([... things<New>]);
+    here = Look([... things<New>]);
 }
 ```
