@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Bio from "../components/Bio.astro";
+import Reading from "../components/Reading.astro";
+import DailyVerse from "../components/DailyVerse.astro";
+import DailyVideo from "../components/DailyVideo.astro";
+import FeaturedCode from "../components/FeaturedBibleCode.astro";
+import BibleWidthContainer from "../components/BibleWidthContainer.astro";
+import { books } from "../data/books.ts";
+
+import { me } from "../data/me.ts";
+import { verses } from "../data/verses.ts";
+
+
+
+const videos = [
+  { id: "XBZ2Oigxu1g", title: "What is Prayer?", description: "Understanding the power and purpose of prayer." },
+];
+
+const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
+
+const todayVerse = verses[daysSinceEpoch % verses.length];
+---
+
+<BaseLayout title={me.name}>
+  <div class="max-w-5xl mx-auto pt-4 flex flex-col gap-2">    
+    <div class="grid md:grid-cols-2 gap-2 animate-fade-up items-start [animation-delay:0ms] w-full">
+      <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+        <Reading books={books} />
+          
+        </div>
+    </div>
+
+    <BibleWidthContainer />
+    <div class="grid md:grid-cols-2 gap-2 animate-fade-up [animation-delay:160ms]">
+          
+    </div>
+
+    <footer class="mt-2 text-center font-mono text-xs text-text-muted animate-fade-up [animation-delay:240ms]">
+      
+      <p class="px-1">{me.siteInfo}</p>
+      <p class="mb-12 px-1">{me.disclaimer}</p>
+      Made in Love · {new Date().getFullYear()}
+    </footer>
+
+  </div>
+</BaseLayout>
