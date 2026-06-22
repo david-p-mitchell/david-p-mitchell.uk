@@ -1,0 +1,102 @@
+---
+interface Props {
+  username: string;
+  class?: string;
+}
+
+const { username, class: className = '' } = Astro.props;
+
+type Day = { date: string; count: number; level: number };
+
+let weeks: Day[][] = [];
+let monthLabels: { label: string; colIndex: number }[] = [];
+let failed = false;
+
+const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+
+try {
+  const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+
+  const days: Day[] = data.contributions;
+  for (let i = 0; i < days.length; i += 7) {
+    weeks.push(days.slice(i, i + 7));
+  }
+
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let lastMonth = -1;
+  weeks.forEach((week, colIndex) => {
+    week.forEach((day) => {
+      const m = new Date(day.date).getUTCMonth();
+      if (m !== lastMonth) {
+        monthLabels.push({ label: MONTHS[m], colIndex });
+        lastMonth = m;
+      }
+    });
+  });
+} catch (e) {
+  console.error('[GithubCalendar] Fetch failed:', e);
+  failed = true;
+}
+
+const STEP = 14; // 11px cell + 3px gap
+---
+
+{failed || !weeks.length ? (
+  <p class="text-sm text-gray-500">Could not load contributions for @{username}.</p>
+) : (
+  <div class={`overflow-x-auto ${className}`}>
+    <div class="inline-flex flex-col py-2">
+
+      {/* Month labels */}
+      <div class="relative h-[18px] mb-1 ml-7">
+        {monthLabels.map(({ label, colIndex }) => (
+          <span
+            class="absolute text-[11px] text-gray-400 whitespace-nowrap"
+            style={`left: ${colIndex * STEP}px`}
+          >
+            {label}
+          </span>
+        ))}
+      </div>
+
+      {/* Day labels + cells */}
+      <div class="flex gap-1 items-start">
+
+        {/* Day-of-week labels */}
+        <div class="flex flex-col gap-[3px] pt-px">
+          {DAY_LABELS.map((label) => (
+            <span class="text-[11px] text-gray-400 h-[11px] leading-[11px] w-6 text-right">
+              {label}
+            </span>
+          ))}
+        </div>
+
+        {/* Cells */}
+        <div class="flex gap-[3px]">
+          {weeks.map((week) => (
+            <div class="flex flex-col gap-[3px]">
+              {week.map((day) => (
+                <div
+                  class="w-[11px] h-[11px] rounded-sm"
+                  data-level={day.level}
+                  title={`${day.count} contributions on ${day.date}`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  [data-level="0"] { background: var(--color-contrib-0, #ebedf0); }
+  [data-level="1"] { background: var(--color-contrib-1, #9be9a8); }
+  [data-level="2"] { background: var(--color-contrib-2, #40c463); }
+  [data-level="3"] { background: var(--color-contrib-3, #30a14e); }
+  [data-level="4"] { background: var(--color-contrib-4, #216e39); }
+</style>
