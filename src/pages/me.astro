@@ -7,6 +7,7 @@ import DailyVideo from "../components/DailyVideo.astro";
 import FeaturedCode from "../components/FeaturedBibleCode.astro";
 import BibleWidthContainer from "../components/BibleWidthContainer.astro";
 import { books } from "../data/books.ts";
+import GithubCalendar from "../components/GithubCalendar.astro";
 
 import { me } from "../data/me.ts";
 import { verses } from "../data/verses.ts";
@@ -36,6 +37,9 @@ const todayVerse = verses[daysSinceEpoch % verses.length];
     <div class="grid md:grid-cols-2 gap-2 animate-fade-up [animation-delay:160ms]">
           
     </div>
+    <p class="text-md mx-auto">Github Commits</p>
+    <GithubCalendar username="david-p-mitchell"
+  class="rounded-lg border border-gray-200 p-4 max-w-full mx-auto" />
 
     <footer class="mt-2 text-center font-mono text-xs text-text-muted animate-fade-up [animation-delay:240ms]">
       
@@ -46,3 +50,4 @@ const todayVerse = verses[daysSinceEpoch % verses.length];
 
   </div>
 </BaseLayout>
+
