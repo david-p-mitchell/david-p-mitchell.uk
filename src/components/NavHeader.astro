@@ -1,17 +1,14 @@
 ---
+import { links as navLinks} from "../data/nav";
 export interface Props {
   siteName?: string;
   links?: { label: string; href: string }[];
 }
 
+
 const {
   siteName = "David Mitchell",
-  links = [
-    { label: "Home", href: "/" },
-    { label: "Media", href: "/media" },
-    //{ label: "Blog", href: "/blog" },
-    //{ label: "Dev Bible Stories", href: "/dev-bible-summaries" },
-  ],
+  links = navLinks,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
