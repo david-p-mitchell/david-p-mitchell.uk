@@ -13,12 +13,15 @@ const { name, role, bio, imageSrc = "/images/me.jpg" } = Astro.props;
 <div class="flex">
   <!-- Circular photo with spinning ring -->
   <div class="relative shrink-0 w-20 h-20">
+    <a href="/me" class="absolute inset-0 z-20 rounded-full focus:outline-none focus:ring-2 focus:ring-gold">
+      
     <img
       src={imageSrc}
       alt={`Photo of ${name}`}
       class="relative z-10 w-[76px] h-[76px] rounded-full object-cover object-top w-full h-64"
     />
     <div class="photo-ring"></div>
+    </a>
   </div>
 
   <!-- Text -->
