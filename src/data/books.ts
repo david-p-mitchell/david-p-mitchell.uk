@@ -32,7 +32,8 @@ export const books = [
     progress: Math.round((0 / 224) * 100),
     coverColor: "#cfcfcf",
     img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1774114537i/250080968.jpg",
-    tags: ["Confession of Faith", "1689", "Baptist", "Reformed"]
+    tags: ["Confession of Faith", "1689", "Baptist", "Reformed"],
+    show: false
   },
   {
     title: "Power through Prayer",
@@ -44,8 +45,10 @@ export const books = [
   },
 { 
   title: "How can I please God in everything?",
-author: "Geoff Thomas",
-progress: 29
+  author: "Geoff Thomas",
+  progress: 38,
+  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1610773598i/56682091.jpg"
+
 }
 
 
