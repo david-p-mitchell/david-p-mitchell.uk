@@ -41,7 +41,12 @@ export const books = [
     coverColor: "#cfcfcf",
     img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1328823045i/6594958.jpg",
     tags: ["Prayer", "Spiritual Growth"],
-  }
+  },
+{ 
+  title: "How can I please God in everything?",
+author: "Geoff Thomas",
+progress: 21
+}
 
 
 ];
