@@ -45,7 +45,7 @@ export const books = [
 { 
   title: "How can I please God in everything?",
 author: "Geoff Thomas",
-progress: 21
+progress: 29
 }
 
 
