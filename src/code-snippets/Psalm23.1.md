@@ -1,6 +1,6 @@
 Psalm 23: 1
 ```csharp
-Shepherd shepherd = Lord;
+my.Shepherd = Lord;
 
 if (shepherd == Lord)
     Need = null;
