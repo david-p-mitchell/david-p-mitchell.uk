@@ -17,8 +17,8 @@ const readings : Reading[] = [
      },
      {
         book: "Exodus",
-        progress: 1,
-        lastRead: "2026-06-22"
+        progress: 3,
+        lastRead: "2026-06-25"
     }
 
 ]
