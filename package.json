@@ -12,10 +12,12 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/vue": "^6.0.1",
     "astro": "^6.4.8",
     "chart.js": "^4.5.1",
     "tailwindcss": "^4.3.1",
+    "typescript": "^6.0.3",
     "vue": "^3.5.33"
   },
   "overrides": {
