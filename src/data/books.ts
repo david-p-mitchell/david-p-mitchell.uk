@@ -1,4 +1,14 @@
-export const books = [
+
+export type Book = {
+  title: string;
+  author: string;
+  progress?: number; // 0–100
+  coverColor?: string;
+  img?: string;
+  tags?: string[];
+  show?: boolean;
+}
+export const books : Book[] = [
   {
     title: "Willing but Weak",
     author: "Paul Williams",

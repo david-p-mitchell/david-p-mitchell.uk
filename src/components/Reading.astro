@@ -1,15 +1,7 @@
 ---
 import BibleReading from "./BibleReading.astro";
 import readings from "../data/bibleReading.ts";
-interface Book {
-  title: string;
-  author: string;
-  progress?: number; // 0–100
-  coverColor?: string;
-  img?: string;
-  tags: string[];
-  show?: boolean;
-}
+import type { Book } from '../data/books'
 interface Props {
   books: Book[];
 }
@@ -52,9 +44,9 @@ const { books } = Astro.props;
           <p class="font-display font-semibold text-sm text-text-primary leading-snug">{book.title}</p>
           <p class="font-display text-xs text-gray-100 pr-2">
             {book.author}
-            {book.tags?.length > 0 && (
+            { (book.tags?.length ?? 0) > 0 && (
               <span class="gap-2 mt-2 ">
-                {book.tags.map((tag) => (
+                {book.tags!.map((tag) => (
                   <span class="mx-1 px-1 py-0.5 bg-gold text-blue-950 text-[9px] font-semibold rounded-full">
                     {tag}
                   </span>
