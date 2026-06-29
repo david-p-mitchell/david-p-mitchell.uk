@@ -1,0 +1,15 @@
+---
+title: "New Creation"
+verse: "2 Corinthians 5:17"
+date: 2026-06-19
+summary: "A New Creation in Christ."
+code: |
+    
+    if (InChrist(you))
+    {
+        you = new Creation();
+        PassAway([... things<Old> ]);
+        here = Look([... things<New> ]);
+    }
+---
+This my commentary
