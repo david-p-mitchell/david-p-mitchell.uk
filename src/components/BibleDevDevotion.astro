@@ -23,9 +23,9 @@ const devotions = (await getCollection("devdevotions"))
           <p class="text-xs uppercase tracking-widest text-blue-300">
             Featured Devotion
           </p>
-          <a href="/devDevotions" class="mb-4 text-blue-300">See all devotions →</a>
+          <a href="/devDevotions" class="text-blue-300 hover:underline">See all devotions →</a>
         </div>
-        <div class="flex justify-between items-start gap-2">
+        <div class="flex justify-between items-start">
         <div>
         <h3 class=" text-lg font-bold text-white">
           {devotion.data.title}
@@ -35,8 +35,8 @@ const devotions = (await getCollection("devdevotions"))
           {devotion.data.verse}
         </p>
         </div>
-        <div class="flex flex-col items-end gap-2">
-        <p class="text-sm text-zinc-400">
+        <div class="flex flex-col items-end">
+        <p class="text-sm text-zinc-400 mt-2">
             {devotion.data.date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", })}
           </p>
         <a
