@@ -18,7 +18,7 @@ const devotionsWithHtml = await Promise.all(
 ---
 <BaseLayout>
   <section class="mx-auto max-w-4xl px-6 py-12">
-    <div class="rounded-2xl border border-blue-800 bg-blue-950 p-8 backdrop-blur">
+    <div class="rounded-2xl border border-blue-800 bg-card p-8 backdrop-blur">
       <div class="mb-6 flex items-center gap-3">
         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20 text-2xl">
           📖
@@ -89,7 +89,7 @@ const devotionsWithHtml = await Promise.all(
   </section>
   <div class="grid md:grid-cols-1 gap-4 max-w-4xl mx-auto">
     {devotionsWithHtml.map((devotion: any) => (
-      <article class="rounded-lg border p-6 bg-blue-950 my-1">
+      <article class="rounded-lg border p-6 bg-card my-1">
           <div class="flex justify-between">
               <h2 class="text-gold text-semibold">{devotion.data.verse}</h2>
               
@@ -100,7 +100,7 @@ const devotionsWithHtml = await Promise.all(
               <p class="text-gold/65 text-semibold">{devotion.data.summary}</p>
               <a
           href={`/devotions/${devotion.id}`}
-          class="my-4 inline-block text-emerald-400 hover:underline min-w-[130px] text-right my-auto" 
+          class="my-4 inline-block text-blue-300 hover:underline min-w-[130px] text-right my-auto" 
         >
           Read devotion →
         </a>
