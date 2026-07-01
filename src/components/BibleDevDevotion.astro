@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import { Code } from "astro:components";
+
+interface Props {
+  description?: string;
+}
+
+const { description } = Astro.props;
+
+const devotions = (await getCollection("devdevotions"))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<section class="rounded-lg  bg-card p-6">
+  <div id="featured-devotions">
+    {devotions.map((devotion) => (
+      <article
+        class="featured-devotion hidden"
+        data-date={devotion.data.date.toISOString()}
+      >
+        <div class="flex justify-between items-start">
+          <p class="text-xs uppercase tracking-widest text-blue-300">
+            Featured Devotion
+          </p>
+          <a href="/devDevotions" class="text-blue-300 hover:underline">See all devotions →</a>
+        </div>
+        <div class="flex justify-between items-start">
+        <div>
+        <h3 class=" text-lg font-bold text-white">
+          {devotion.data.title}
+        </h3>
+
+        <p class="mb-4 text-blue-300">
+          {devotion.data.verse}
+        </p>
+        </div>
+        <div class="flex flex-col items-end">
+        <p class="text-sm text-zinc-400 mt-2">
+            {devotion.data.date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", })}
+          </p>
+        <a
+          href={`/devotions/${devotion.id}`}
+          class="my-4 inline-block text-blue-300 hover:underline min-w-[130px] text-right my-auto"
+        >
+          Read devotion →
+        </a>
+        </div>
+        </div>
+
+        <Code
+          code={devotion.data.code}
+          lang="csharp"
+        />
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  function pickFeaturedDevotion() {
+    const cards = [...document.querySelectorAll<HTMLElement>(".featured-devotion")];
+    if (!cards.length) return;
+
+    // Reset all cards first, in case this runs more than once
+    cards.forEach((card) => card.classList.add("hidden"));
+
+    const now = Date.now();
+
+    const recent = cards.filter((card) => {
+      const date = card.dataset.date;
+      if (!date) return false;
+
+      const age =
+        (now - new Date(date).getTime()) /
+        (1000 * 60 * 60 * 24);
+
+      return age <= 2;
+    });
+
+    const pool = recent.length ? recent : cards;
+    const chosen = pool[Math.floor(Math.random() * pool.length)];
+
+    chosen.classList.remove("hidden");
+  }
+
+  pickFeaturedDevotion();
+  document.addEventListener("astro:page-load", pickFeaturedDevotion);
+</script>

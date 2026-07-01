@@ -1,7 +1,6 @@
 export const links = [
-    { label: "Home", href: "/" },
     { label: "Media", href: "/media" },
     // { label: "Testimony", href: "/testimony" },
     //{ label: "Blog", href: "/blog" },
-    //{ label: "Dev Bible Stories", href: "/dev-bible-summaries" },
+    { label: "Tech Tyndale / .Net Devotions", href: "/devDevotions" },
   ];

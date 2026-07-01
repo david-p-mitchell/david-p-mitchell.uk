@@ -4,8 +4,7 @@ import Bio from "../components/Bio.astro";
 import Reading from "../components/Reading.astro";
 import DailyVerse from "../components/DailyVerse.astro";
 import DailyVideo from "../components/DailyVideo.astro";
-import FeaturedCode from "../components/FeaturedBibleCode.astro";
-import BibleWidthContainer from "../components/BibleWidthContainer.astro";
+import BibleDevDevotion from "../components/BibleDevDevotion.astro";
 import { books } from "../data/books.ts";
 
 import { me } from "../data/me.ts";
@@ -27,8 +26,8 @@ const todayVerse = verses[daysSinceEpoch % verses.length];
     <div class="grid md:grid-cols-2 gap-2 animate-fade-up items-start [animation-delay:0ms] w-full">
       <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
       <div class="grid grid-cols-1 gap-2">
-        <FeaturedCode client:load />
-          
+        <!-- <FeaturedCode client:load /> -->
+         <BibleDevDevotion client:load />
         </div>
     </div>
     <div class="animate-fade-up [animation-delay:80ms]">
