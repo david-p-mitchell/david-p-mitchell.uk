@@ -12,5 +12,7 @@ code: |
         _ = !CanBeHidden(City);
         Shine(Light);
     }
+    //v16
+    Shine(Christian, Christian.Works<Good>) => Glory.To(God);
 ---
 //Awaiting my thoughts on this verse.
