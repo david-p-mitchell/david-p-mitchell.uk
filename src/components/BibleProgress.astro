@@ -1,0 +1,11 @@
+---
+// src/pages/bible-progress.astro
+import Layout from '../layouts/Layout.astro'; // adjust to your actual layout path
+import BibleBookProgress from '../components/BibleBookProgress.vue';
+---
+
+<Layout title="Bible Reading Progress">
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <BibleBookProgress client:load />
+  </main>
+</Layout>
