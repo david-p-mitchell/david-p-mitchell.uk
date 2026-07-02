@@ -7,6 +7,7 @@ export type BaseItem = {
   director?: string[]; // Optional field for docuseries
   show?: boolean; // Optional field to control visibility of the item, default to true if not provided
   platform?: Platform[];
+  disclaimer?: string; // Optional field for disclaimers or additional notes
 };
 
 type PlatformType = "YouTube" | "Vimeo" | "Netflix" | "Amazon Prime" | "Disney+" | "Other";
@@ -155,11 +156,32 @@ export const links: ContentItem[] = [
     duration: "30:37"
   },
   {
+    type: "documentary",
+    name: "The Essential Church",
+    url: "https://gracemedia.app/video-detail/the-essential-church-1",
+    cost: "Free",
+    tags: ["Church", "Covid", "Persecution", "Church History"],
+    description:
+      "When governments use Covid edicts to restrict the gathering and worship of the Church, three pastors facing the risk of imprisonment re-open their churches in the face of a world that has chosen to comply.",
+    duration: "2:05:18",
+    disclaimer: "In order to watch this documentary, you will need to create a free account/ sign in on the Grace Media App website."
+  },
+  {
+    type: "documentary",
+    name: "Puritan: All of Life to the Glory of God",
+    url: "https://youtu.be/3VeYO6hmKGs?is=GD2n9iFnbcvg23Eo",
+    cost: "Free",
+    tags: ["Puritan", "Biography", "Church History"],
+    description:
+      "\"Haunted by the fear that someone, somewhere, may be happy.\" That's the Puritan reputation. But to what extent is that reputation deserved? Drawing on the latest research and featuring interviews with some of the most celebrated scholars in the field, this beautiful and atmospheric new documentary takes us from the birth of Puritanism to its influence in the present day.",
+    duration: "2:03:16"
+  },
+  {
     type: "docuseries",
     name: "EPIC (by Tim Challies)",
     director: ["Tim Challies", "Stephen McCaskell"],
     cost: "Free",
-    tags: ["Overview", "Bible Story", "Theology", "Church History"],
+    tags: ["Overview", "Bible Story", "Theology", "Church History", "World"],
     description:
       "Tim Challies travels to twenty-four countries, directed by Stephen McCaskell, offers an immersive travelogue introducing you to thirty-three key objects that help tell the history of Christianity.",
     episodes: [

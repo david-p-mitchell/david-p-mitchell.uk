@@ -484,7 +484,11 @@ function toggle(item: ContentItem) {
                     :class="['text-[11px] px-2.5 py-0.5 rounded-full border transition-all', activeTags.includes(tag) ? 'bg-amber-950/50 text-amber-400 border-amber-800' : 'text-[10px] px-2 py-0.5 rounded-full bg-blue-950 dark:bg-blue-50 text-blue-50 dark:text-blue-500 border border-blue-900/50']"
                   >{{ tag }}</button>
                 </div>
+                
                 <div class="ml-auto flex items-center gap-3">
+                  <div v-if="item.disclaimer" class="ml-4 p-2 bg-red-700/80 text-red-100 text-xs rounded-lg border border-red-700">
+                  {{ item.disclaimer }}
+                  </div>
                   <a v-if="item.type === 'movie' || item.type === 'documentary' || (item.type === 'docuseries' && item.url)" :href="item.url" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-amber-500 hover:gap-3 transition-all">
                     Watch now
                     <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -494,6 +498,7 @@ function toggle(item: ContentItem) {
                     {{ isOpen(item) ? 'Hide episodes' : `${item.episodes.length} episodes` }}
                   </button>
                 </div>
+                
               </div>
             </div>
 
@@ -608,6 +613,9 @@ function toggle(item: ContentItem) {
                 @click="toggleTag(tag)"
                 :class="['text-[11px] px-2.5 py-0.5 rounded-full border transition-all', activeTags.includes(tag) ? 'bg-amber-950/50 text-amber-400 border-amber-800' : 'bg-blue-950 text-blue-400 border border-blue-900/50']"
               >{{ tag }}</button>
+            </div>
+            <div v-if="item.disclaimer" class="ml-4 p-2 bg-red-700/80 text-red-100 text-xs rounded-lg border border-red-700">
+              {{ item.disclaimer }}
             </div>
             <div class="flex items-center justify-end gap-4">
               <a v-if="item.type === 'movie' || item.type === 'documentary' || (item.type === 'docuseries' && item.url)" :href="item.url" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500">
