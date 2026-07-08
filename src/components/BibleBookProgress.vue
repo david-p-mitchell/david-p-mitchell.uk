@@ -91,16 +91,21 @@ const versesInRange = computed(
   () => toAbsolute.value - fromAbsolute.value + 1
 );
 
+function roundTo(num, precision) {
+  const factor = Math.pow(10, precision)
+  return Math.round(num * factor) / factor
+}
+
 const percentComplete = computed(() =>
   totalVerses.value === 0
     ? 0
-    : Math.round((toAbsolute.value / totalVerses.value) * 100)
+    : roundTo((toAbsolute.value / totalVerses.value) * 100.0, 1)
 );
 
 const percentInRange = computed(() =>
   totalVerses.value === 0
     ? 0
-    : Math.round((versesInRange.value / totalVerses.value) * 100)
+    : roundTo((versesInRange.value / totalVerses.value) * 100.0, 1)
 );
 
 // --- Per-chapter layout for the scrollable bar (width weighted by verse count) ---
@@ -121,7 +126,7 @@ const chapterSegments = computed(() =>
     return {
       chapter,
       verseCount,
-      widthPercent: (verseCount / totalVerses.value) * 100,
+      widthPercent: roundTo((verseCount / totalVerses.value) * 100.0, 1),
       fillFraction,
     };
   })
