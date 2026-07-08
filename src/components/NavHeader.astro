@@ -129,4 +129,20 @@ const currentPath = Astro.url.pathname;
   document.addEventListener("click", (e) => {
     if (!nav?.contains(e.target as Node)) closeAllDropdowns();
   });
+
+   // Open/close dropdowns on hover for desktop only; mobile keeps tap-to-toggle
+  const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+
+  nav?.querySelectorAll("details").forEach((details) => {
+    details.addEventListener("mouseenter", () => {
+      if (!isDesktop()) return;
+      closeAllDropdowns(details);
+      details.open = true;
+    });
+
+    details.addEventListener("mouseleave", () => {
+      if (!isDesktop()) return;
+      details.open = false;
+    });
+  });
 </script>
