@@ -48,7 +48,7 @@ export const books : Book[] = [
   {
     title: "Power through Prayer",
     author: "E. M. Bounds",
-    progress: Math.round((0 / 224) * 100),
+    progress: Math.round((11 / 112) * 100),
     coverColor: "#cfcfcf",
     img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1328823045i/6594958.jpg",
     tags: ["Prayer", "Spiritual Growth"],
