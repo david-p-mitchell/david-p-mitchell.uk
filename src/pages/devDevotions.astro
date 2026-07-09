@@ -54,15 +54,20 @@ const devotionsWithHtml = await Promise.all(
 
         <p>
           Inspired by William Tyndale's desire to make Scripture accessible, and
-          by Matt Lacey's
+          by 
+          <a 
+            href="https://github.com/sponsors/mrlacey"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium text-blue-400 hover:text-blue-300 underline underline-offset-4">
+          Matt Lacey's</a>
+          &nbsp;
           <a
             href="https://biblestories.dev/"
             target="_blank"
             rel="noopener noreferrer"
             class="font-medium text-emerald-400 hover:text-emerald-300 underline underline-offset-4"
-          >
-            Bible Dev Stories
-          </a>,
+          >Bible Dev Stories</a>,
           this project is an attempt to make God's Word feel a little more
           familiar to today's developer and that they would come to read God's word and know him for themselves.
         </p>
@@ -110,4 +115,6 @@ const devotionsWithHtml = await Promise.all(
       </article>
     ))}
   </div>
+
+  
 </BaseLayout>
