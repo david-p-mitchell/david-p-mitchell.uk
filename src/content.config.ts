@@ -10,6 +10,8 @@ const devdevotions = defineCollection({
     date: z.coerce.date(),
     summary: z.string(),
     code: z.string(),
+    show: z.boolean().optional(),
+    showAfterDate: z.coerce.date().optional(),
   }),
 });
 
