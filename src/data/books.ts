@@ -56,7 +56,7 @@ export const books : Book[] = [
 { 
   title: "How can I please God in everything?",
   author: "Geoff Thomas",
-  progress: 38,
+  progress: 58,
   img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1610773598i/56682091.jpg"
 
 }
