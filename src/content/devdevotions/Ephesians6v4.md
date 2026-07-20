@@ -6,7 +6,8 @@ summary: "Fathers, do not provoke your children to anger."
 code: |
     var fathers = new Fathers();
     var children = new Children();
-
+    
+    //! denotes NOT in this syntax
     !fathers.Provoke(children, Emotion.Anger);
 
     fathers.BringUp(children, Discipline<God>()));

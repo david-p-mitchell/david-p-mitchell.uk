@@ -6,8 +6,9 @@ summary: "You are the Salt of the Earth."
 code: |
     var Salt = new Salt<Earth>();
     Christian = Salt
-    if(Salt.HasLostItsTase())
+    if(Salt.HasLostItsTaste())
     {
+        //! denotes NOT in this syntax
         !IsGoodForAnything(Salt)
         ThrowAway(Salt);
         TrampleUnderfoot(Salt);
