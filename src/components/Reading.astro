@@ -16,7 +16,7 @@ const { books } = Astro.props;
   <p class="pb-4 font-display font-semibold text-sm text-text-primary leading-snug">Books Reading ({books.filter((book) => book.show ?? true).length})</p>
   <ul
   class={`flex flex-col gap-4 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent ${
-    readings?.length > 0 ? "max-h-[150px]" : "max-h-[400px]"
+    readings?.length > 0 ? "max-h-[200px]" : "max-h-[400px]"
   }`}
 >
     {books.filter((book) => book.show ?? true).sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0)).map(book => (
