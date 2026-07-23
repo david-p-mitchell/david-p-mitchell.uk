@@ -2,53 +2,8 @@
 // Astro Frontmatter: Runs ONLY at build time on your server/CI.
 // Fetches playlist once and creates a static video array.
 
-const PLAYLIST_ID = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
+import videos from "../data/videos.json";
 
-type VideoData = {
-  id: string;
-  title: string;
-};
-
-let videoDataArray: VideoData[] = [];
-
-try {
-  const res = await fetch(
-    `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`
-  );
-
-  if (res.ok) {
-    const xml = await res.text();
-    const entryMatches = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
-
-    videoDataArray = entryMatches
-      .map((entry) => {
-        const block = entry[1];
-
-        const idMatch = block.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
-        const titleMatch = block.match(/<title>(.*?)<\/title>/);
-
-        const id = idMatch?.[1];
-        const title = titleMatch?.[1];
-
-        if (!id) return null;
-
-        const decodedTitle = (title ?? "YouTube Video")
-          .replace(/&amp;/g, "&")
-          .replace(/&quot;/g, '"')
-          .replace(/&#39;/g, "'")
-          .replace(/&lt;/g, "<")
-          .replace(/&gt;/g, ">");
-
-        return {
-          id,
-          title: decodedTitle
-        };
-      })
-      .filter((video): video is VideoData => video !== null);
-  }
-} catch (error) {
-  console.error("Build-time fetch failed:", error);
-}
 ---
 
 <section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col">
@@ -113,7 +68,7 @@ try {
 </section>
 
 
-<script define:vars={{ videoDataArray }}>
+<script define:vars={{ videos }}>
 
 function seededRandom(seed) {
   let t = seed + 0x6D2B79F5;
@@ -152,7 +107,7 @@ function loadDailyVideos() {
   const counterEl = document.getElementById("video-counter");
 
 
-  if (!videoDataArray || videoDataArray.length === 0) {
+  if (!videos || videos.length === 0) {
     titleEl.textContent =
       "Check back later for daily encouragement!";
 
@@ -168,7 +123,7 @@ function loadDailyVideos() {
 
   // Pick today's main video
   const todayIndex =
-    day % videoDataArray.length;
+    day % videos.length;
 
 
   const used = new Set([todayIndex]);
@@ -176,16 +131,16 @@ function loadDailyVideos() {
 
   // Pick two random extras
   const extras = shuffle(
-    videoDataArray
+    videos
       .map((_, index) => index)
       .filter(index => !used.has(index)),
     random
-  ).slice(0, 2);
+  ).slice(0, Math.min(2, videos.length - 1));
 
 
   const dailyVideos = [
-    videoDataArray[todayIndex],
-    ...extras.map(index => videoDataArray[index])
+    videos[todayIndex],
+    ...extras.map(index => videos[index])
   ];
 
 
