@@ -7,5 +7,6 @@ export default defineConfig({
   integrations: [vue()],
   vite: {
     plugins: [tailwindcss()]
-  }
+  },
+  output: "static"
 });

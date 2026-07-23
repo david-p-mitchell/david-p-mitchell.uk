@@ -1,19 +1,31 @@
-// scripts/fetch-youtube.js
-
 import fs from "fs/promises";
 
 const playlist = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
 const key = process.env.YOUTUBE_API_KEY;
 
+if (!key) {
+    throw new Error("Missing YOUTUBE_API_KEY");
+}
+
 let pageToken = "";
 const videos = [];
 
 do {
-    const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlist}&maxResults=50&pageToken=${pageToken}&key=${key}`
-    );
-    console.log(res)
+    const url =
+        `https://www.googleapis.com/youtube/v3/playlistItems` +
+        `?part=snippet` +
+        `&playlistId=${playlist}` +
+        `&maxResults=50` +
+        `&pageToken=${pageToken}` +
+        `&key=${key}`;
+
+    const res = await fetch(url);
     const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json);
+        process.exit(1);
+    }
 
     videos.push(
         ...json.items.map(v => ({

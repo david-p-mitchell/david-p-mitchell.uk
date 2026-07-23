@@ -9,7 +9,8 @@ code: |
 
     if (City.Location == Location.SetOnAHill)
     {
-        _ = !CanBeHidden(City); //! denotes NOT in this syntax
+        //! denotes NOT in this syntax
+        _ = !CanBeHidden(City); 
         Shine(Light);
     }
     //v16
