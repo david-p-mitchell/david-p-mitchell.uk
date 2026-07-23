@@ -106,14 +106,14 @@ export const links: ContentItem[] = [
   },
   {
     type: "movie",
-    name: "Pilgrim's Progress",
-    url: "https://youtu.be/ksu-zTG9HHg?si=5ppYQ-8gf2ME33Tx",
+    name: "Cross and the Switchblade (1970)",
+    url: "https://www.youtube.com/watch?v=7ulhRFArGrM",
     cost: "Free",
-    tags: ["Allegory", "John Bunyan", "Classic", "Christian Journey", "Kids", "Children"],
-    show: false, // Hide this item by default
+    tags: ["Gospel", "Conversion", "Evangelism"],
     description:
-      "A visual retelling of John Bunyan's classic allegory of the Christian journey.",
-      duration: "1:53:13"
+      "The change in the life of notorious gang leader Nicky Cruz, as shown in the film, proved to be wonderfully lasting and real. Although the original events depicted in this classic from the drug infested, gang dominated streets  happened over thirty years ago, the life-changing solution that David Wilkerson brought to desperate lives was just beginning.  The beat goes on.  The change in the life of notorious gang leader Nicky Cruz, as shown in the film, proved to be wonderfully lasting and real.  Nicky continues today to reach young people around the world with the same life-changing message of the gospel of Jesus Christ that delivered him from violence and despair.  And what about the skinny preacher, David Wilkerson, who braved the meanest streets of New York to tell desperate and drug crazed youth that there was a better way?  Now, three decades later, his ministry based in Times Square that is still changing lives and offering genuine hope to countless souls who had given up on life.  Now in over 25 languages, The Cross and the Switchblade, starring Pat Boone and Eric Estrada, is one of those rare films that has shown its unique power to connect with the deepest hopes and fears of youth around the world.  It remains today one of the most compelling stories of love, grace and the truth that no one is ever so far gone that they cannot find the way out.",
+      duration: "1:36:37",
+      show: false
   },
   {
     type: "documentary",
@@ -186,6 +186,15 @@ export const links: ContentItem[] = [
     description:
       "\"Haunted by the fear that someone, somewhere, may be happy.\" That's the Puritan reputation. But to what extent is that reputation deserved? Drawing on the latest research and featuring interviews with some of the most celebrated scholars in the field, this beautiful and atmospheric new documentary takes us from the birth of Puritanism to its influence in the present day.",
     duration: "2:03:16"
+  },
+  {
+    type: "documentary",
+    name: "The Making of Missionary: John Paton (Vanuatu)",
+    url: "https://www.youtube.com/watch?v=cEsUoazIYz8",
+    cost: "Free",
+    tags: ["Missionary", "Biography", "Church History", "New Zealand"],
+    description: "",
+    duration: "15:50"
   },
   {
     type: "docuseries",
