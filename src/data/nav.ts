@@ -1,6 +1,6 @@
 export type NavLink =
   | { label: string; href: string; children?: never }
-  | { label: string; href?: never; children: { label: string; href: string }[] };
+  | { label: string; href?: string; children: { label: string; href: string }[] };
 
 export const links: NavLink[] = [
   { label: "Media", href: "/media" },
@@ -9,6 +9,7 @@ export const links: NavLink[] = [
   { label: "Tech Tyndale / .Net Devotions", href: "/devDevotions" },
   {
     label: "Tools",
+    href: "/tools/",
     children: [
       { label: "Bible Book Progress", href: "/tools/bibleBookProgress" },
     ],
