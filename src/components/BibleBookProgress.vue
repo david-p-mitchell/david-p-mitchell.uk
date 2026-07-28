@@ -162,17 +162,17 @@ function toggleTooltip(chapterNum) {
 </script>
 
 <template>
-  <div class="w-full max-w-3xl mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-sm border border-slate-200">
-    <h2 class="text-lg font-semibold text-slate-900 mb-4">Bible Reading Progress</h2>
+  <div class="w-full max-w-3xl mx-auto p-4 sm:p-6 dark:bg-card dark:text-white rounded-2xl shadow-sm border border-slate-200">
+    <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-4">Bible Reading Progress</h2>
 
     <!-- Book selector -->
     <div class="flex flex-col gap-1 mb-4">
-      <label for="book-select" class="text-sm font-medium text-slate-600">Book</label>
+      <label for="book-select" class="text-sm font-medium text-slate-900 dark:text-slate-300">Book</label>
       <select
         id="book-select"
         v-model.number="selectedBookId"
         @change="onBookChange"
-        class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="rounded-lg border border-slate-400 dark:!border bg-white dark:bg-card px-3 py-2 text-sm text-slate-900 dark:text-slate-300  focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option v-for="book in books" :key="book.id" :value="book.id">
           {{ book.name }}
@@ -183,7 +183,7 @@ function toggleTooltip(chapterNum) {
     <!-- From / To chapter + verse controls -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
       <div class="flex flex-col gap-1">
-        <label for="from-chapter" class="text-sm font-medium text-slate-600">
+        <label for="from-chapter" class="text-sm font-medium text-slate-900 dark:text-slate-300">
           From chapter
         </label>
         <input
@@ -193,12 +193,12 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="totalChapters"
           @change="clampChapters"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label for="from-verse" class="text-sm font-medium text-slate-600">
+        <label for="from-verse" class="text-sm font-medium text-slate-900 dark:text-slate-300">
           From verse
         </label>
         <input
@@ -208,12 +208,12 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="versesInChapter(fromChapter)"
           @change="clampVerses"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label for="to-chapter" class="text-sm font-medium text-slate-600">
+        <label for="to-chapter" class="text-sm font-medium text-slate-900 dark:text-slate-300">
           To chapter
         </label>
         <input
@@ -223,12 +223,12 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="totalChapters"
           @change="clampChapters"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label for="to-verse" class="text-sm font-medium text-slate-600">
+        <label for="to-verse" class="text-sm font-medium text-slate-900 dark:text-slate-300">
           To verse
         </label>
         <input
@@ -238,7 +238,7 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="versesInChapter(toChapter)"
           @change="clampVerses"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
     </div>
@@ -247,11 +247,11 @@ function toggleTooltip(chapterNum) {
     <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
       <p class="text-sm text-slate-600">
         {{ selectedBook.name }} {{ fromChapter }}:{{ fromVerse }}–{{ toChapter }}:{{ toVerse }}
-        <span class="text-slate-400">
+        <span class="text-slate-900 dark:text-slate-300">
           ({{ versesInRange }} of {{ totalVerses }} verses)
         </span>
       </p>
-      <p class="text-sm font-medium text-slate-900">
+      <p class="text-sm font-medium text-slate-900 dark:text-slate-300">
         {{ percentComplete }}% through {{ selectedBook.name }}
       </p>
     </div>
@@ -266,10 +266,10 @@ function toggleTooltip(chapterNum) {
 
     <!-- Chapter-by-chapter scrollable bar, with verse-level fill inside each chapter -->
     <div class="mb-2 flex items-center justify-between">
-      <span class="text-xs font-medium text-slate-500">
+      <span class="text-xs font-medium text-slate-900 dark:text-slate-400">
         Chapters (tap sets "to" verse, shift+tap sets "from" verse)
       </span>
-      <span class="text-xs text-slate-400">{{ totalChapters }} chapters</span>
+      <span class="text-xs text-slate-900 dark:text-slate-300">{{ totalChapters }} chapters</span>
     </div>
 
     <div class="w-full overflow-x-auto pb-2">
@@ -299,7 +299,7 @@ function toggleTooltip(chapterNum) {
       </div>
     </div>
 
-    <p class="text-xs text-slate-400 mt-3">
+    <p class="text-xs text-slate-900 dark:text-slate-300 mt-3">
       {{ percentInRange }}% of {{ selectedBook.name }} is covered by the selected range.
     </p>
   </div>

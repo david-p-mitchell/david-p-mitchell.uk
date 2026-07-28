@@ -8,7 +8,7 @@ interface Props {
 const { name, role, bio, imageSrc = "/images/me.jpg" } = Astro.props;
 ---
 
-<section class="bg-card border border-border rounded-2xl p-2 flex gap-2 items-start h-full">
+<section class="bg-card border border-border dark:border-gold/40 border-3 rounded-2xl p-2 flex gap-2 items-start h-full">
     <div>
 <div class="flex">
   <!-- Circular photo with spinning ring -->
@@ -33,7 +33,26 @@ const { name, role, bio, imageSrc = "/images/me.jpg" } = Astro.props;
   </div>
   </div>
   <div class="inline-block">
-<p class="font-serif text-sm leading-relaxed text-text-secondary mt-1">{bio}</p>
+    <p class="font-serif text-sm leading-relaxed text-text-secondary mt-1">{bio}</p>
+  </div>
+  <div>
+    <div class="grid grid-cols-3 w-full my-2">
+        <a href="/media"
+           class="border-r border-white text-center font-serif text-sm leading-relaxed text-text-secondary">
+            Media
+        </a>
+
+        <a href="/devDevotions"
+           class="border-r border-white  text-center font-serif text-sm leading-relaxed text-text-secondary">
+            Dev Devotions
+        </a>
+
+        <a href="/tools"
+           class="text-center font-serif text-sm leading-relaxed text-text-secondary">
+            Tools
+        </a>
+    </div>
 </div>
+
 </div>
 </section>
