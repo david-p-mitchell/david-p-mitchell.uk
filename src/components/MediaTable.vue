@@ -162,6 +162,8 @@ function filterEpisodes(item: ContentItem) {
     });
   }
 
+  episodes = freeOnly.value ? episodes.filter(ep => ep.cost === "Free") : episodes;
+  console.log(episodes)
   return episodes;
 }
 
