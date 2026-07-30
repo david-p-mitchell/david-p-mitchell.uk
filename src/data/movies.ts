@@ -7,7 +7,9 @@ export type BaseItem = {
   director?: string[]; // Optional field for docuseries
   show?: boolean; // Optional field to control visibility of the item, default to true if not provided
   platform?: Platform[];
+  hint?: string;
   disclaimer?: string; // Optional field for disclaimers or additional notes
+
 };
 
 type PlatformType = "YouTube" | "Vimeo" | "Netflix" | "Amazon Prime" | "Disney+" | "Other";
@@ -274,6 +276,101 @@ export const links: ContentItem[] = [
       duration: "25:48",
       tags: ["Modern Church", "Church History", "USA"],
       cost: "Free" 
+    }
+  ]
+  },{
+    type: "docuseries",
+    name: "From the Rising of the Sun",
+    director: ["Tim Challies", "Stephen McCaskell", "Tim Keesee"],
+    cost: "Partial Free",
+    tags: ["Overview", "Global", "Worship", "Mission", "Missions", "World Missions", "World Mission", "World", "Nations"],
+    hint:"Buy the book \"From the rising of the Sun\", by Tim Keesee and Tim Challies, and get a free code to watch the series.",
+    description:
+      "In From the Rising of the Sun, Tim Challies and Tim Keesee take you on a journey to eleven locations spanning the globe, witnessing different expressions of Christian worship that are consistent with Scripture but faithful to the local language, customs, and culture. Each video session begins with a travelogue narrative that unfolds the experience of worship in a country or region and concludes with a biblical study on a particular aspect of worship or cross-cultural engagement, showing how each worship services is unique yet distinctly biblical.\"Follow the sun\" through a day of worship, beginning in Fiji and ending in the Aleutian Islands. Join in worship in the remote jungles of Cambodia, the bustling metropolises of Korea and Australia, the plains of Zambia, the Andean heights of Chile, and many other places. Meet fellow brothers and sisters in Christ and experience how they worship and serve God in the places he has ordained for them. This is a taste of Revelation 5:9 as we, along with our brothers and sisters worldwide, worship the One who by his blood has \"ransomed people for God from every tribe and language and people and nation.\"",
+      disclaimer: "In order to watch this docu-series, you will need to create an account/ sign in on the Study Gateway platform. I do not promote all that is on this platorm, but it happens to be where the docu-series is available for watching.",
+    episodes: [
+    {
+      title: "Episode 0: Intro",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-intro-master-v1",
+      duration: "8:00",
+      cost: "Free" 
+    },
+    {
+      title: "Episode 1: Lautoka, Fiji (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode1-fiji-master-v1",
+      duration: "23:04",
+      tags: ["Fiji", "Tonga"],
+      cost: "Paid" 
+    },
+    {
+      title: "S2: Sydney, Australia (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode2-australia-master-v1",
+      duration: "22:46",
+      cost: "Paid",
+      tags: ["Sydney", "Australia"]
+    },
+    {
+      title: "S3: Seoul, South Korea (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode3-korea-master-v1",
+      duration: "17:37",
+      cost: "Paid",
+      tags: ["Seoul", "South Korea"]
+    },
+    {
+      title: "S4: Sakrieng Village, Cambodia (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode4-cambodia-master-v1-1",
+      duration: "19:31",
+      tags: ["Cambodia"],
+      cost: "Paid"
+    },
+    {
+      title: "S5: Kakolo, Zambia (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode5-zambia-master-v1",
+      duration: "22:55",
+      tags: ["Zambia"],
+      cost: "Paid" 
+    },
+    {
+      title: "S6: Rybnik, Poland (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode6-poland-master-v1",
+      duration: "18:43",
+      tags: ["Poland"],
+      cost: "Paid" 
+    },
+    {
+      title: "S7: Casablanca, Morocco (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode7-morocco-master-v1-2",
+      duration: "22:34",
+      tags: ["Morocco"],
+      cost: "Paid" 
+    },
+    {
+      title: "S8: Recife, Brazil (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode8-brazil-master-v1-1-1",
+      duration: "19:28",
+      tags: ["Brazil"],
+      cost: "Paid" 
+    },
+    {
+      title: "S9: Villarrica, Chile (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode9-chile-master-v1-1",
+      duration: "17:12",
+      tags: ["Chile"],
+      cost: "Paid" 
+    },
+    {
+      title: "S10: Mexico City, Mexico (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode10-mexico-master-v1-1",
+      duration: "16:48",
+      tags: ["Mexico"],
+      cost: "Paid" 
+    },
+    {
+      title: "S11: Unalaska, Alaska, United States (From the Rising of the Sun)",
+      url: "https://watch.studygateway.com/from-the-rising-of-the-sun-tim-challies-and-tim-keesee/videos/ftrots-episode11-alaska-master-v1-1",
+      duration: "20:37",
+      tags: ["USA"],
+      cost: "Paid" 
     }
   ]
   },

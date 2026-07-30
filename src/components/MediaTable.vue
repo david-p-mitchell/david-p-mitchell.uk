@@ -472,9 +472,11 @@ function toggle(item: ContentItem) {
                 </span>
               </div>
               <div class="flex">
-                <h2 class="font-serif text-lg font-medium text-neutral-900 dark:text-neutral-100 leading-snug mb-1">{{ item.name }}</h2>
+                <h2 class="font-serif text-lg font-medium text-neutral-900 dark:text-neutral-100 leading-snug mb-1 min-w-[225px]">{{ item.name }}</h2>
                 <p class="ml-2 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-3">- {{ item.description }}</p>
+                
               </div>
+              <p v-if="item.hint" class="bg-yellow-300/60 text-sm text-neutral-900 leading-relaxed mb-3 rounded-xl p-1">{{ item.hint }}</p>
               <div class="flex">
                 <div class="flex flex-wrap gap-1.5">
                   <button
@@ -513,6 +515,8 @@ function toggle(item: ContentItem) {
                   <div>
                     <span class="text-sm font-medium text-neutral-300 truncate">{{ ep.title }}</span>
                     <span v-if="ep.cost === 'Free'" class="ml-2 text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-green-950 text-green-500 border border-green-900">Free</span>
+                    <span v-else-if="ep.cost === 'Partial Free'" class="ml-2 text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-500 text-yellow-950">Partial</span>
+                    <span v-else-if="ep.cost === 'Paid'" class="ml-2 text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-900 text-yellow-300">Paid</span>
                   </div>
                   <div class="flex flex-wrap gap-1">
                     <span v-for="t in ep.tags ?? []" :key="t" class="text-[10px] px-2 py-0.5 rounded-full bg-blue-950/50 text-blue-500 border border-blue-900/50">{{ t }}</span>
@@ -598,6 +602,7 @@ function toggle(item: ContentItem) {
               </span>
               <span v-if="item.cost === 'Free'" class="text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-green-950 text-green-500 border border-green-900">Free</span>
               <span v-else-if="item.cost === 'Partial Free'" class="text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-500 text-yellow-950">Partial</span>
+              <span v-else-if="item.cost === 'Paid'" class="text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-500 text-yellow-950">Paid</span>
               <span class="ml-auto flex items-center gap-1 text-xs text-neutral-500 tabular-nums">
                 <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6L7.5 7.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
                 <template v-if="item.type === 'movie' || item.type === 'documentary'">{{ displayDuration(item.duration) }}</template>
@@ -606,6 +611,7 @@ function toggle(item: ContentItem) {
             </div>
             <h2 class="font-serif text-base font-medium text-neutral-100 leading-snug mb-1">{{ item.name }}</h2>
             <p class="text-sm text-neutral-500 leading-relaxed mb-3">{{ item.description }}</p>
+            <p v-if="item.hint" class="bg-yellow-300/60 text-sm text-neutral-900 leading-relaxed mb-3 rounded-xl p-1">{{ item.hint }}</p>
             <div class="flex flex-wrap gap-1.5 mb-3">
               <button
                 v-for="tag in item.tags"
@@ -640,6 +646,8 @@ function toggle(item: ContentItem) {
                 <div class="flex flex-wrap items-center gap-1.5">
                   <span class="text-sm font-medium text-neutral-300">{{ ep.title }}</span>
                   <span v-if="ep.cost === 'Free'" class="text-[10px] font-medium tracking-widest uppercase px-1.5 py-px rounded bg-green-950 text-green-500 border border-green-900">Free</span>
+                  <span v-else-if="ep.cost === 'Partial Free'" class="ml-2 text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-500 text-yellow-950">Partial</span>
+                  <span v-else-if="ep.cost === 'Paid'" class="ml-2 text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded bg-yellow-900 text-yellow-300">Paid</span>
                 </div>
                 <div class="flex flex-wrap gap-1">
                   <span v-for="t in ep.tags ?? []" :key="t" class="text-[10px] px-2 py-0.5 rounded-full bg-blue-950/50 text-blue-500 border border-blue-900/50">{{ t }}</span>
