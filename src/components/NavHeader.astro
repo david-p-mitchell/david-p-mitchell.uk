@@ -15,10 +15,10 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-[100] bg-blue-950 text-white dark:bg-gray-900">
-  <div class="relative mx-auto flex max-w-[1200px] items-center gap-8">
+  <div class="relative mx-auto flex max-w-[1200px] items-center gap-8 px-4">
     <a
       href="/"
-      class="whitespace-nowrap pl-2 text-[1.1rem] font-semibold text-gray-100 no-underline dark:text-gray-50"
+      class="whitespace-nowrap text-[1.1rem] font-semibold text-gray-100 no-underline dark:text-gray-50"
     >
       {siteName}
     </a>
@@ -55,11 +55,11 @@ const currentPath = Astro.url.pathname;
                   ]}
                 >
                   {link.href ? (
-                    <a href={link.href} class="hover:underline flex-1">
+                    <a href={link.href} class="hover:underline flex-1 whitespace-nowrap">
                       {link.label}
                     </a>
                   ) : (
-                    <span class="flex-1">{link.label}</span>
+                    <span class="flex-1 whitespace-nowrap">{link.label}</span>
                   )}
 
                   <span class="p-1 -mr-1" title="Toggle submenu">
@@ -75,12 +75,13 @@ const currentPath = Astro.url.pathname;
                   </span>
                 </summary>
 
-                <div class="flex flex-col pb-1 pl-3 md:absolute md:left-0 md:top-full md:min-w-[200px] md:flex-col md:gap-0.5 md:rounded-md md:bg-blue-950 md:p-1 md:pl-1 md:shadow-lg dark:md:bg-gray-900">
+                {/* Dropdown panel: Added right-0 on desktop, max-w constraint, and whitespace adjustments */}
+                <div class="flex flex-col pb-1 pl-3 md:absolute md:right-0 md:top-full md:w-max md:max-w-xs md:min-w-[200px] md:flex-col md:gap-0.5 md:rounded-md md:bg-blue-950 md:p-1 md:shadow-lg dark:md:bg-gray-900">
                   {link.children.map((child) => (
                     <a
                       href={child.href}
                       class:list={[
-                        "block rounded-md px-3 py-2 text-left text-[0.9rem] font-normal text-gray-200 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50",
+                        "block rounded-md px-3 py-2 text-left text-[0.9rem] font-normal text-gray-200 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 whitespace-normal break-words",
                         {
                           "font-medium text-white dark:text-gray-50":
                             currentPath === child.href,
@@ -99,7 +100,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={link.href}
               class:list={[
-                "block rounded-md px-3 py-3 text-left text-[0.9rem] font-normal text-gray-100 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 md:py-1.5",
+                "block rounded-md px-3 py-3 text-left text-[0.9rem] font-normal text-gray-100 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 md:py-1.5 whitespace-nowrap",
                 {
                   "font-medium text-white dark:text-gray-50":
                     currentPath === link.href,
@@ -147,7 +148,6 @@ const currentPath = Astro.url.pathname;
   nav?.querySelectorAll("details").forEach((details) => {
     const detailsEl = details as HTMLDetailsElement;
 
-    // Desktop hover behavior
     detailsEl.addEventListener("mouseenter", () => {
       if (!isDesktop()) return;
       closeAllDropdowns(detailsEl);
@@ -159,7 +159,6 @@ const currentPath = Astro.url.pathname;
       detailsEl.open = false;
     });
 
-    // Prevent default summary behavior when clicking on inner <a> tags inside <summary>
     const summaryLink = detailsEl.querySelector("summary a");
     summaryLink?.addEventListener("click", (e) => {
       e.stopPropagation();
