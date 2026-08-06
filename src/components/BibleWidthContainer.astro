@@ -2,10 +2,47 @@
 
 import BibleProgressChart from './BibleProgressChart.astro';
 import readings from '../data/bibleReading.ts';
+import { bibleBookReadingTimes } from '../data/bibleBookData.ts';
+
+const progressMap = new Map(
+  readings.map(r => [r.book.toLowerCase(), r.progress])
+);
+
+const data = bibleBookReadingTimes.map(book => ({
+  book,
+  short: book.abbreviation ?? book.bookName.slice(0, 3),
+  progress: progressMap.get(book.bookName.toLowerCase()) ?? 0,
+  totalVerses: book.verses.reduce((sum, count) => sum + count, 0),
+}));
+
+const totalProgress = (data.reduce((sum, item) => sum + (item.progress * item.totalVerses)/100.0, 0) / data.reduce((sum, item) => sum + item.totalVerses, 0) * 100).toFixed(2);
+const totalVersesRead = data.reduce((sum, item) => sum + (item.progress * item.totalVerses)/100.0, 0);
+const totalVerses = data.reduce((sum, item) => sum + item.totalVerses, 0);
 
 ---
 
-<section class="bg-card border border-border sm:rounded-lg lg:rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden">
+<section class="bg-card border border-border dark:border-gold/40 border-3 rounded-xl p-6 flex flex-col gap-2 relative overflow-hidden rounded-lg shadow-md">
+    <div class="flex gap-2 items-center justify-between">
     <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Bible Reading Progress</p>
+    <p class="font-mono text-xs text-gray-300">
+        Total progress: {totalVersesRead} / {totalVerses}  verses.
+    </p>
+    </div> 
+    {
+    <div class=" text-sm text-gray-600">
+      
+      {(
+            <div class="flex items-center gap-2 mt-0.5">
+              <div class="flex-1 h-1 bg-border rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-gold rounded-full transition-all duration-700"
+                  style={`width: ${totalProgress}%`}
+                ></div>
+              </div>
+              <span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{totalProgress}%</span>
+            </div>
+          )}
+    </div>
+  }
     <BibleProgressChart readings={readings} />
 </section>
