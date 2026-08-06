@@ -1,27 +1,27 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
-import books from '../data/bibleBookData.json';
+import { bibleBookReadingTimes } from '../data/bibleBookData.ts';
 
 // --- Book selection ---
 const selectedBookId = ref(1); // Genesis by default
 
 const selectedBook = computed(() =>
-  books.find((b) => b.id === selectedBookId.value)
+  bibleBookReadingTimes.find((b) => b.id === selectedBookId.value)
 );
 
-const totalChapters = computed(() => selectedBook.value.chapters.length);
+const totalChapters = computed(() => selectedBook.value.verses.length);
 
 const totalVerses = computed(() =>
-  selectedBook.value.chapters.reduce((sum, v) => sum + v, 0)
+  selectedBook.value.verses.reduce((sum, v) => sum + v, 0)
 );
 
 function versesInChapter(chapterNum) {
-  return selectedBook.value.chapters[chapterNum - 1] ?? 1;
+  return selectedBook.value.verses[chapterNum - 1] ?? 1;
 }
 
 // Verses in all chapters strictly before this one
 function versesBeforeChapter(chapterNum) {
-  return selectedBook.value.chapters
+  return selectedBook.value.verses
     .slice(0, chapterNum - 1)
     .reduce((sum, v) => sum + v, 0);
 }
@@ -87,6 +87,10 @@ const toAbsolute = computed(
   () => versesBeforeChapter(toChapter.value) + toVerse.value
 );
 
+const sortedBibleBookReadingTimes = computed(() =>
+  [...bibleBookReadingTimes].sort((a, b) => b.readingTimeMinutes - a.readingTimeMinutes)
+);
+
 const versesInRange = computed(
   () => toAbsolute.value - fromAbsolute.value + 1
 );
@@ -107,13 +111,13 @@ const percentInRange = computed(() =>
     ? 0
     : roundTo((versesInRange.value / totalVerses.value) * 100.0, 1)
 );
-
+console.log(sortedBibleBookReadingTimes.value)
 // --- Per-chapter layout for the scrollable bar (width weighted by verse count) ---
 // Each segment gets a "fill fraction" (0-1) of how much of that chapter falls
 // inside the selected from -> to range, so chapters with lots of verses show
 // a partial fill rather than jumping straight from empty to full.
 const chapterSegments = computed(() =>
-  selectedBook.value.chapters.map((verseCount, idx) => {
+  selectedBook.value.verses.map((verseCount, idx) => {
     const chapter = idx + 1;
     const chapterStartAbs = versesBeforeChapter(chapter) + 1;
     const chapterEndAbs = versesBeforeChapter(chapter) + verseCount;
@@ -174,8 +178,8 @@ function toggleTooltip(chapterNum) {
         @change="onBookChange"
         class="rounded-lg border border-slate-400 dark:!border bg-white dark:bg-card px-3 py-2 text-sm text-slate-900 dark:text-slate-300  focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option v-for="book in books" :key="book.id" :value="book.id">
-          {{ book.name }}
+        <option v-for="book in bibleBookReadingTimes" :key="book.id" :value="book.id">
+          {{ book.bookName }}
         </option>
       </select>
     </div>
@@ -245,14 +249,14 @@ function toggleTooltip(chapterNum) {
 
     <!-- Summary -->
     <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-      <p class="text-sm text-slate-600">
-        {{ selectedBook.name }} {{ fromChapter }}:{{ fromVerse }}–{{ toChapter }}:{{ toVerse }}
+      <p class="text-sm text-slate-400">
+        {{ selectedBook.bookName }} {{ fromChapter }}:{{ fromVerse }}–{{ toChapter }}:{{ toVerse }}
         <span class="text-slate-900 dark:text-slate-300">
           ({{ versesInRange }} of {{ totalVerses }} verses)
         </span>
       </p>
       <p class="text-sm font-medium text-slate-900 dark:text-slate-300">
-        {{ percentComplete }}% through {{ selectedBook.name }}
+        {{ percentComplete }}% through {{ selectedBook.bookName }}
       </p>
     </div>
 
@@ -300,7 +304,12 @@ function toggleTooltip(chapterNum) {
     </div>
 
     <p class="text-xs text-slate-900 dark:text-slate-300 mt-3">
-      {{ percentInRange }}% of {{ selectedBook.name }} is covered by the selected range.
+      {{ percentInRange }}% of {{ selectedBook.bookName }} is covered by the selected range.
+    </p>
+  </div>
+  <div class="max-h-[300px] overflow-y-auto mt-4 p-4 border border-slate-200 dark:border-slate-700 rounded-lg mx-auto">
+    <p v-for="bibleBook in sortedBibleBookReadingTimes" :key="bibleBook.id" class="text-sm text-slate-900 dark:text-slate-300 mb-1 py-2">
+      {{ bibleBook.bookName }} - {{ bibleBook.readingTime }} minutes reading time
     </p>
   </div>
 </template>
