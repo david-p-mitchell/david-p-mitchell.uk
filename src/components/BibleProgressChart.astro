@@ -5,7 +5,7 @@ export type Reading = {
   lastRead: Date | string;
 };
 
-import { bibleBooks, abbreviations } from "../data/bibleBooks.ts";
+import { bibleBookReadingTimes } from '../data/bibleBookData.ts';
 
 const readings: Reading[] = Astro.props.readings ?? [];
 
@@ -13,12 +13,16 @@ const progressMap = new Map(
   readings.map(r => [r.book.toLowerCase(), r.progress])
 );
 
-const data = bibleBooks.map(book => ({
+const data = bibleBookReadingTimes.map(book => ({
   book,
-  short: abbreviations[book] ?? book.slice(0, 3),
-  progress: progressMap.get(book.toLowerCase()) ?? 0
+  short: book.abbreviation ?? book.bookName.slice(0, 3),
+  progress: progressMap.get(book.bookName.toLowerCase()) ?? 0,
+  totalVerses: book.verses.reduce((sum, count) => sum + count, 0),
 }));
 
+const totalProgress = data.reduce((sum, item) => sum + (item.progress * item.totalVerses)/100.0, 0) / data.reduce((sum, item) => sum + item.totalVerses, 0) * 100;
+const totalVersesRead = data.reduce((sum, item) => sum + Math.round(item.progress * item.totalVerses)/100.0, 0);
+const totalVerses = data.reduce((sum, item) => sum + item.totalVerses, 0);
 // Layout constants (px) — bar height and the reference line share these,
 // so a 100%-progress bar's top edge always lines up with the red line.
 const BAR_MAX_HEIGHT = 100; // height of a 100% bar
@@ -43,7 +47,7 @@ function progressColor(progress: number): string {
     {data.map((item) => (
       <div
         class="flex flex-col items-center w-[14px] gap-1"
-        title={`${item.book}: ${item.progress}%`}
+        title={`${item.book}: ${item.progress}% (${item.totalVerses} verses)`}
       >
         <div class="flex items-end" style={`height: ${BAR_MAX_HEIGHT}px`}>
           <div
