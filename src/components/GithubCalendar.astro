@@ -47,8 +47,11 @@ const STEP = 14; // 11px cell + 3px gap
   <p class="text-sm text-gray-500">Could not load contributions for @{username}.</p>
 ) : (
   <div class={`overflow-x-auto ${className}`}>
+    <div class="flex">
+    <p class="text-md mx-auto">Github Commits</p>
+    </div>
     <div class="inline-flex flex-col py-2">
-
+      
       {/* Month labels */}
       <div class="relative h-[18px] mb-1 ml-7">
         {monthLabels.map(({ label, colIndex }) => (
