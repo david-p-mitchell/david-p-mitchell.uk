@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tools } from '../../data/tools.ts';
 ---
 
 <BaseLayout title="Bible Reading Progress">
@@ -15,53 +16,54 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </section>
 
     <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <a
-        href="/tools/bibleBookProgress"
-        class="group block rounded-xl border border-gray-200 dark:border-gray-700
-               bg-white dark:bg-gray-800
-               p-6 shadow-sm
-               transition-all duration-300
-               hover:-translate-y-1
-               hover:shadow-xl
-               hover:border-blue-300
-               dark:hover:border-blue-500"
+      {tools.map((tool) => (
+    <a
+      href={tool.href}
+      class="group block rounded-xl border border-gray-200 dark:border-gray-700
+             bg-white dark:bg-gray-800
+             p-6 shadow-sm
+             transition-all duration-300
+             hover:-translate-y-1
+             hover:shadow-xl
+             hover:border-blue-300
+             dark:hover:border-blue-500"
+    >
+      <div
+        class="flex items-center justify-center w-14 h-14 rounded-full
+               bg-blue-100 dark:bg-blue-900/50
+               mb-5 mx-auto
+               text-2xl"
       >
-        <div
-          class="flex items-center justify-center w-14 h-14 rounded-full
-                 bg-blue-100 dark:bg-blue-900/50
-                 mb-5 mx-auto
-                 text-2xl"
-        >
-          📖
-        </div>
+        {tool.icon}
+      </div>
 
-        <h2
-          class="text-xl font-semibold text-gray-900 dark:text-white
-                 text-center mb-3
-                 group-hover:text-blue-600
-                 dark:group-hover:text-gold
-                 transition"
-        >
-          Bible Reading Progress Calculator
-        </h2>
+      <h2
+        class="text-xl font-semibold text-gray-900 dark:text-white
+               text-center mb-3
+               group-hover:text-blue-600
+               dark:group-hover:text-gold
+               transition"
+      >
+        {tool.title}
+      </h2>
 
-        <p
-          class="text-gray-600 dark:text-gray-300
-                 text-center text-sm leading-relaxed"
-        >
-          Track how far you have read through the Bible and see your progress
-          book by book.
-        </p>
+      <p
+        class="text-gray-600 dark:text-gray-300
+               text-center text-sm leading-relaxed"
+      >
+        {tool.description}
+      </p>
 
-        <div
-          class="mt-5 text-center text-sm font-medium
-                 text-blue-600 dark:text-gold
-                 opacity-0 group-hover:opacity-100
-                 transition"
-        >
-          Open tool →
-        </div>
-      </a>
+      <div
+        class="mt-5 text-center text-sm font-medium
+               text-blue-600 dark:text-gold
+               opacity-0 group-hover:opacity-100
+               transition"
+      >
+        Open tool →
+      </div>
+    </a>
+  ))}
     </section>
   </main>
 </BaseLayout>
