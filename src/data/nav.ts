@@ -12,6 +12,7 @@ export const links: NavLink[] = [
     href: "/tools/",
     children: [
       { label: "Bible Book Progress", href: "/tools/bibleBookProgress" },
+      { label: "Mortifying Sin", href: "/tools/mortifyingSin" },
     ],
   },
 ];
