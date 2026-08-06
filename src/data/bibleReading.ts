@@ -35,7 +35,6 @@ const readings : Reading[] = [
         progress: 100,
         lastRead: "2026-07-31"
     }
-
 ]
 
 export default readings
