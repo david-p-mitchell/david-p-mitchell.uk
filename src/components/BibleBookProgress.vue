@@ -2,6 +2,22 @@
 import { ref, computed, watch } from 'vue';
 import { bibleBookReadingTimes } from '../data/bibleBookData.ts';
 
+// --- Sort Order state ---
+const sortOrder = ref('biblical'); // 'biblical' | 'shortest' | 'longest'
+
+// Dynamically sorted book list for the dropdown select options
+const sortedBibleBookReadingTimes = computed(() => {
+  const books = [...bibleBookReadingTimes];
+  if (sortOrder.value === 'shortest') {
+    return books.sort((a, b) => a.readingTimeMinutes - b.readingTimeMinutes);
+  }
+  if (sortOrder.value === 'longest') {
+    return books.sort((a, b) => b.readingTimeMinutes - a.readingTimeMinutes);
+  }
+  // Default: original biblical order (preserves initial array order / id order)
+  return books.sort((a, b) => a.id - b.id);
+});
+
 // --- Book selection ---
 const selectedBookId = ref(1); // Genesis by default
 
@@ -70,8 +86,6 @@ function ensureFromNotAfterTo() {
 }
 
 // When the from/to chapter changes, snap the verse to a sensible default
-// (start of chapter for "from", end of chapter for "to") unless the user
-// is mid-edit on the verse box itself.
 watch(fromChapter, () => {
   fromVerse.value = 1;
 });
@@ -87,17 +101,13 @@ const toAbsolute = computed(
   () => versesBeforeChapter(toChapter.value) + toVerse.value
 );
 
-const sortedBibleBookReadingTimes = computed(() =>
-  [...bibleBookReadingTimes].sort((a, b) => b.readingTimeMinutes - a.readingTimeMinutes)
-);
-
 const versesInRange = computed(
   () => toAbsolute.value - fromAbsolute.value + 1
 );
 
 function roundTo(num, precision) {
-  const factor = Math.pow(10, precision)
-  return Math.round(num * factor) / factor
+  const factor = Math.pow(10, precision);
+  return Math.round(num * factor) / factor;
 }
 
 const percentComplete = computed(() =>
@@ -111,11 +121,8 @@ const percentInRange = computed(() =>
     ? 0
     : roundTo((versesInRange.value / totalVerses.value) * 100.0, 1)
 );
-console.log(sortedBibleBookReadingTimes.value)
-// --- Per-chapter layout for the scrollable bar (width weighted by verse count) ---
-// Each segment gets a "fill fraction" (0-1) of how much of that chapter falls
-// inside the selected from -> to range, so chapters with lots of verses show
-// a partial fill rather than jumping straight from empty to full.
+
+// --- Per-chapter layout for the scrollable bar ---
 const chapterSegments = computed(() =>
   selectedBook.value.verses.map((verseCount, idx) => {
     const chapter = idx + 1;
@@ -136,8 +143,6 @@ const chapterSegments = computed(() =>
   })
 );
 
-// Click (or tap) a chapter segment at a given position to set from/to down
-// to the nearest verse. Shift+click sets "from", plain click sets "to".
 function onSegmentClick(seg, event) {
   const rect = event.currentTarget.getBoundingClientRect();
   const clickX = event.clientX - rect.left;
@@ -158,7 +163,6 @@ function onSegmentClick(seg, event) {
   toggleTooltip(seg.chapter);
 }
 
-// Tooltip (mobile-friendly via tap, matching the existing chart's pattern)
 const activeTooltip = ref(null);
 function toggleTooltip(chapterNum) {
   activeTooltip.value = activeTooltip.value === chapterNum ? null : chapterNum;
@@ -169,19 +173,34 @@ function toggleTooltip(chapterNum) {
   <div class="w-full max-w-3xl mx-auto p-4 sm:p-6 dark:bg-card dark:text-white rounded-2xl shadow-sm border border-slate-200">
     <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-4">Bible Reading Progress</h2>
 
-    <!-- Book selector -->
-    <div class="flex flex-col gap-1 mb-4">
-      <label for="book-select" class="text-sm font-medium text-slate-900 dark:text-slate-300">Book</label>
-      <select
-        id="book-select"
-        v-model.number="selectedBookId"
-        @change="onBookChange"
-        class="rounded-lg border border-slate-400 dark:!border bg-white dark:bg-card px-3 py-2 text-sm text-slate-900 dark:text-slate-300  focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <option v-for="book in bibleBookReadingTimes" :key="book.id" :value="book.id">
-          {{ book.bookName }}
-        </option>
-      </select>
+    <!-- Book & Sort controls -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+      <div class="flex flex-col gap-1 sm:col-span-2">
+        <label for="book-select" class="text-sm font-medium text-slate-900 dark:text-slate-300">Book</label>
+        <select
+          id="book-select"
+          v-model.number="selectedBookId"
+          @change="onBookChange"
+          class="rounded-lg border border-slate-400 dark:!border bg-white dark:bg-card px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option v-for="book in sortedBibleBookReadingTimes" :key="book.id" :value="book.id">
+            {{ book.bookName + " (" + book.readingTime + " mins)" }}
+          </option>
+        </select>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="sort-select" class="text-sm font-medium text-slate-900 dark:text-slate-300">Sort By</label>
+        <select
+          id="sort-select"
+          v-model="sortOrder"
+          class="rounded-lg border border-slate-400 dark:!border bg-white dark:bg-card px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="biblical">Biblical Order</option>
+          <option value="shortest">Time (Shortest to Longest)</option>
+          <option value="longest">Time (Longest to Shortest)</option>
+        </select>
+      </div>
     </div>
 
     <!-- From / To chapter + verse controls -->
@@ -268,7 +287,7 @@ function toggleTooltip(chapterNum) {
       ></div>
     </div>
 
-    <!-- Chapter-by-chapter scrollable bar, with verse-level fill inside each chapter -->
+    <!-- Chapter-by-chapter scrollable bar -->
     <div class="mb-2 flex items-center justify-between">
       <span class="text-xs font-medium text-slate-900 dark:text-slate-400">
         Chapters (tap sets "to" verse, shift+tap sets "from" verse)
@@ -284,10 +303,9 @@ function toggleTooltip(chapterNum) {
           type="button"
           class="relative h-full border-r border-white/40 last:border-r-0 bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 overflow-hidden"
           :style="{ width: seg.widthPercent + '%', minWidth: '6px' }"
-          :aria-label="`${selectedBook.name} chapter ${seg.chapter}, ${seg.verseCount} verses, ${Math.round(seg.fillFraction * 100)}% selected`"
+          :aria-label="`${selectedBook.bookName} chapter ${seg.chapter}, ${seg.verseCount} verses, ${Math.round(seg.fillFraction * 100)}% selected`"
           @click="(e) => onSegmentClick(seg, e)"
         >
-          <!-- Partial fill, proportional to verse position within the chapter -->
           <span
             class="absolute inset-y-0 left-0 bg-blue-600 transition-all duration-150"
             :style="{ width: (seg.fillFraction * 100) + '%' }"
@@ -305,11 +323,6 @@ function toggleTooltip(chapterNum) {
 
     <p class="text-xs text-slate-900 dark:text-slate-300 mt-3">
       {{ percentInRange }}% of {{ selectedBook.bookName }} is covered by the selected range.
-    </p>
-  </div>
-  <div class="max-h-[300px] overflow-y-auto mt-4 p-4 border border-slate-200 dark:border-slate-700 rounded-lg mx-auto">
-    <p v-for="bibleBook in sortedBibleBookReadingTimes" :key="bibleBook.id" class="text-sm text-slate-900 dark:text-slate-300 mb-1 py-2">
-      {{ bibleBook.bookName }} - {{ bibleBook.readingTime }} minutes reading time
     </p>
   </div>
 </template>
