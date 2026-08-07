@@ -3,6 +3,7 @@ export type NodeId =
   | "confidenceSaved"
   | "sinSeriousDeepRooted"
   | "easierToSinThanRight"
+  | "isItSin"
   | "willfulRebellion"
   | "godlySorrow"
   | "desperatelyWantStop"
@@ -50,22 +51,30 @@ export const flow: Record<NodeId, FlowNode> = {
   identifiedSin: {
     type: "question",
     id: "identifiedSin",
-    text: "Have I identified the sin I want to put to death?",
+    text: "Do I know what kind of sin I am dealing with, can I identify it?",
     yes: "confidenceSaved",
+    no: "isItSin",
+  },
+
+  isItSin: {
+    type: "question",
+    id: "isItSin",
+    text: "Is this actually a sin, or is it just a bad habit? In what I have thought/ said/ done; Have I loved the Lord with all my heart, soul, mind, and strength? Have I loved my neighbor as myself?",
+    yes: "identifiedSin",
     no: "reflect_identifyEnemy",
   },
 
   reflect_identifyEnemy: {
     type: "reflection",
     id: "reflect_identifyEnemy",
-    text: "In order to defeat sin, I need to understand who my enemy is. What am I doing that is in rebellion against God?",
+    text: "In order to defeat sin, I need to understand who or what my enemy is. What am I doing and why am I doing it?",
     next: "identifiedSin",
   },
 
   confidenceSaved: {
     type: "question",
     id: "confidenceSaved",
-    text: "Do I have confidence that I have been saved?",
+    text: "Am I sure that I have been saved, by God's grace through faith?",
     yes: "sinSeriousDeepRooted",
     no: "reflect_considerSalvation",
   },
@@ -73,7 +82,7 @@ export const flow: Record<NodeId, FlowNode> = {
   reflect_considerSalvation: {
     type: "reflection",
     id: "reflect_considerSalvation",
-    text: "I need to seriously consider my salvation. Am I trusting in the finished work of Christ to forgive me, or am I putting more stock in the things I do? There should be evidence of fruit in my life. If I am truly saved, I will not be habitually sinning. I will have had some victory.",
+    text: "I need to know that I am saved, by God's kindness in Christ Jesus. I need to consider the promises of God and to know that \"All who call on the name of the Lord will be saved.\"",
     next: "confidenceSaved",
     scriptureReferences: ["Romans 10:9", "Ephesians 2:8-9"]
   },
@@ -81,7 +90,7 @@ export const flow: Record<NodeId, FlowNode> = {
   sinSeriousDeepRooted: {
     type: "question",
     id: "sinSeriousDeepRooted",
-    text: "Is my sin serious or deep rooted?",
+    text: "Do I know whether that my sin is willful ?",
     yes: "easierToSinThanRight",
     no: "willfulRebellion",
   },
