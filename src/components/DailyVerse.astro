@@ -13,17 +13,17 @@ const { verse, reference } = Astro.props;
     ❝
   </span>
 
+  <div class="flex">
   <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">Daily Verse</p>
+  <cite class="font-mono not-italic text-xs tracking-wider text-gold">
+    &nbsp;— {reference}
+  </cite>
+  </div>
 
-  <blockquote class="font-serif italic text-lg leading-relaxed text-text-primary">
+  <blockquote class="font-serif italic text-lg leading-relaxed text-text-primary mx-6">
     "{verse}"
   </blockquote>
 
-  <cite class="font-mono not-italic text-xs tracking-wider text-gold">
-    — {reference}
-  </cite>
-
-  <!-- Gold bottom accent line -->
-  <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-gold via-gold-muted to-transparent opacity-40"></div>
+  
 
 </section>
