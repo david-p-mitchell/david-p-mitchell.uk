@@ -1,5 +1,6 @@
 ---
 import MediaTable from "../../components/MediaTable.vue";
+import ContentBrowser from "../../components/media/ContentBrowser.vue";
 import { links } from "../../data/movies";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
@@ -9,7 +10,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   
   <body>
     <main>
-      <MediaTable client:load content={links} />
+      <ContentBrowser client:load content={links} />
     </main>
   </body>
   </BaseLayout> 
