@@ -270,7 +270,7 @@ function toggle(item: ContentItem) {
 </script>
 
 <template>
-  <div class="min-h-screen dark:bg-neutral-950 text-neutral-200 font-sans">
+  <div class="min-h-screen dark:bg-card text-neutral-200 font-sans">
 
     <!-- ── DESKTOP LAYOUT (md+) ────────────────────────────────── -->
     <div class="hidden md:flex gap-8 p-8">
@@ -457,7 +457,7 @@ function toggle(item: ContentItem) {
           <article
             v-for="item in filtered"
             :key="key(item)"
-            :class="['rounded-xl border border-5 transition-colors overflow-hidden', isOpen(item) ? 'border-blue-700' : 'border-blue-950 hover:border-neutral-800']"
+            :class="['rounded-xl border border-5 border-gold transition-colors overflow-hidden', isOpen(item) ? 'border-blue-700' : 'border-gold/40 hover:border-neutral-800']"
           >
             <div class="bg-blue-50/95 dark:bg-neutral-900 px-3 py-2">
               <div class="flex items-center gap-2 mb-3">
@@ -475,7 +475,6 @@ function toggle(item: ContentItem) {
               <div class="flex">
                 <h2 class="font-serif text-lg font-medium text-neutral-900 dark:text-neutral-100 leading-snug mb-1 min-w-[225px]">{{ item.name }}</h2>
                 <p class="ml-2 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-3">- {{ item.description }}</p>
-                
               </div>
               <p v-if="item.hint" class="bg-yellow-300/60 text-sm text-neutral-900 leading-relaxed mb-3 rounded-xl p-1">{{ item.hint }}</p>
               <div class="flex">
@@ -484,9 +483,10 @@ function toggle(item: ContentItem) {
                     v-for="tag in item.tags"
                     :key="tag"
                     @click="toggleTag(tag)"
-                    :class="['text-[11px] px-2.5 py-0.5 rounded-full border transition-all', activeTags.includes(tag) ? 'bg-amber-950/50 text-amber-400 border-amber-800' : 'text-[10px] px-2 py-0.5 rounded-full bg-blue-950 dark:bg-blue-50 text-blue-50 dark:text-blue-500 border border-blue-900/50']"
-                  >{{ tag }}</button>
-                </div>
+                    :class="['text-[11px] px-2.5 py-0.5 rounded-full border transition-all', activeTags.includes(tag) ? 'bg-amber-950/50 text-amber-400 border-amber-800' : 'text-[10px] px-2 py-0.5 rounded-full bg-blue-950 dark:bg-gold text-blue-50 dark:text-blue-950 dark:font-semibold border border-blue-900/50']"
+                  >{{ tag }}
+                </button>
+              </div>
                 
                 <div class="ml-auto flex items-center gap-3">
                   <div v-if="item.disclaimer" class="ml-4 p-2 bg-red-700/80 text-red-100 text-xs rounded-lg border border-red-700">
@@ -668,7 +668,7 @@ function toggle(item: ContentItem) {
 
       <!-- ── MOBILE FILTER DRAWER ── -->
       <Transition name="fade">
-        <div v-if="filterDrawerOpen" @click="filterDrawerOpen = false" class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm" />
+        <div v-if="filterDrawerOpen" @click="filterDrawerOpen = false" class="fixed inset-0 z-30 bg-card backdrop-blur-sm" />
       </Transition>
 
       <Transition name="slide-up">
