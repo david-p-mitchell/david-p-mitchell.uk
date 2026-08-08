@@ -1,0 +1,207 @@
+---
+import DailyQuote from './DailyQuote.astro';
+import DailyVerse from './DailyVerse.astro';
+
+const { todayVerse } = Astro.props;
+---
+
+<div class="relative group min-w-0 overflow-hidden rounded-xl daily-slideshow-container touch-pan-y">
+  <!-- Slides Container -->
+  <div class="relative w-full slides-viewport transition-[height] duration-500 ease-in-out">
+    <!-- Slide 1: DailyVerse -->
+    <div 
+      data-slide="0" 
+      class="slide-item absolute inset-x-0 top-0 w-full transition-all duration-500 ease-in-out opacity-100 translate-x-0 z-10"
+    >
+    <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} />
+      
+    </div>
+
+    <!-- Slide 2: DailyQuote -->
+    <div 
+      data-slide="1" 
+      class="slide-item absolute inset-x-0 top-0 w-full transition-all duration-500 ease-in-out opacity-0 translate-x-full z-0 pointer-events-none"
+    >
+      <DailyQuote />
+    </div>
+  </div>
+
+  <!-- Navigation Arrows (Hidden on mobile, visible on desktop hover) -->
+  <button
+    type="button"
+    aria-label="Previous slide"
+    class="mr-2 prev-btn hidden sm:block absolute left-2 top-1/2 -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <button
+    type="button"
+    aria-label="Next slide"
+    class=" ml-5 next-btn hidden sm:block absolute right-2 top-1/2 -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <!-- Slide Indicators (Dots) -->
+  <div class="absolute top-2 right-2 -translate-x-1/2 z-20 flex gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
+    <button type="button" aria-label="Go to quote" class="dot-btn w-2 h-2 rounded-full bg-white transition-opacity opacity-100"></button>
+    <button type="button" aria-label="Go to verse" class="dot-btn w-2 h-2 rounded-full bg-white transition-opacity opacity-40"></button>
+  </div>
+</div>
+
+<script>
+  function initSlideshow() {
+    const containers = document.querySelectorAll('.daily-slideshow-container');
+
+    containers.forEach((container) => {
+      const viewport = container.querySelector<HTMLElement>('.slides-viewport');
+      const slides = container.querySelectorAll<HTMLElement>('.slide-item');
+      const prevBtn = container.querySelector('.prev-btn');
+      const nextBtn = container.querySelector('.next-btn');
+      const dots = container.querySelectorAll('.dot-btn');
+
+      if (!viewport || slides.length < 2) return;
+
+      let currentIndex = 0;
+      let timer: ReturnType<typeof setInterval> | null = null;
+
+      // Touch State Variables
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchEndX = 0;
+      let touchEndY = 0;
+
+      // --- Dynamic height handling ---
+      // Slides are position:absolute so the viewport won't naturally size to
+      // whichever one is visible. We measure each slide's real content
+      // height and apply it to the viewport, so there's no leftover gap
+      // and nothing gets clipped by the outer overflow-hidden container.
+      const measureSlideHeight = (slide: HTMLElement) => slide.scrollHeight;
+
+      const applyHeight = (index: number) => {
+        const height = measureSlideHeight(slides[index]);
+        if (height > 0) {
+          viewport.style.height = `${height}px`;
+        }
+      };
+
+      // Recalculate on resize/content changes (images, fonts, etc.)
+      const resizeObserver = new ResizeObserver(() => {
+        applyHeight(currentIndex);
+      });
+      slides.forEach((slide) => resizeObserver.observe(slide));
+
+      const goToSlide = (targetIndex: number, direction: 'next' | 'prev' = 'next') => {
+        if (targetIndex === currentIndex) return;
+
+        const currentSlide = slides[currentIndex];
+        const nextSlide = slides[targetIndex];
+
+        const exitOffset = direction === 'next' ? '-translate-x-full' : 'translate-x-full';
+        const enterOffset = direction === 'next' ? 'translate-x-full' : '-translate-x-full';
+
+        // Animate out current slide
+        currentSlide.className = `slide-item absolute inset-x-0 top-0 w-full transition-all duration-500 ease-in-out opacity-0 ${exitOffset} z-0 pointer-events-none`;
+
+        // Position next slide instantly
+        nextSlide.className = `slide-item absolute inset-x-0 top-0 w-full transition-none opacity-0 ${enterOffset} z-10`;
+
+        // Resize the viewport to fit the incoming slide, in step with the slide transition
+        applyHeight(targetIndex);
+
+        // Force repaint
+        void nextSlide.offsetWidth;
+
+        // Animate in next slide
+        nextSlide.className = `slide-item absolute inset-x-0 top-0 w-full transition-all duration-500 ease-in-out opacity-100 translate-x-0 z-10`;
+
+        // Update indicators
+        dots[currentIndex]?.classList.replace('opacity-100', 'opacity-40');
+        dots[targetIndex]?.classList.replace('opacity-40', 'opacity-100');
+
+        currentIndex = targetIndex;
+      };
+
+      const next = () => {
+        const target = (currentIndex + 1) % slides.length;
+        goToSlide(target, 'next');
+      };
+
+      const prev = () => {
+        const target = (currentIndex - 1 + slides.length) % slides.length;
+        goToSlide(target, 'prev');
+      };
+
+      const startAutoPlay = () => {
+        if (!timer) timer = setInterval(next, 9000);
+      };
+
+      const stopAutoPlay = () => {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      };
+
+      // Swipe Detection Logic
+      const handleTouchStart = (e: TouchEvent) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        stopAutoPlay();
+      };
+
+      const handleTouchEnd = (e: TouchEvent) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleGesture();
+        startAutoPlay();
+      };
+
+      const handleGesture = () => {
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        // Ensure movement is horizontal rather than page scrolling (X travel > Y travel)
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          // Minimum threshold of 40px to trigger swipe
+          if (deltaX < -40) {
+            next(); // Swiped left -> next slide
+          } else if (deltaX > 40) {
+            prev(); // Swiped right -> previous slide
+          }
+        }
+      };
+
+      // Event listeners
+      nextBtn?.addEventListener('click', () => { next(); startAutoPlay(); });
+      prevBtn?.addEventListener('click', () => { prev(); startAutoPlay(); });
+
+      // Touch events
+      container.addEventListener('touchstart', handleTouchStart as EventListener, { passive: true });
+      container.addEventListener('touchend', handleTouchEnd as EventListener, { passive: true });
+
+      // Mouse hover control
+      container.addEventListener('mouseenter', stopAutoPlay);
+      container.addEventListener('mouseleave', startAutoPlay);
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          const dir = index > currentIndex ? 'next' : 'prev';
+          goToSlide(index, dir);
+        });
+      });
+
+      // Set initial height before starting autoplay
+      applyHeight(currentIndex);
+      startAutoPlay();
+    });
+  }
+
+  initSlideshow();
+  document.addEventListener('astro:page-load', initSlideshow);
+</script>
