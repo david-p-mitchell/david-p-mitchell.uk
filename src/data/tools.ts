@@ -13,11 +13,18 @@ export const tools: Tool[] = [
     href: "/tools/bibleBookProgress",
     icon: "📖",
   },
-  {
-    title: "Putting Sin to Death Questionnaire",
-    description:    
-      "Identify and mortify sin in your life.",
-    href: "/tools/mortifyingSin",
-    icon: "⚔️",
-  },
+//   {
+//     title: "Putting Sin to Death Questionnaire",
+//     description:    
+//       "Identify and mortify sin in your life.",
+//     href: "/tools/mortifyingSin",
+//     icon: "⚔️",
+//   },
+//   {
+//     title: "Quote Image Creator",
+//     description:    
+//       "Create beautiful quote images for social media and other purposes.",
+//     href: "/tools/quoteImageCreator",
+//     icon: "📸",
+//   },
 ];
