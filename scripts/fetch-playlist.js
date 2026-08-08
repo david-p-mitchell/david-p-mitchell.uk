@@ -1,3 +1,4 @@
+import "dotenv/config";
 import fs from "fs/promises";
 
 const playlist = "PL4eoRWZvm-i1RhwritYSbfqVCTD8jDmQV";
