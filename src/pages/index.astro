@@ -2,46 +2,61 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Bio from "../components/Bio.astro";
 import Reading from "../components/Reading.astro";
-import DailyVerse from "../components/DailyVerse.astro";
 import DailyVideo from "../components/DailyVideo.astro";
+import DynamicDailySlideShow from "../components/DynamicDailySlideShow.astro";
 import BibleDevDevotion from "../components/BibleDevDevotion.astro";
 import { books } from "../data/books.ts";
-
 import { me } from "../data/me.ts";
 import { verses } from "../data/verses.ts";
-
-
 
 const videos = [
   { id: "XBZ2Oigxu1g", title: "What is Prayer?", description: "Understanding the power and purpose of prayer." },
 ];
 
+// Fallback safety for empty verses array
 const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
-
-const todayVerse = verses[daysSinceEpoch % verses.length];
+const safeIndex = verses && verses.length > 0 ? daysSinceEpoch % verses.length : 0;
+const todayVerse = verses?.[safeIndex] ?? { verse: "Default verse text", reference: "Genesis 1:1" };
 ---
 
 <BaseLayout title={me.name}>
-  <div class="max-w-5xl mx-auto pt-4 flex flex-col gap-2">    
-    <div class="grid md:grid-cols-2 gap-2 animate-fade-up items-start [animation-delay:0ms] w-full">
-      <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
-      <div class="grid grid-cols-1 gap-2">
-        <!-- <FeaturedCode client:load /> -->
-         <BibleDevDevotion />
-        </div>
-    </div>
-    <div class="animate-fade-up [animation-delay:80ms]">
-    <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} />
+  <div class="max-w-6xl mx-auto pt-4 flex flex-col gap-2">
+
+    <!-- Row 1: Daily Verse (4 cols) | Bio (2 cols) -->
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-2 w-full items-start">
+      <!-- Primary (4 of 6 columns = 66.6%) -->
+      <div class="hidden md:grid md:col-span-4 min-w-0">
+        <DynamicDailySlideShow todayVerse={todayVerse} />
+        <!-- <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} /> -->
+      </div>
+
+      <!-- Secondary (2 of 6 columns = 33.3%) -->
+      <div class="col-span-1 md:col-span-2 min-w-0">
+        <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
+      </div>
+
+      <div class="md:hidden col-span-1 min-w-0">
+        <DynamicDailySlideShow todayVerse={todayVerse} />
+        <!-- <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} /> -->
+      </div>
     </div>
 
-    <!-- Row 2: Daily Video | Daily Verse -->
-    <div class="grid md:grid-cols-2 gap-2 animate-fade-up [animation-delay:160ms]">
-      <DailyVideo videos={videos} />
-          <Reading books={books} />
+    <!-- Row 2: Daily Video | Bible Dev Devotion -->
+    <div class="grid grid-cols-1 gap-2 animate-fade-up [animation-delay:160ms]">
+      <BibleDevDevotion /> 
     </div>
+      <div class="grid grid-cols-1 md:grid-cols-6 gap-2 animate-fade-up [animation-delay:160ms]">
+      <div class="col-span-1 md:col-span-2">
+        <DailyVideo videos={videos} />
+      </div>
+      <div class="col-span-1 md:col-span-4">
+        <Reading books={books} />
+      </div>
+    </div>
+
+    
 
     <footer class="mt-2 text-center font-mono text-xs text-text-muted animate-fade-up [animation-delay:240ms]">
-      
       <p class="px-1">{me.siteInfo}</p>
       <p class="mb-12 px-1">{me.disclaimer}</p>
       Made in Love · {new Date().getFullYear()}
