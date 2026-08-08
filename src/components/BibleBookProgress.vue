@@ -170,7 +170,7 @@ function toggleTooltip(chapterNum) {
 </script>
 
 <template>
-  <div class="w-full max-w-3xl mx-auto p-4 sm:p-6 dark:bg-card dark:text-white rounded-2xl shadow-sm border border-slate-200">
+  <div class="w-full max-w-3xl mx-auto p-4 sm:p-6 dark:bg-card dark:text-white rounded-2xl shadow-sm border border-slate-700 dark:border-gold">
     <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-4">Bible Reading Progress</h2>
 
     <!-- Book & Sort controls -->
@@ -216,7 +216,7 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="totalChapters"
           @change="clampChapters"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-200 dark:bg-card focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -231,7 +231,7 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="versesInChapter(fromChapter)"
           @change="clampVerses"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-200 dark:bg-card focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -246,7 +246,7 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="totalChapters"
           @change="clampChapters"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-200 dark:bg-card focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -261,7 +261,7 @@ function toggleTooltip(chapterNum) {
           :min="1"
           :max="versesInChapter(toChapter)"
           @change="clampVerses"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-200 dark:bg-card focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
     </div>
@@ -280,7 +280,7 @@ function toggleTooltip(chapterNum) {
     </div>
 
     <!-- Overall progress bar (through "to" verse) -->
-    <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden mb-4">
+    <div class="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden mb-4">
       <div
         class="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300"
         :style="{ width: percentComplete + '%' }"
@@ -301,7 +301,7 @@ function toggleTooltip(chapterNum) {
           v-for="seg in chapterSegments"
           :key="seg.chapter"
           type="button"
-          class="relative h-full border-r border-white/40 last:border-r-0 bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 overflow-hidden"
+          class="relative h-full border-r border-white/40 last:border-r-0 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 overflow-hidden"
           :style="{ width: seg.widthPercent + '%', minWidth: '6px' }"
           :aria-label="`${selectedBook.bookName} chapter ${seg.chapter}, ${seg.verseCount} verses, ${Math.round(seg.fillFraction * 100)}% selected`"
           @click="(e) => onSegmentClick(seg, e)"
