@@ -23,7 +23,7 @@ const hash = [...today].reduce(
   (acc, char) => ((acc << 5) - acc + char.charCodeAt(0)) | 0,
   0
 );
-console.log(paths)
+
 const selectedPath = paths[Math.abs(hash) % paths.length];
 const content = files[selectedPath] as string;
 
