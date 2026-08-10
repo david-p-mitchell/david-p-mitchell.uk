@@ -69,6 +69,26 @@ export const quotes: Quote[] = [
         text: " The goal of theology is the worship of God. The posture of theology is on one’s knees. The mode of theology is repentance.",
         author: "Sinclair Ferguson",
         tags: ["Theology"]
+    },
+    {
+        id:9,
+        text:"Repentance is a characteristic of the whole life, not the action of a single moment.",
+        author: "Sinclair Ferguson",
+        tags: ["faith", "repentance"]
+    },
+    {
+     id:10,
+        text:"God has chosen us. Our status is not a matter of our worthiness, but of His love.",
+        author: "Sinclair Ferguson",
+        tags: ["status", "standing", "GodsLove"]
+    },
+    {
+        id:11,
+        text:"Knowing God is your single greatest privilege as a Christian.",
+        author: "Sinclair Ferguson",
+        tags: ["God", "KnowingGod", "privilege"]
     }
+
+
     
 ];
