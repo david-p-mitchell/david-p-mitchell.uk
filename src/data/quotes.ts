@@ -64,6 +64,10 @@ export const quotes: Quote[] = [
         years: "1620-1686",
         tags: ["God", "mercy", "grace"]
     },
-
+    { 
+        id:8,
+        text: " The goal of theology is the worship of God. The posture of theology is on one’s knees. The mode of theology is repentance."
+        author: "Sinclair Ferguson",
+        tags: ["Theology"]
     
 ];
