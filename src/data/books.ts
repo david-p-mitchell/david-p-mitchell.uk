@@ -59,6 +59,12 @@ export const books : Book[] = [
   progress: 58,
   img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1610773598i/56682091.jpg"
 
+},
+{
+  title: "Evangelical Holiness",
+  author: "Ian H. Murray",
+  progress: 57,
+  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1387718426i/18843195.jpg"
 }
 
 
