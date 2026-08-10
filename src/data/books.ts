@@ -65,7 +65,14 @@ export const books : Book[] = [
   author: "Ian H. Murray",
   progress: 57,
   img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1387718426i/18843195.jpg"
+},
+{
+  title: "Write It On Their Hearts: Practical Help For Discipling Your Kids",
+  author: "Chris & Melissa Swain",
+  progress: 12,
+  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1644252666i/60342260.jpg"
 }
+
 
 
 ];
