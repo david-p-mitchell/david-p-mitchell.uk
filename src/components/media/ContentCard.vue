@@ -28,7 +28,7 @@ const costClass = {
 </script>
 
 <template>
-  <article :class="['rounded-xl border transition-colors overflow-hidden border-3', isOpen ? 'border-blue-700' : 'border-gold/40 hover:border-gold']">
+  <article :class="['rounded-xl border transition-colors overflow-hidden border-4', isOpen ? 'border-blue-700' : 'border-blue-900 hover:border-gold dark:border-gold/40 dark:hover:border-gold']">
     <div class="bg-neutral-900 px-4 py-3">
       <div class="flex items-center gap-2 mb-2 flex-wrap">
         <span :class="['text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded border', typeClass[item.type]]">{{ typeLabel[item.type] }}</span>
@@ -59,15 +59,31 @@ const costClass = {
 
   <!-- Right Side: Watch now / Episodes -->
   <div class="flex items-center justify-end gap-4 ml-auto">
+    <div class="flex gap-2">
     <a
-      v-if="item.type !== 'docuseries' || item.url"
-      :href="item.url"
-      target="_blank"
-      class="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500 dark:text-gold"
-    >
-      Watch now
-      <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-    </a>
+        v-if="item.downloadFrom"
+        :href="item.downloadFrom"
+        target="_blank"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-blue-500 dark:text-gold border border-2 rounded-xl px-2 py-1 border-blue-500"
+      >
+        Download From...
+        <!-- <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none">
+          <path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg> -->
+      </a>
+      <a
+        v-if="item.type !== 'docuseries' || item.url"
+        :href="item.url"
+        target="_blank"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500 dark:text-gold"
+      >
+        Watch now
+        <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none">
+          <path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+      
+    </div>
     <button v-if="item.type === 'docuseries'" @click="emit('toggleOpen')" class="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400">
       <svg class="w-3.5 h-3.5 transition-transform" :class="{ 'rotate-180': isOpen }" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
       {{ isOpen ? "Hide" : `${item.episodes.length} episodes` }}
