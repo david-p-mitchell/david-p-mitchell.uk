@@ -115,15 +115,20 @@ const formats = [
 
     <!-- Topics -->
     <div class="flex flex-col gap-2">
-      <p class="text-[11px] font-medium tracking-wider uppercase text-neutral-500 m-0">Topics</p>
-      <div class="flex flex-wrap gap-2">
+      <p class="m-0 text-[11px] font-medium tracking-wider uppercase text-neutral-500">
+        Topics
+      </p>
+
+      <div class="flex max-h-[400px] flex-wrap gap-2 overflow-y-auto">
         <button
           v-for="tag in allTags"
           :key="tag"
           @click="emit('toggleTag', tag)"
           :class="[
             'text-sm px-3 py-1.5 rounded-lg border transition-all',
-            activeTags.includes(tag) ? 'bg-amber-950/60 text-amber-400 border-amber-800' : 'bg-neutral-900 border-neutral-800 text-neutral-300',
+            activeTags.includes(tag) 
+              ? 'bg-amber-950/60 text-amber-400 border-amber-800' 
+              : 'bg-neutral-900 border-neutral-800 text-neutral-300',
           ]"
         >
           {{ tag }}
