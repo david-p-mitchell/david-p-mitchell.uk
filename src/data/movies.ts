@@ -10,7 +10,7 @@ export type BaseItem = {
   hint?: string;
   disclaimer?: string; // Optional field for disclaimers or additional notes
   briefDescription?: string; // Optional field for a brief description of the item
-
+  downloadFrom?:string;
 };
 
 export type Episode = {
@@ -70,7 +70,8 @@ export const links: ContentItem[] = [
     briefDescription: "An exploration of historical Christian revivals as sovereign works of God.",
     description:
       "Explores the biblical and historical understanding of revival as a sovereign work of God.",
-    duration: "1:55:43"
+    duration: "1:55:43",
+    downloadFrom: "https://vimeo.com/1217918784"
   },
   {
     type: "documentary",
@@ -81,7 +82,8 @@ export const links: ContentItem[] = [
     briefDescription: "Biographical documentary on the renowned 17th-century Bible commentator Matthew Henry.",
     description:
       "Covers the life and influence of Matthew Henry, known for his widely used Bible commentary.",
-    duration: "2:05:01"
+    duration: "2:05:01",
+    downloadFrom: "https://vimeo.com/1217981999"
   },
   {
     type: "documentary",
