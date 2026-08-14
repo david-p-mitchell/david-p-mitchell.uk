@@ -1,5 +1,5 @@
 <template>
-  <tr :class="['align-top', isOpen ? 'bg-neutral-900/60' : 'hover:bg-neutral-900/30']">
+  <tr :class="['align-top', isOpen ? 'dark:bg-neutral-900/60' : 'hover:dark:bg-neutral-900/30']">
     <td class="px-3 py-2">
       <div class="flex">
         <div class="min-w-[20px]">
@@ -10,11 +10,11 @@
           </button>
         </div>
         <div>
-          <div class="font-serif text-sm text-neutral-100 leading-snug">{{ item.name }}</div>
+          <div class="font-serif text-sm text-neutral-900 dark:text-neutral-100 leading-snug">{{ item.name }}</div>
           <div v-if="item.briefDescription" class="text-xs text-neutral-500 leading-relaxed line-clamp-2">{{ item.briefDescription }}</div>
           <div v-if="item.director?.length" class="text-[11px] text-neutral-600 mt-0.5">Dir. {{ item.director.join(", ") }}</div>
           <div v-if="item.hint" class="mt-1 inline-block bg-yellow-300/60 text-[11px] text-neutral-900 rounded-md px-1.5 py-0.5">{{ item.hint }}</div>
-          <div v-if="item.disclaimer" class="mt-1 text-[11px] text-red-300 border border-red-800 bg-red-900/40 rounded px-1.5 py-0.5">{{ item.disclaimer }}</div>
+          <div v-if="item.disclaimer" class="mt-1 text-[11px] text-red-100 border border-red-800 bg-red-900 dark:bg-red-900/40 rounded px-1.5 py-0.5">{{ item.disclaimer }}</div>
         </div>
       </div>
     </td>
@@ -93,12 +93,12 @@
   <tr
     v-for="ep in item.type === 'docuseries' && isOpen ? episodes : []"
     :key="ep.url"
-    class="border-t border-neutral-900/60 bg-neutral-950/40"
+    class="border-t border-neutral-900/60 dark:bg-neutral-900/60"
   >
     <td class="pl-8 pr-3 py-2">
-      <div class="text-sm text-neutral-300">{{ ep.title }}</div>
+      <div class="text-sm text-neutral-700 dark:text-neutral-300">{{ ep.title }}</div>
       <div class="flex flex-wrap gap-1 mt-1">
-        <span v-for="t in ep.tags ?? []" :key="t" class="text-[10px] px-2 py-0.5 rounded-full bg-blue-950/50 text-blue-500 border border-blue-900/50">{{ t }}</span>
+        <span v-for="t in ep.tags ?? []" :key="t" class="text-[10px] px-2 py-0.5 rounded-full bg-blue-950/90 dark:bg-blue-950/50 text-blue-100 dark:text-blue-500 border border-blue-900/50">{{ t }}</span>
       </div>
     </td>
     <td colspan="2"></td>
@@ -108,7 +108,7 @@
     <td class="px-3 py-2 text-xs text-neutral-600 tabular-nums whitespace-nowrap">{{ ep.duration }}</td>
     <td></td>
     <td class="px-3 py-2 text-right whitespace-nowrap">
-      <a :href="ep.url" target="_blank" class="text-xs font-medium text-blue-400 border border-blue-900/60 rounded-md px-2.5 py-1.5 bg-blue-950/20">Watch</a>
+      <a :href="ep.url" target="_blank" class="text-xs font-medium text-blue-400 border border-blue-900/60 rounded-md px-2.5 py-1.5 dark:bg-blue-950/20">Watch</a>
     </td>
   </tr>
 </template>
