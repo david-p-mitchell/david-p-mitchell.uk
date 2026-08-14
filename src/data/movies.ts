@@ -265,7 +265,7 @@ export const links: ContentItem[] = [
         title: "Episode 5: Germany & Ecuador",
         url: "https://youtu.be/H55P2zOt3gg?si=bkWYxvfyOgMyQ1xK",
         duration: "20:52",
-        tags: ["Luther", "Reformation", "Mission", "Ecuador"],
+        tags: ["Germany", "Luther", "Reformation", "Mission", "Ecuador"],
         cost: "Free",
         briefDescription: "Connecting Luther's Wittenberg legacy with 20th-century missions in Ecuador."
       },
