@@ -171,17 +171,16 @@ export function useContentFilters(content: () => ContentItem[]) {
     resetDuration();
   }
 
-  function isFiltering() {
-    return activeTags.value.length > 0 || activeTypes.value.length > 0 || freeOnly.value || durationFilterActive.value;
+  function isNonCostFiltering() {
+    return activeTags.value.length > 0 || activeTypes.value.length > 0 || durationFilterActive.value;
   }
 
   function isOpen(item: ContentItem) {
-    if (isFiltering()) return item.type === "docuseries" && matchesItem(item) && filterEpisodes(item).length > 0;
+    if (isNonCostFiltering()) return item.type === "docuseries" && matchesItem(item) && filterEpisodes(item).length > 0;
     return open.value === itemKey(item);
   }
 
   function toggle(item: ContentItem) {
-    if (isFiltering()) return;
     open.value = open.value === itemKey(item) ? null : itemKey(item);
   }
 
