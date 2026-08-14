@@ -41,7 +41,7 @@ const formats = [
         @click="emit('update:freeOnly', !freeOnly)"
         :class="[
           'flex items-center gap-2 px-3 py-2 rounded-lg border text-sm transition-all text-left',
-          freeOnly ? 'bg-green-950 border-green-700 text-green-400' : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700 hover:text-neutral-200',
+          freeOnly ? 'bg-green-950 border-green-700 text-green-400' : 'bg-neutral-900 border-neutral-800 text-neutral-350 hover:border-neutral-700 hover:text-neutral-200',
         ]"
       >
         <span :class="['w-2 h-2 rounded-full shrink-0', freeOnly ? 'bg-green-400' : 'bg-neutral-700']" />
@@ -60,7 +60,7 @@ const formats = [
           :class="[
             'flex items-center gap-2 px-3 py-2 rounded-lg border text-sm transition-all text-left',
             f.type === 'docuseries' ? 'col-span-2 md:col-span-1' : '',
-            activeTypes.includes(f.type) ? f.activeClass : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700 hover:text-neutral-200',
+            activeTypes.includes(f.type) ? f.activeClass : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-700 hover:text-neutral-200',
           ]"
         >
           <svg v-if="f.type !== 'docuseries'" class="w-3.5 h-3.5 shrink-0" viewBox="0 0 14 14" fill="none">
@@ -105,7 +105,7 @@ const formats = [
             'text-[11px] px-2 py-1 rounded border transition-all',
             rangeMax === Math.min(p.max, sliderMax) && rangeMin === sliderMin
               ? 'bg-violet-950 border-violet-700 text-violet-400'
-              : 'bg-neutral-900 border-neutral-800 text-neutral-500 hover:border-neutral-700 hover:text-neutral-200',
+              : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-700 hover:text-neutral-200',
           ]"
         >
           {{ p.label }}
@@ -123,7 +123,7 @@ const formats = [
           @click="emit('toggleTag', tag)"
           :class="[
             'text-sm px-3 py-1.5 rounded-lg border transition-all',
-            activeTags.includes(tag) ? 'bg-amber-950/60 text-amber-400 border-amber-800' : 'bg-neutral-900 border-neutral-800 text-neutral-500',
+            activeTags.includes(tag) ? 'bg-amber-950/60 text-amber-400 border-amber-800' : 'bg-neutral-900 border-neutral-800 text-neutral-300',
           ]"
         >
           {{ tag }}
