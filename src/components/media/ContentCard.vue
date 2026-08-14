@@ -64,7 +64,7 @@ const costClass = {
         v-if="item.downloadFrom"
         :href="item.downloadFrom"
         target="_blank"
-        class="inline-flex items-center gap-1.5 text-sm font-medium text-blue-500 dark:text-gold border border-2 rounded-xl px-2 py-1 border-blue-500"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-blue-500 border border-2 rounded-xl px-2 py-1 border-blue-500"
       >
         Download From...
         <!-- <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none">
@@ -95,7 +95,6 @@ const costClass = {
 
       
     </div>
-
     <!-- Episodes -->
     <div v-if="item.type === 'docuseries' && isOpen" class="border-t border-neutral-800 bg-neutral-950">
       <div v-for="ep in episodes" :key="ep.url" class="flex items-start justify-between gap-3 px-4 py-3 border-b border-neutral-900 last:border-b-0">
