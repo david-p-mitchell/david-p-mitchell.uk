@@ -27,4 +27,14 @@ export const tools: Tool[] = [
 //     href: "/tools/quoteImageCreator",
 //     icon: "📸",
 //   },
+     
+  {
+    title: "Sanctifying Sundays Tool",
+    description:
+      "A tool to help guide your thinking biblically about Sundays.",
+    href: "/tools/sanctifyingSunday",
+    icon: "⛪",
+  },
+
 ];
+

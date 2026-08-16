@@ -1,0 +1,26 @@
+---
+// src/pages/bible-progress.astro
+import BaseLayout from '../../layouts/BaseLayout.astro'; // adjust to your actual layout path
+import SinMortificationWorkflow from '../../components/SinMortificationWorkflow.vue';
+import SanctifyingSunday from '../../components/tools/sanctifyingSunday.vue';
+---
+
+<BaseLayout title="Putting Sin to Death">
+    <script is:inline>
+    window.refTagger = {
+      settings: {
+        bibleVersion: "ESV",
+        roundCorners: true,
+        socialSharing: [],
+      },
+    };
+  </script>
+
+  <script
+    is:inline
+    src="https://api.reftagger.com/v2/RefTagger.js"
+  ></script>
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <SanctifyingSunday client:load />
+  </main>
+</BaseLayout>
