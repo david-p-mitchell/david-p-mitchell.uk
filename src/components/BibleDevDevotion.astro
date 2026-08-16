@@ -8,7 +8,7 @@ interface Props {
 
 const { description } = Astro.props;
 
-const devotions = (await getCollection("devdevotions"))
+const devotions = (await getCollection("devdevotions")).filter(devo => (new Date(devo.data.showAfterDate ??  new Date(new Date().toISOString().split('T')[0]))) <= new Date(new Date().toISOString().split('T')[0]))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 function getCodeLineCount(code :string) {
     return code.split("\n").length;

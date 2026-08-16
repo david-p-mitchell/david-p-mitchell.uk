@@ -7,10 +7,12 @@ const devotions = (await getCollection("devdevotions"))
   .sort((a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const devotionsWithHtml = await Promise.all(
-  devotions.filter((devotion: any) => devotion.data.show !== false || devotion.data.showAfterDate >= new Date().toISOString().split('T')[0]).map(async (devotion: any) => ({
+  devotions.filter((devotion: any) => 
+  (devotion.data.show ?? true) !== false && new Date(devotion.data.showAfterDate ?? new Date(new Date().toISOString().split('T')[0])) <= new Date(new Date().toISOString().split('T')[0]))
+  .map(async (devotion: any) => ({
     ...devotion,
     highlightedCode: await codeToHtml(devotion.data.code, {
-      lang: "csharp",
+      lang: "csharp", 
       theme: "dark-plus",
     }),
   }))
@@ -108,6 +110,7 @@ const devotionsWithHtml = await Promise.all(
           class="my-4 inline-block text-blue-300 hover:underline min-w-[130px] text-right my-auto" 
         >
           Read devotion →
+          
         </a>
           </div>
         <div class="overflow-x-auto  sm:max-w-md md:max-w-full bg-[#1E1E1E]" set:html={devotion.highlightedCode} />
