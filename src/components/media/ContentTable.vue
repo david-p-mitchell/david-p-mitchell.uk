@@ -1,6 +1,6 @@
 <template>
   <tr :class="['align-top', isOpen ? 'dark:bg-neutral-900/60' : 'hover:dark:bg-neutral-900/30']">
-    <td class="px-3 py-2">
+    <td class="px-3 py-2 border-b border-black dark:border-neutral-200/60">
       <div class="flex">
         <div class="min-w-[20px]">
           <button v-if="item.type === 'docuseries'" @click="emit('toggleOpen')" class="text-blue-400">
@@ -19,19 +19,19 @@
       </div>
     </td>
 
-    <td class="px-3 py-2 max-w-xs">
+    <td class="px-3 py-2 max-w-xs border-b border-black dark:border-neutral-200/60">
       <span :class="['text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded border whitespace-nowrap', typeClass[item.type]]">
         {{ typeLabel[item.type] }}
       </span>
     </td>
 
-    <td class="px-3 py-2 max-w-xs">
+    <td class="px-3 py-2 max-w-xs border-b border-black dark:border-neutral-200/60">
       <span v-if="item.cost" :class="['text-[10px] font-medium tracking-widest uppercase px-2 py-0.5 rounded border whitespace-nowrap', costClass[item.cost as keyof typeof costClass]]">
         {{ item.cost }}
       </span>
     </td>
 
-    <td class="px-3 py-2 hidden">
+    <td class="px-3 py-2 hidden border-b border-black dark:border-neutral-200/60">
       <div class="flex flex-wrap gap-1 ">
         <a
           v-for="p in item.platform ?? []"
@@ -45,7 +45,7 @@
       </div>
     </td>
 
-    <td class="px-3 py-2 text-xs text-neutral-700 dark:text-neutral-300 tabular-nums whitespace-nowrap max-w-xs">
+    <td class="px-3 py-2 text-xs text-neutral-700 dark:text-neutral-300 tabular-nums whitespace-nowrap max-w-xs border-b border-black dark:border-neutral-200/60">
       {{ item.type === "docuseries" ? `${item.episodes.length} ep · ${formatMinutes(seriesTotalMinutes(item))}` : displayDuration(item.duration) }}
     </td>
 
@@ -62,52 +62,50 @@
       </div>
     </td> -->
 
-    <td class="px-3 py-2 text-right whitespace-nowrap max-w-2xs">
-  <div class="flex items-center justify-end gap-2 md:flex-col">
-    <!-- Download Link -->
-    <a 
-      v-if="item.downloadFrom" 
-      :href="item.downloadFrom" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      class="text-xs font-medium text-blue-500 border-2 rounded-lg px-2 py-1 border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
+    <td 
+      class="px-3 py-2 text-right whitespace-nowrap max-w-2xs border-b border-black dark:border-neutral-200/60"
     >
-      Download...
-    </a>
+      <div class="flex items-center justify-end gap-2 md:flex-col">
+        <a 
+          v-if="item.downloadFrom" 
+          :href="item.downloadFrom" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="text-xs font-medium text-blue-500 border-2 rounded-lg px-2 py-1 border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
+        >
+          Download...
+        </a>
 
-    <!-- Watch Link -->
-    <a 
-      v-if="item.type !== 'docuseries' || item.url" 
-      :href="item.url" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      class="text-sm font-medium text-amber-500 dark:text-gold hover:underline"
-    >
-      Watch
-    </a>
-  </div>
-</td>
+        <a 
+          v-if="item.url && item.type !== 'docuseries'" 
+          :href="item.url" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="text-sm font-medium text-amber-500 dark:text-gold hover:underline"
+        >
+          Watch
+        </a>
+      </div>
+    </td>
   </tr>
 
   <!-- Episode rows, siblings in the same table, same columns -->
   <tr
     v-for="ep in item.type === 'docuseries' && isOpen ? episodes : []"
     :key="ep.url"
-    class="border-t border-neutral-900/60 dark:bg-neutral-900/60"
+    class="border-t border-black dark:bg-neutral-900/60"
   >
-    <td class="pl-8 pr-3 py-2">
+    <td class="pl-8 pr-3 py-2 border-b border-black dark:border-neutral-200/60">
       <div class="text-sm text-neutral-700 dark:text-neutral-300">{{ ep.title }}</div>
       <div class="flex flex-wrap gap-1 mt-1">
         <span v-for="t in ep.tags ?? []" :key="t" class="text-[10px] px-2 py-0.5 rounded-full bg-blue-950/90 dark:bg-blue-950/50 text-blue-100 dark:text-blue-500 border border-blue-900/50">{{ t }}</span>
       </div>
     </td>
-    <td colspan="2"></td>
-    <td class="px-3 py-2">
+    <td class="px-3 py-2 border-b border-black dark:border-neutral-200/60">
       <span v-if="ep.cost" :class="['text-[10px] px-2 py-0.5 rounded border', costClass[ep.cost as keyof typeof costClass]]">{{ ep.cost }}</span>
     </td>
-    <td class="px-3 py-2 text-xs text-neutral-600 tabular-nums whitespace-nowrap">{{ ep.duration }}</td>
-    <td></td>
-    <td class="px-3 py-2 text-right whitespace-nowrap">
+    <td class="px-3 py-2 border-b border-black dark:border-neutral-200/60 text-xs text-neutral-600 tabular-nums whitespace-nowrap">{{ ep.duration }}</td>
+    <td class="px-3 py-2 text-right whitespace-nowrap border-b border-black dark:border-neutral-200/60">
       <a :href="ep.url" target="_blank" class="text-xs font-medium text-blue-400 border border-blue-900/60 rounded-md px-2.5 py-1.5 dark:bg-blue-950/20">Watch</a>
     </td>
   </tr>
@@ -141,3 +139,4 @@ const costClass = {
   Paid: "bg-yellow-900 text-yellow-300 border-yellow-900",
 } as const;
 </script>
+
