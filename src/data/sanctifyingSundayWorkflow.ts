@@ -28,10 +28,11 @@ export interface ReflectionNode {
   text: string;
   next: NodeId;
   scriptureReferences?: string[];
+  recommendations?: string[];
 }
 
 export type EndNode = (QuestionNode | ReflectionNode) & {
-  isEnd:boolean
+  isEnd:boolean,
 }
 
 export type FlowNode = EndNode;
@@ -115,9 +116,14 @@ export const flow: Record<NodeId, FlowNode> = {
     type: "reflection",
     id: "reflect_evaluateRest",
     text: "The Lord's Day is designed for physical refreshment and spiritual delight. Consider replacing high-stress tasks with activities that cultivate peace and family connection.",
-    next: "activityNotRecommended",
+    next: "directWorshipTest",
     scriptureReferences: ["Genesis 2:2-3", "Isaiah 58:13-14"],
-    isEnd:true
+    isEnd:true,
+    recommendations: ["Creation Rest: Quiet park visits, nature walks, or backyard play that don't involve paid admission or commercial staff, and don't make the activity the main part of the day.",
+      "Soul Rest: Why not read a some good Christian material to refresh your soul and your delight in the Lord who saved you.",
+      "Works of Mercy: Bringing baked goods to an elderly neighbor, visiting family or other Christians, or let the kids making cards for sick church members.",
+      "Special Sunday-Only Privileges: Reserving special treats, games, or audio dramas (e.g., historical missionary stories or Christian allegories) exclusively for Sunday afternoons."
+    ]
   },
 
   conscienceLibertyTest: {
@@ -142,9 +148,9 @@ export const flow: Record<NodeId, FlowNode> = {
     type: "reflection",
     id: "reflect_conscienceFaith",
     text: "Whatever does not proceed from faith is sin. If you feel unresolved guilt or know it will cause unnecessary offense to others, step back out of love.",
-    next: "reflect_conscienceFaith",
+    next: "directWorshipTest",
     scriptureReferences: ["Romans 14:5-6", "Romans 14:22-23", "1 Corinthians 10:23-24"],
-    isEnd:false
+    isEnd:true
   },
 
   permittedActivity: {

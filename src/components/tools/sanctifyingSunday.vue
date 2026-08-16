@@ -167,6 +167,10 @@ watch(currentId, async () => {
           >
             <p>{{ currentNode.text }}</p>
 
+            <p v-for="recommendation in currentNode.recommendations" class="my-4">
+              {{ recommendation }}
+            </p>
+
             <!-- Re-keyed container guarantees clean DOM node on state transition -->
             <div
               v-if="currentNode.scriptureReferences?.length"
