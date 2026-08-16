@@ -5,11 +5,11 @@ date: 2026-06-22
 summary: "You are the Salt of the Earth."
 code: |
     var Salt = new Salt<Earth>();
-    Christian = Salt
+    Christian = Salt;
     if(Salt.HasLostItsTaste())
     {
         //! denotes NOT in this syntax
-        !IsGoodForAnything(Salt)
+        !IsGoodForAnything(Salt);
         ThrowAway(Salt);
         TrampleUnderfoot(Salt);
     }
