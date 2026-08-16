@@ -42,7 +42,7 @@ const props = defineProps<{
     <cite
       class="font-mono not-italic text-xs tracking-wider text-gold mx-6"
     >
-      — {{ quote.author + " (" + quote.years + ")" + (quote.source ? ", " + quote.source : "") }}
+      — {{ quote.author + (quote.years ?" (" + quote.years + ")" : "" ) + (quote.source ? ", " + quote.source : "") }}
     </cite>
     <div v-if="quote.tags && quote.tags.length > 0" class="font-mono text-xs tracking-wider text-blue-200 mx-6">
        {{ quote.tags.map((tag) => `#${tag}`).join(" ") }}
