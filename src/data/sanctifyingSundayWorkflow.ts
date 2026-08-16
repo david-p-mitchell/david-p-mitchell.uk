@@ -71,7 +71,7 @@ export const flow: Record<NodeId, FlowNode> = {
     type: "question",
     id: "neighborLaborCategory",
     text: "Is the worker's labor a genuine work of necessity (e.g., emergency medical, public safety, utilities) or mercy (e.g., caregiving)?",
-    yes: "restAndRenewalTest",
+    yes: "permittedActivity",
     no: "reflect_neighborRest",
     isEnd:false
   },
@@ -157,7 +157,7 @@ export const flow: Record<NodeId, FlowNode> = {
     type: "reflection",
     id: "permittedActivity",
     text: "This activity aligns with the principles of Lord's Day stewardship. Enjoy it in Christian liberty, giving thanks to God!",
-    next: "directWorshipTest", // Terminal state
+    next: "directWorshipTest", 
     scriptureReferences: ["Colossians 3:17", "1 Timothy 4:4-5"],
     isEnd:true
   },
@@ -166,7 +166,7 @@ export const flow: Record<NodeId, FlowNode> = {
     type: "reflection",
     id: "activityNotRecommended",
     text: "This activity may conflict with Lord's Day rest, worship, or Christian charity. Consider rescheduling or setting it aside.",
-    next: "directWorshipTest", // Terminal state
+    next: "directWorshipTest", 
     isEnd: true
   },
 };
