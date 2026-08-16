@@ -87,6 +87,12 @@ export const quotes: Quote[] = [
         text:"Knowing God is your single greatest privilege as a Christian.",
         author: "Sinclair Ferguson",
         tags: ["God", "KnowingGod", "privilege"]
+    },
+    {
+      id:12,
+      text: "If I could hear Christ praying for me in the next room, I would not fear a million enemies. Yet distance makes no difference. He is praying for me.",
+      author: "Robert Murray M’Cheyne",
+      tags:["Prayer", "Intercession"]
     }
 
 
