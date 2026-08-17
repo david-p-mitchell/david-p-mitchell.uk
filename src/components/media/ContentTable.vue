@@ -77,7 +77,7 @@
         </a>
 
         <a 
-          v-if="item.url && item.type !== 'docuseries'" 
+          v-if="item.url" 
           :href="item.url" 
           target="_blank" 
           rel="noopener noreferrer"

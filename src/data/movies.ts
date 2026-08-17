@@ -224,6 +224,7 @@ export const links: ContentItem[] = [
     name: "EPIC (by Tim Challies)",
     director: ["Tim Challies", "Stephen McCaskell"],
     cost: "Free",
+    url: "https://www.youtube.com/watch?v=DHxDjexosvU&list=PLBe-C_x3E4HuI0Z4CtgXRXYNcJjSKZ5ka",
     tags: ["Overview", "Bible Story", "Theology", "Church History", "Global", "Mission", "Missions", "World Missions", "World Mission", "World", "Nations"],
     briefDescription: "A global travelogue telling church history through 33 historical artifacts.",
     description: 
