@@ -34,7 +34,13 @@ import { tools } from '../../data/tools.ts';
                mb-5 mx-auto
                text-2xl"
       >
-        {tool.icon}
+        {
+          tool.iconIsSVG ? (
+            <Fragment set:html={tool.icon} />
+          ) : (
+            <span>{tool.icon}</span>
+          )
+        }
       </div>
 
       <h2
