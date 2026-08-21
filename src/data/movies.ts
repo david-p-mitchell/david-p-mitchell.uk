@@ -315,7 +315,7 @@ export const links: ContentItem[] = [
   {
     type: "docuseries",
     name: "From the Rising of the Sun",
-    director: ["Tim Challies", "Stephen McCaskell", "Tim Keesee"],
+    director: ["Tim Challies", "Tim Keesee"],
     cost: "Paid",
     tags: ["Overview", "Global", "Worship", "Mission", "Missions", "World Missions", "World Mission", "World", "Nations"],
     hint: "Buy the book \"From the rising of the Sun\", by Tim Keesee and Tim Challies, and get a free code to watch the series.",
