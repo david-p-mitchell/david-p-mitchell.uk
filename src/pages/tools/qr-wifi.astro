@@ -1,0 +1,285 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// src/pages/index.astro
+// Astro supports TypeScript natively in the frontmatter script
+---
+
+<BaseLayout title="Wifi QR Code Generator">
+    <main class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-100 p-6 space-y-6 mx-auto">
+      <div class="text-center">
+        <h1 class="text-2xl font-bold text-slate-900">Wi-Fi QR Generator</h1>
+        <p class="text-sm text-slate-500">Welcome guests seamlessly into your home.</p>
+        <p class="text-sm text-slate-500 mb-2">Internet access has become a constant in our lives.</p>
+        <p class="text-sm text-slate-500 mt-2">Why not share yours with those entering your home?</p>
+      </div>
+
+      <blockquote class="text-center px-4 border-t border-slate-100 pt-4 w-full">
+          <p class="text-xs text-slate-500 italic">
+            "Show hospitality to one another without grumbling."
+          </p>
+          <cite class="block text-[10px] font-semibold uppercase tracking-wider text-slate-400 mt-1 not-italic">
+            1 Peter 4:9
+          </cite>
+        </blockquote>
+      <!-- Form Inputs -->
+      <form id="wifi-form" onsubmit="return false;" class="space-y-4">
+        <div>
+          <label for="ssid" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            Network Name (SSID)
+          </label>
+          <input 
+            type="text" 
+            id="ssid" 
+            placeholder="My Home Network" 
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition text-neutral-800"
+          />
+        </div>
+
+        <div>
+          <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            Password
+          </label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="password" 
+              placeholder="••••••••" 
+              class="w-full pl-3 pr-10 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition text-neutral-800"
+            />
+            <button 
+              type="button" 
+              id="toggle-password" 
+              aria-label="Toggle password visibility" 
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+            >
+              <!-- Eye Icon (Visible state) -->
+              <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <!-- Eye Off Icon (Hidden state) -->
+              <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label for="security" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+            Security Type
+          </label>
+          <select 
+            id="security" 
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white transition text-neutral-800"
+          >
+            <option value="WPA">WPA / WPA2 / WPA3</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">Open (No Password)</option>
+          </select>
+        </div>
+
+        <div class="flex items-center space-x-2 pt-1">
+          <input 
+            type="checkbox" 
+            id="hidden" 
+            class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500"
+          />
+          <label for="hidden" class="text-xs text-slate-600 cursor-pointer">
+            Hidden Network
+          </label>
+        </div>
+      </form>
+
+      <!-- QR Code Output Area -->
+      <div class="flex flex-col items-center justify-center pt-2 space-y-4">
+        <div 
+          id="qr-output" 
+          class="w-64 h-64 border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center p-2 bg-slate-50 transition-all"
+        >
+          <span class="text-xs text-slate-900 text-center px-4">
+            Enter your network details above to generate a QR code
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-3 w-full max-w-xs">
+          <button 
+            type="button" 
+            id="save-btn" 
+            disabled 
+            class="flex-1 flex items-center justify-center space-x-1.5 px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            <span>Save Image</span>
+          </button>
+
+          <button 
+            type="button" 
+            id="share-btn" 
+            disabled 
+            class="flex-1 flex items-center justify-center space-x-1.5 px-4 py-2 border border-transparent rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.812a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+            </svg>
+            <span id="share-btn-text">Share QR Code Image</span>
+          </button>
+        </div>
+        <div>
+        <p class="text-sm text-slate-500 text-center my-0 py-0">Here is a free version.</p>
+        <p class="text-sm text-slate-500 text-center my-0 py-0">No Account Sign-up. </p>
+        <p class="text-sm text-slate-500 text-center mt-0 py-0"> Your Details are not stored on this static site.</p>
+        </div>
+      </div>
+    </main>
+</BaseLayout>
+
+<!-- Client-Side TypeScript Script -->
+<script>
+  import QRCode from 'qrcode';
+
+  type SecurityType = 'WPA' | 'WEP' | 'nopass';
+
+  const ssidInput = document.getElementById('ssid') as HTMLInputElement | null;
+  const passwordInput = document.getElementById('password') as HTMLInputElement | null;
+  const togglePasswordBtn = document.getElementById('toggle-password') as HTMLButtonElement | null;
+  const eyeIcon = document.getElementById('eye-icon') as SVGElement | null;
+  const eyeOffIcon = document.getElementById('eye-off-icon') as SVGElement | null;
+  const securitySelect = document.getElementById('security') as HTMLSelectElement | null;
+  const hiddenCheckbox = document.getElementById('hidden') as HTMLInputElement | null;
+  const qrOutput = document.getElementById('qr-output') as HTMLDivElement | null;
+  const saveBtn = document.getElementById('save-btn') as HTMLButtonElement | null;
+  const shareBtn = document.getElementById('share-btn') as HTMLButtonElement | null;
+  const shareBtnText = document.getElementById('share-btn-text') as HTMLSpanElement | null;
+
+  let currentSvgString = '';
+
+  function generateWifiString(
+    ssid: string, 
+    password: string, 
+    security: SecurityType, 
+    hidden: boolean
+  ): string {
+    const escapeStr = (str: string): string => str.replace(/([\\;,:])/g, '\\$1');
+    const cleanSsid = escapeStr(ssid);
+    const cleanPassword = security !== 'nopass' ? escapeStr(password) : '';
+    
+    return `WIFI:S:${cleanSsid};T:${security};P:${cleanPassword};H:${hidden ? 'true' : 'false'};;`;
+  }
+
+  function setButtonsEnabled(enabled: boolean): void {
+    if (saveBtn) saveBtn.disabled = !enabled;
+    if (shareBtn) shareBtn.disabled = !enabled;
+  }
+
+  function updateQR(): void {
+    if (!ssidInput || !passwordInput || !securitySelect || !hiddenCheckbox || !qrOutput) {
+      return;
+    }
+
+    const ssid = ssidInput.value.trim();
+    const password = passwordInput.value;
+    const security = securitySelect.value as SecurityType;
+    const isHidden = hiddenCheckbox.checked;
+
+    if (!ssid) {
+      qrOutput.innerHTML = `
+        <span class="text-xs text-slate-400 text-center px-4">
+          Enter your network details above to generate a QR code
+        </span>
+      `;
+      qrOutput.classList.add('border-dashed', 'bg-slate-50');
+      qrOutput.classList.remove('border-solid', 'bg-white');
+      currentSvgString = '';
+      setButtonsEnabled(false);
+      return;
+    }
+
+    const wifiData = generateWifiString(ssid, password, security, isHidden);
+
+    QRCode.toString(
+      wifiData, 
+      { type: 'svg', margin: 1 }, 
+      (err: Error | null | undefined, svg: string) => {
+        if (!err && svg) {
+          qrOutput.innerHTML = svg;
+          qrOutput.classList.remove('border-dashed', 'bg-slate-50');
+          qrOutput.classList.add('border-solid', 'bg-white');
+          currentSvgString = svg;
+          setButtonsEnabled(true);
+        }
+      }
+    );
+  }
+
+  // Handle SVG image downloading
+  saveBtn?.addEventListener('click', () => {
+    if (!currentSvgString || !ssidInput) return;
+    
+    const ssid = ssidInput.value.trim() || 'wifi';
+    const blob = new Blob([currentSvgString], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${ssid.toLowerCase().replace(/\s+/g, '-')}-wifi-qr.svg`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // Handle native Web Share or clipboard fallback
+  shareBtn?.addEventListener('click', async () => {
+    if (!currentSvgString || !ssidInput) return;
+
+    const ssid = ssidInput.value.trim();
+    const blob = new Blob([currentSvgString], { type: 'image/svg+xml' });
+    const file = new File([blob], 'wifi-qr.svg', { type: 'image/svg+xml' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          title: `Wi-Fi QR Code for ${ssid}`,
+          text: `Scan to connect to ${ssid}`,
+          files: [file],
+        });
+      } catch (err) {
+        // User cancelled share dialog
+      }
+    } else {
+      // Fallback: Copy link/notice to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        if (shareBtnText) {
+          const originalText = shareBtnText.textContent;
+          shareBtnText.textContent = 'Copied Link!';
+          setTimeout(() => {
+            shareBtnText.textContent = originalText;
+          }, 2000);
+        }
+      } catch (err) {
+        alert('Sharing is not supported on this device/browser.');
+      }
+    }
+  });
+
+  ssidInput?.addEventListener('input', updateQR);
+  passwordInput?.addEventListener('input', updateQR);
+  securitySelect?.addEventListener('change', updateQR);
+  hiddenCheckbox?.addEventListener('change', updateQR);
+
+  togglePasswordBtn?.addEventListener('click', () => {
+    if (!passwordInput || !eyeIcon || !eyeOffIcon) return;
+
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+
+    eyeIcon.classList.toggle('hidden', isPassword);
+    eyeOffIcon.classList.toggle('hidden', !isPassword);
+  });
+</script>
