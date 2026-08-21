@@ -25,6 +25,9 @@ export const links: NavLink[] = [
     children: [
       { label: "Bible Book Progress", href: "/tools/bibleBookProgress" },
       { label: "Sanctify Sunday", href: "/tools/sanctifyingSunday" },
+      { label: "Wifi QR Code Generator", href: "/tools/qr-wifi" },
+      { label: "Link QR Code Generator", href: "/tools/qr-link" },
+
       // { label: "Mortifying Sin", href: "/tools/mortifyingSin" },
     ],
   },
