@@ -1,9 +1,9 @@
 ---
 title: "If you have been raised with Christ."
 verse: "Colossians 3: 1-4"
-date: 2026-08-24
+date: 2026-08-31
 summary: "If you have been raised with Christ!"
-showAfterDate: "2026-08-24"
+showAfterDate: "2026-08-31"
 code: |
     var thingsAbove = things<Above>(); 
     if(you.HaveBeenRaisedWith(Christ))
