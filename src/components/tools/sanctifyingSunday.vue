@@ -30,8 +30,8 @@ interface ReflectionNode extends BaseNode {
   type: "reflection";
   next: string;
 }
+import { type  FlowNode } from '../../data/mortifyingSinWorkflow.ts';
 
-type FlowNode = QuestionNode | ReflectionNode;
 type FlowMap = Record<string, FlowNode>;
 
 const flowData = flow as FlowMap;
@@ -113,7 +113,7 @@ watch(currentId, async () => {
 
 <template>
   <div class="mx-auto max-w-xl px-4 py-8 font-sans">
-    <h1 class="mb-4 text-center text-2xl font-bold text-slate-100 sm:text-3xl">
+    <h1 class="mb-4 text-center text-2xl font-bold text-slate-800 dark:text-slate-100 sm:text-3xl">
       Sanctifying Sunday Questionnaire
     </h1>
 
@@ -221,7 +221,7 @@ watch(currentId, async () => {
 
       <!-- Footer Meta controls -->
       <div
-        class="mt-4 flex items-center justify-between text-xs text-slate-400"
+        class="mt-4 flex items-center justify-between text-xs text-slate-100"
       >
         <button
           id="restart"
