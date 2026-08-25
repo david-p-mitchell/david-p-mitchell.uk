@@ -1,4 +1,5 @@
 ---
+
 interface Props {
   name: string;
   role: string;
@@ -6,6 +7,23 @@ interface Props {
   imageSrc?: string;
 }
 const { name, role, bio, imageSrc = "/images/me.jpg" } = Astro.props;
+
+export const prerender = true;
+
+import TelemetryCard from './telementryCard.vue';
+import { getMonthlyCommitBreakdown } from '../lib/github';
+
+
+import commitData from '../data/commits.json';
+// Static or DB-driven values for other metrics
+const runningKm = 0;
+import {calculateBibleProgress} from '../composables/useBibleReadingProgress'
+
+const bibleProgress = calculateBibleProgress();
+
+
+
+
 ---
 
 <section class="bg-card border border-border dark:border-gold/40 border-3 rounded-2xl p-2 flex gap-2 items-start h-full">
@@ -29,7 +47,6 @@ const { name, role, bio, imageSrc = "/images/me.jpg" } = Astro.props;
     <p class="font-mono text-xs uppercase tracking-widest text-gold-muted">About Me</p>
     <h2 class="font-display font-bold text-2xl text-text-primary leading-tight">{name}</h2>
     <p class="font-mono text-xs tracking-wide text-gold">{role}</p>
-    
   </div>
   </div>
   <div class="inline-block">
@@ -52,7 +69,17 @@ const { name, role, bio, imageSrc = "/images/me.jpg" } = Astro.props;
             Tools
         </a>
     </div>
+    
   </div>
+  <section class="max-w-4xl mx-auto">
+  <TelemetryCard 
+    month={new Date().getMonth()}
+    commits={commitData} 
+    runningKm={runningKm} 
+    bibleProgress={bibleProgress} 
+    client:visible 
+  />
+</section>
 
-</div>
+</div>  
 </section>
