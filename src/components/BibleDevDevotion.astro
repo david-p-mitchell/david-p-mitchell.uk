@@ -38,7 +38,7 @@ function getCodeLineCount(code :string) {
             {devotion.data.title}
           </h3>
 
-          <p class={`${getCodeLineCount(devotion.data.code) < 30 ? 'mb-4' : ''} text-blue-300`}>
+          <p class={`${getCodeLineCount(devotion.data.code) < 10 ? 'mb-4' : ''} text-blue-300`}>
             {devotion.data.verse}
           </p>
         </div>
