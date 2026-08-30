@@ -8,93 +8,91 @@ interface Props {
 
 const { description } = Astro.props;
 
-const devotions = (await getCollection("devdevotions")).filter(devo => (new Date(devo.data.showAfterDate ??  new Date(new Date().toISOString().split('T')[0]))) <= new Date(new Date().toISOString().split('T')[0]))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-function getCodeLineCount(code :string) {
-    return code.split("\n").length;
-  }
+// Fetch collection items
+const allDevotions = await getCollection("devdevotions");
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// Filter past or current devotions
+const validDevotions = allDevotions.filter((devo) => {
+  const showDate = devo.data.showAfterDate ? new Date(devo.data.showAfterDate) : new Date(devo.data.date);
+  showDate.setHours(0, 0, 0, 0);
+  return showDate <= today;
+});
+
+// Pick recent devotions (last 2 days) or fallback to all available
+const recentDevotions = validDevotions.filter((devo) => {
+  const ageInDays = (today.getTime() - new Date(devo.data.date).getTime()) / (1000 * 60 * 60 * 24);
+  return ageInDays >= 0 && ageInDays <= 2;
+});
+
+const pool = recentDevotions.length > 0 ? recentDevotions : validDevotions;
+
+// Pick a single featured devotion server-side
+const featured = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : null;
+
+function getCodeLineCount(code?: string) {
+  if (!code) return 0;
+  return code.split("\n").length;
+}
+
+const lineCount = featured ? getCodeLineCount(featured.data.code) : 0;
 ---
 
-<section class="rounded-lg border border-border dark:border-gold/40 border-3 rounded-xl bg-card">
-  <div id="featured-devotions">
-    {devotions.map((devotion) => (
-      <article
-        class={`featured-devotion hidden ${getCodeLineCount(devotion.data.code) < 30 ? 'p-6' : 'p-4'}`}
-        data-date={devotion.data.date.toISOString()}
-      >
-        <div class="flex justify-between items-start">
-          <p class="text-xs uppercase tracking-widest text-blue-300">
-            Featured DotNet Devotion
-          </p>
-          <a href="/devDevotions" class="text-blue-300 hover:underline">See all devotions →</a>
-        </div>
-        <div class="flex justify-between items-start">
-        <div>
-          <h3 class=" md:hidden text-lg font-bold text-white">
-            {devotion.data.summary}
-          </h3>
-
-          <h3 class="hidden md:block text-lg font-bold text-white">
-            {devotion.data.title}
-          </h3>
-
-          <p class={`${getCodeLineCount(devotion.data.code) < 10 ? 'mb-4' : ''} text-blue-300`}>
-            {devotion.data.verse}
-          </p>
-        </div>
-        <div class="flex flex-col items-end">
-        <p class="text-sm text-zinc-400 mt-2">
-            {devotion.data.date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", })}
-          </p>
-        <a
-          href={`/devotions/${devotion.id}`}
-          class="my-4 inline-block text-blue-300 hover:underline min-w-[130px] text-right my-auto"
-        >
-          Read devotion →
+<section class="w-full rounded-xl border border-border dark:border-gold/40 bg-card flex">
+  {featured ? (
+    <article class={`w-full ${lineCount < 30 ? 'p-4' : 'p-4'}`}>
+      <div class="flex justify-between items-start mb-2">
+        <p class="text-xs uppercase tracking-widest text-blue-300">
+          Featured DotNet Devotion
+        </p>
+        <a href="/devDevotions" class="text-blue-300 hover:underline text-sm">
+          See all devotions →
         </a>
+      </div>
+
+      <div class="flex justify-between items-start gap-4">
+        <div>
+          <!-- Mobile Summary -->
+          <h3 class="md:hidden text-md font-bold text-white">
+            {featured.data.summary}
+          </h3>
+          <!-- Desktop Title -->
+          <h3 class="hidden md:block text-md font-bold text-white">
+            {featured.data.title}
+          </h3>
+
+          <p class={`${lineCount < 10 ? 'mb-4' : ''} text-blue-300`}>
+            {featured.data.verse}
+          </p>
         </div>
+
+        <div class="flex flex-col items-end shrink-0">
+          <p class="text-sm text-zinc-400">
+            {new Date(featured.data.date).toLocaleDateString("en-GB", {
+              weekday: "short",
+              day: "numeric",
+              month: "long",
+            })}
+          </p>
+          <a
+            href={`/devotions/${featured.id}`}
+            class="mt-2 text-blue-300 hover:underline text-sm min-w-[130px] text-right"
+          >
+            Read devotion →
+          </a>
         </div>
-        {getCodeLineCount(devotion.data.code) < 10 && (
-          <div class="overflow-hidden rounded-lg border border-border">
-            <Code
-              code={devotion.data.code}
-              lang="csharp"
-            />
-          </div>
-        )}
-        
-      </article>
-    ))}
-  </div>
+      </div>
+
+      {featured.data.code && lineCount < 10 && (
+        <div class="mt-3 overflow-hidden rounded-lg border border-border">
+          <Code code={featured.data.code} lang="csharp" />
+        </div>
+      )}
+    </article>
+  ) : (
+    <div class="p-4 text-center text-zinc-400 w-full text-sm">
+      No featured devotions available.
+    </div>
+  )}
 </section>
-
-<script>
-  function pickFeaturedDevotion() {
-    const cards = [...document.querySelectorAll<HTMLElement>(".featured-devotion")];
-    if (!cards.length) return;
-
-    // Reset all cards first, in case this runs more than once
-    cards.forEach((card) => card.classList.add("hidden"));
-
-    const now = Date.now();
-
-    const recent = cards.filter((card) => {
-      const date = card.dataset.date;
-      if (!date) return false;
-
-      const age =
-        (now - new Date(date).getTime()) /
-        (1000 * 60 * 60 * 24);
-
-      return age <= 2;
-    });
-
-    const pool = recent.length ? recent : cards;
-    const chosen = pool[Math.floor(Math.random() * pool.length)];
-
-    chosen.classList.remove("hidden");
-  }
-
-  pickFeaturedDevotion();
-  document.addEventListener("astro:page-load", pickFeaturedDevotion);
-</script>
