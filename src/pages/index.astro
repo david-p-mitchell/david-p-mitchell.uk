@@ -5,6 +5,8 @@ import Reading from "../components/Reading.astro";
 import DailyVideo from "../components/DailyVideo.astro";
 import DynamicDailySlideShow from "../components/DynamicDailySlideShow.astro";
 import BibleDevDevotion from "../components/BibleDevDevotion.astro";
+import DailyVerse from "../components/DailyVerse.astro";
+import DailyQuote from "../components/DailyQuote.astro";
 import { books } from "../data/books.ts";
 import { me } from "../data/me.ts";
 import { verses } from "../data/verses.ts";
@@ -22,36 +24,45 @@ const todayVerse = verses?.[safeIndex] ?? { verse: "Default verse text", referen
 <BaseLayout title={me.name}>
   <div class="max-w-6xl mx-auto pt-4 flex flex-col gap-2">
 
+    
     <!-- Row 1: Daily Verse (4 cols) | Bio (2 cols) -->
     <div class="grid grid-cols-1 md:grid-cols-6 gap-2 w-full items-start">
       <!-- Primary (4 of 6 columns = 66.6%) -->
-      <div class="hidden md:grid md:col-span-4 min-w-0">
+      <div class="hidden md:grid md:col-span-4 min-w-0 gap-2">
         <DynamicDailySlideShow todayVerse={todayVerse} />
-        <!-- <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} /> -->
       </div>
 
       <!-- Secondary (2 of 6 columns = 33.3%) -->
       <div class="col-span-1 md:col-span-2 min-w-0">
         <Bio name={me.name} role={me.role} bio={me.bio} imageSrc={me.imageSrc} />
       </div>
-
-      <div class="md:hidden col-span-1 min-w-0">
-        <DynamicDailySlideShow todayVerse={todayVerse} />
+<div class="flex w-full md:hidden col-span-1 min-w-0">
+        <BibleDevDevotion /> 
+        
         <!-- <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} /> -->
       </div>
+      
+      <div class="md:hidden col-span-1 min-w-0">
+        <DynamicDailySlideShow todayVerse={todayVerse} />
+        
+        <!-- <DailyVerse verse={todayVerse.verse} reference={todayVerse.reference} /> -->
+      </div>
+
+      
     </div>
 
     <!-- Row 2: Daily Video | Bible Dev Devotion -->
-    <div class="grid grid-cols-1 gap-2 animate-fade-up [animation-delay:160ms]">
-      <BibleDevDevotion /> 
-    </div>
-      <div class="grid grid-cols-1 md:grid-cols-6 gap-2 animate-fade-up [animation-delay:160ms]">
+    
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-2 animate-fade-up [animation-delay:160ms]">
       <div class="col-span-1 md:col-span-2">
         <DailyVideo videos={videos} />
       </div>
-      <div class="col-span-1 md:col-span-4">
+      <div class="col-span-1 md:col-span-2">
         <Reading books={books} />
       </div>
+      <div class="col-span-1 hidden md:flex md:col-span-2 gap-2 animate-fade-up [animation-delay:160ms]">
+      <BibleDevDevotion /> 
+    </div>
     </div>
 
     
