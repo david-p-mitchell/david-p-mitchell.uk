@@ -37,11 +37,12 @@ function getCodeLineCount(code?: string) {
 }
 
 const lineCount = featured ? getCodeLineCount(featured.data.code) : 0;
+const allowedLineCount = 10
 ---
 
 <section class="w-full rounded-xl border border-border dark:border-gold/40 bg-card flex">
   {featured ? (
-    <article class={`w-full ${lineCount < 30 ? 'p-4' : 'p-4'}`}>
+    <article class={`w-full ${lineCount < allowedLineCount ? 'p-4' : 'p-4'}`}>
       <div class="flex justify-between items-start mb-2">
         <p class="text-xs uppercase tracking-widest text-blue-300">
           Featured DotNet Devotion
@@ -58,11 +59,11 @@ const lineCount = featured ? getCodeLineCount(featured.data.code) : 0;
             {featured.data.summary}
           </h3>
           <!-- Desktop Title -->
-          <h3 class="hidden md:block text-md font-bold text-white">
-            {featured.data.title}
+          <h3 class="hidden md:flex text-md font-bold text-white">
+            {featured.data.summary}
           </h3>
 
-          <p class={`${lineCount < 10 ? 'mb-4' : ''} text-blue-300`}>
+          <p class={`${lineCount < allowedLineCount ? 'mb-4' : ''} text-blue-300`}>
             {featured.data.verse}
           </p>
         </div>
@@ -84,7 +85,7 @@ const lineCount = featured ? getCodeLineCount(featured.data.code) : 0;
         </div>
       </div>
 
-      {featured.data.code && lineCount < 10 && (
+      {featured.data.code && lineCount < allowedLineCount && (
         <div class="mt-3 overflow-hidden rounded-lg border border-border">
           <Code code={featured.data.code} lang="csharp" />
         </div>

@@ -1,9 +1,9 @@
 ---
 title: "If you have been raised with Christ."
 verse: "Colossians 3: 1-4"
-date: 2026-08-31
+date: 2026-09-13
 summary: "If you have been raised with Christ!"
-showAfterDate: "2026-08-31"
+showAfterDate: "2026-09-13"
 code: |
     var thingsAbove = things<Above>(); 
     if(you.HaveBeenRaisedWith(Christ))
@@ -22,9 +22,6 @@ code: |
             you.State = LifeState.Glorified;
             you.AppearWith(Christ, Glory);
         });
-        
     }
-
-
 ---
 //Awaiting my thoughts on this verse.
