@@ -25,7 +25,7 @@
     </div>
     
     <div class="flex items-baseline gap-1 text-right">
-      <span class="text-sm sm:text-base font-bold text-white">{{ commits.totals.allBranches }}</span>
+      <span class="text-xs sm:text-base font-bold text-white">{{ commits.totals.allBranches }}</span>
       <span class="text-xs font-medium text-slate-400">({{ commits.totals.mainBranch }})</span>
     </div>
   </div>
