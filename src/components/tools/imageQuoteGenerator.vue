@@ -285,7 +285,7 @@
                   backgroundColor: computedRgbaBg
                 }"
                 :class="[
-                  'pointer-events-auto cursor-grab active:cursor-grabbing space-y-3 p-4 rounded-xl transition-shadow duration-150 relative mx-auto',
+                  'pointer-events-auto cursor-grab active:cursor-grabbing space-y-3 p-4 rounded-xl transition-shadow duration-150 relative ',
                   isDragging ? 'ring-2 ring-blue-400/80 shadow-lg' : 'hover:ring-1 hover:ring-white/40'
                 ]"
               >
@@ -303,7 +303,7 @@
                 </p>
               </div>
 
-              <div v-if="showCreditOnExport" class="flex justify-between items-end text-xs font-sans opacity-70 pt-0.5 border-t border-current/20">
+              <div v-if=" bgMode === 'photo' && showCreditOnExport" class="flex justify-between items-end text-xs font-sans opacity-70 pt-0.5 border-t border-current/20">
                 <span class="text-[9px] opacity-80 truncate max-w-[300px] pt-0.5">
                       
                     </span>
@@ -341,7 +341,7 @@
               maxWidth: `${boxWidth}%`,
               backgroundColor: computedRgbaBg
             }"
-            class="space-y-6 mx-auto p-10 rounded-2xl"
+            class="space-y-6 p-10 rounded-2xl"
           >
             <p
               :style="{ fontSize: `${fontSize * 2.5}px`, lineHeight: 1.35 }"
@@ -357,7 +357,7 @@
             </p>
           </div>
 
-          <div v-if="showCreditOnExport" class="flex justify-between items-end text-xl font-sans opacity-70 pt-2 border-t border-current/20">
+          <div v-if="bgMode === 'photo' && showCreditOnExport" class="flex justify-between items-end text-xl font-sans opacity-70 pt-2 border-t border-current/20">
             <div class="flex flex-col">
               <span v-if="bgMode === 'photo' && showCreditOnExport && photoAuthor.name && photoAuthor.sourceUrl" class="text-sm opacity-80 mt-1">
                 Background Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
