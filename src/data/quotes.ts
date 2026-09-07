@@ -21,7 +21,7 @@ export const quotes: Quote[] = [
         text: "God is too good to be unkind and He is too wise to be mistaken. And when we cannot trace His hand, we must trust His heart.",
         author: "Charles Spurgeon",
         imgAuthor: "https://images.gr-assets.com/authors/1283124007p8/2876959.jpg",
-        years: "1834–1892",
+        years: "1834-1892",
         tags: ["God", "wisdom", "trust"]
     },
     {
