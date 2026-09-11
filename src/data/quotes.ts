@@ -77,7 +77,7 @@ export const quotes: Quote[] = [
         tags: ["faith", "repentance"]
     },
     {
-     id:10,
+        id:10,
         text:"God has chosen us. Our status is not a matter of our worthiness, but of His love.",
         author: "Sinclair Ferguson",
         tags: ["status", "standing", "GodsLove"]
@@ -89,12 +89,15 @@ export const quotes: Quote[] = [
         tags: ["God", "KnowingGod", "privilege"]
     },
     {
-      id:12,
-      text: "If I could hear Christ praying for me in the next room, I would not fear a million enemies. Yet distance makes no difference. He is praying for me.",
-      author: "Robert Murray M’Cheyne",
-      tags:["Prayer", "Intercession"]
+        id:12,
+        text: "If I could hear Christ praying for me in the next room, I would not fear a million enemies. Yet distance makes no difference. He is praying for me.",
+        author: "Robert Murray M'Cheyne",
+        tags:["Prayer", "Intercession"]
+    },
+    {
+        id:13,
+        text: "Some people think God does not like to be troubled with our constent coming and asking. The way to trouble God is not to come at all.",
+        author: "D.L. Moody",
+        tags:["Prayer", "Intercession"]
     }
-
-
-    
 ];
