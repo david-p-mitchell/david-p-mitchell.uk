@@ -41,14 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <!-- Stock photo attribution -->
     <template v-if="type === 'photo'">
-        <span
-        :class="[
-          'opacity-80 truncate',
-          large ? 'max-w-[450px]' : 'max-w-[180px]'
-        ]"
-      >
-        david-p-mitchell.uk
-      </span>
+        
       <span
         :class="[
           'opacity-80',
