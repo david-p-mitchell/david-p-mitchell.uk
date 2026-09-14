@@ -181,11 +181,11 @@
           </p>
 
           <p
-            v-if="quoteSource"
+            v-if="quoteSource && showQuoteSource"
             :style="{ color: fontColor }"
-            class="text-[11px] font-sans font-semibold tracking-wider uppercase opacity-90 drop-shadow text-center"
+            class="text-[24px] font-sans tracking-wider opacity-90 drop-shadow italic text-center !mt-2"
           >
-            {{ quoteSource }}
+              {{ quoteSource }}
           </p>
         </div>
 
@@ -219,9 +219,9 @@ const PhotoAuthorSource = photoHook.photoAuthor;
 const base64Image = photoHook.base64Image;
 
 // State Management
-const quoteText = ref('God is to be trusted, even when His providence seems to contradict His promise.')
-const author = ref('John Flavel')
-const quoteSource = ref('1627-1691')
+const quoteText = ref('')
+const author = ref('')
+const quoteSource = ref('')
 const showQuoteSource = ref(true)
 const fontColor = ref('#FFFFFF')
 const fontSize = ref(22)
@@ -381,5 +381,8 @@ const downloadImage = async () => {
   }
 }
 
-onMounted(() => fetchPhotography())
+onMounted(() => { 
+  fetchPhotography();
+  loadRandomQuote();
+  })
 </script>
