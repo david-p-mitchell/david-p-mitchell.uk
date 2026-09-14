@@ -107,10 +107,18 @@
                 isDragging ? 'ring-2 ring-blue-400/80 shadow-lg' : 'hover:ring-1 hover:ring-white/40'
               ]"
             >
-              <p v-for="(section, index) in quoteTextSections" :key="index"
+            
+              <p
+                v-for="(section, index) in quoteTextSections"
+                :key="index"
+                :style="{
+                  fontSize: `${fontSize + section.fontSizeDifference}px`,
+                  lineHeight: 1.35,
+                  color: fontColor
+                }"
                 :class="[
                   'font-serif tracking-wide leading-relaxed drop-shadow-md text-center',
-                  section?.bold ? 'font-bold' : 'font-small',
+                  section?.bold ? 'font-bold' : ''
                 ]"
               >
                 {{ section.text }}
