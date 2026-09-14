@@ -9,7 +9,7 @@
 >
     <div class="space-y-4">
       <!-- Overlay presets (only applicable in photo mode) -->
-      <div v-if="bgMode === 'photo'">
+      <div v-if="bgMode === 'photo' || bgMode === 'userUploadPhoto'" class="space-y-2">
         <label class="block text-xs font-medium text-slate-600 mb-1.5">Text Readability Overlay</label>
         <div class="grid grid-cols-3 gap-2">
           <button
