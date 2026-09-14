@@ -1,6 +1,6 @@
 <!-- components/TypographyLayoutSection.vue -->
 <template>
-  <CollapsibleSection title="Typography & Layout" :default-open="false">
+  <CollapsibleSection title="Typography & Layout" :default-open="false" :active="isActive">
     <div class="space-y-3">
       <div>
         <div class="flex justify-between items-center text-xs text-slate-600 mb-1">
@@ -26,7 +26,7 @@
           :value="fontSize"
           @input="$emit('update:fontSize', Number($event.target.value))"
           type="range"
-          min="16"
+          min="12"
           max="40"
           class="w-full accent-blue-600"
         />
@@ -62,13 +62,17 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import CollapsibleSection from '../../CollapsibleSection.vue'
 
-defineProps({
+const props = defineProps({
   fontColor: String,
   fontSize: Number,
-  boxWidth: Number
+  boxWidth: Number,
+  isActive: Boolean
 })
+const isActive = props.isActive || false
+
 
 defineEmits(['update:fontColor', 'update:fontSize', 'update:boxWidth', 'resetTextLayout'])
 </script>
