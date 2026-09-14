@@ -1,6 +1,12 @@
 <!-- components/OverlayReadabilitySection.vue -->
 <template>
-  <CollapsibleSection title="Readability & Overlay" :default-open="false">
+  <CollapsibleSection
+  title="Readability & Overlay"
+  :default-open="false"
+  :show-checkbox="true"
+  :active="enableTextBoxBg"
+  @update:active="$emit('update:enableTextBoxBg', $event)"
+>
     <div class="space-y-4">
       <!-- Overlay presets (only applicable in photo mode) -->
       <div v-if="bgMode === 'photo'">
