@@ -13,12 +13,13 @@
         <div class="space-y-3">
           <!-- Section 1: Quote Text -->
           <QuoteSection
-            v-model:quoteText="quoteText"
+            v-model:quoteTextSections="quoteTextSections"
             v-model:author="author"
             v-model:quoteSource="quoteSource"
             v-model:showQuoteSource="showQuoteSource"
             @loadRandomQuote="loadRandomQuote"
-
+            @addQuoteSection="addQuoteSection"
+            @removeQuoteSection="quoteTextSections.length > 1 ? (index: number) => quoteTextSections.splice(index, 1) : null"
           />
 
           <!-- Section 2: Background Mode & Selection -->
@@ -106,11 +107,13 @@
                 isDragging ? 'ring-2 ring-blue-400/80 shadow-lg' : 'hover:ring-1 hover:ring-white/40'
               ]"
             >
-              <p
-                :style="{ fontSize: `${fontSize}px`, lineHeight: 1.35, color: fontColor }"
-                class="font-serif font-medium tracking-wide leading-relaxed drop-shadow-md text-center"
+              <p v-for="(section, index) in quoteTextSections" :key="index"
+                :class="[
+                  'font-serif tracking-wide leading-relaxed drop-shadow-md text-center',
+                  section?.bold ? 'font-bold' : 'font-small',
+                ]"
               >
-                {{ quoteText || 'Enter a quote above...' }}
+                {{ section.text }}
               </p>
               <p
                 v-if="author"
@@ -166,11 +169,11 @@
           }"
           class="absolute z-10 space-y-[31px] p-[41px] rounded-2xl text-center"
         >
-          <p
+          <p v-for="(section, index) in quoteTextSections" :key="index"
             :style="{ fontSize: `${fontSize * 2.571}px`, lineHeight: 1.35, color: fontColor }"
             class="font-serif font-medium tracking-wide leading-relaxed drop-shadow-md text-center"
           >
-            {{ quoteText || 'Enter a quote above...' }}
+            {{ section.text }}
           </p>
           <p
             v-if="author"
@@ -223,7 +226,7 @@ import { useQuoteGraphicExport } from '../../composables/quotes/useQuoteGraphicE
 // --------------------------------------------------
 
 const {
-  quoteText,
+  quoteTextSections,
   author,
   quoteSource,
   showQuoteSource,
@@ -253,7 +256,8 @@ const {
   hasPhotoBackground,
 
   resetTextLayout,
-  loadRandomQuote
+  loadRandomQuote,
+  addQuoteSection
 } = useQuoteGraphicState()
 
 // --------------------------------------------------
