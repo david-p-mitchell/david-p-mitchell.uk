@@ -1,6 +1,6 @@
 <!-- components/BackgroundSection.vue -->
 <template>
-  <CollapsibleSection title="Background Style" :badge="bgMode === 'color' ? 'Solid' : 'Photo'" :default-open="true">
+  <CollapsibleSection title="Background Style" :badge="bgMode === 'color' ? 'Solid' : 'Photo'" :default-open="false">
     <!-- Mode Switcher -->
     <div class="flex gap-2">
       <button
