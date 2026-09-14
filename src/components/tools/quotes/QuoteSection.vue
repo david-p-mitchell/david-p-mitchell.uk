@@ -1,16 +1,46 @@
 <!-- components/QuoteSection.vue -->
 <template>
   <CollapsibleSection title="Quote Content" :default-open="true">
+    
     <div class="space-y-4">
       <div>
+        <p class="text-black">
+        {{ quoteTextSections.length > 1 ? 'Quote Sections' : 'Quote Section' }}
+        </p>
         <label class="block text-xs font-medium text-slate-600 mb-1">Quote or Scripture</label>
-        <textarea
-          :value="quoteText"
-          @input="$emit('update:quoteText', $event.target.value)"
+        <div v-for="(section, index) in quoteTextSections" :key="index" class="mb-2">
+          <div class="flex">
+        <textarea 
+          :value="section.text"
+          @input="$emit('update:quoteTextSections', quoteTextSections.map((s, i) => i === index ? { ...s, text: $event.target.value } : s))"
           rows="3"
           class="w-full rounded-lg border-slate-200 bg-slate-50 p-3 text-sm text-slate-800 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 outline-none transition resize-none"
           placeholder="Enter quote text..."
         ></textarea>
+        <button
+          v-if="quoteTextSections.length > 1"
+          @click="quoteTextSections[index].bold = !quoteTextSections[index].bold; $emit('update:quoteTextSections', quoteTextSections)"
+          type="button"
+          class="ml-2 py-1 px-2 hover:bg-red-200 text-black border border-slate-300 text-xs font-medium rounded-lg transition">
+          Bold
+        </button>
+        </div>
+        <button
+          v-if="quoteTextSections.length > 1 && index === quoteTextSections.length - 1"
+          @click="quoteTextSections.splice(index, 1); $emit('update:quoteTextSections', quoteTextSections)"
+          type="button"
+          class="mt-2 py-1 px-2 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-medium rounded-lg transition"
+        >
+          ❌ Remove Section
+        </button>
+        </div>
+        <button
+          @click="$emit('addQuoteSection', '')"
+          type="button"
+          class="mt-2 py-1 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition"
+        >
+          ➕ Add Another Section
+        </button>
       </div>
 
       <div>
@@ -61,11 +91,11 @@
 import CollapsibleSection from '../../CollapsibleSection.vue'
 
 defineProps({
-  quoteText: String,
+  quoteTextSections: Array,
   author: String,
   quoteSource: String,
   showQuoteSource: Boolean
 })
 
-defineEmits(['update:quoteText', 'update:author', 'update:quoteSource', 'update:showQuoteSource', 'loadRandomQuote'])
+defineEmits(['update:quoteTextSections', 'update:author', 'update:quoteSource', 'update:showQuoteSource', 'loadRandomQuote', 'removeQuoteSection'])
 </script>
