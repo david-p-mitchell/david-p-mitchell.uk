@@ -123,8 +123,8 @@
               v-if="bgMode === 'photo' && showCreditOnExport && (photoAuthor.name || photoAuthor.license)" 
               class="absolute bottom-[10px] left-6 right-6 z-10 pointer-events-none flex justify-between items-end text-xs font-sans opacity-70 pt-2 border-t border-current/20"
             >
-              <span class="text-[9px] opacity-80 truncate max-w-[300px]">
-                Background Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
+              <span class="text-[9px] opacity-80 truncate max-w-[350px]">
+                Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
               </span>
             </div>
 
@@ -189,8 +189,8 @@
           v-if="bgMode === 'photo' && showCreditOnExport && (photoAuthor.name || photoAuthor.license)" 
           class="absolute bottom-[10px] left-[61px] right-[61px] z-10 flex justify-between items-end text-[22px] font-sans opacity-70 border-t border-current/20 text-white pt-4"
         >
-          <span class="opacity-80 truncate">
-            Background Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
+          <span class="opacity-80 truncate max-w-[350px]">
+            Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
           </span>
         </div>
 
@@ -219,6 +219,11 @@ import QuoteSection from './quotes/QuoteSection.vue'
 import BackgroundSection from './quotes/BackgroundSection.vue'
 import OverlayReadabilitySection from './quotes/OverlayReadabilitySection.vue'
 import TypographyLayoutSection from './quotes/TypographyLayoutSection.vue'
+import { useExternalBackGroundPhoto } from '../../composables/useExternalBackGroundPhoto.ts'
+const  photoHook  = useExternalBackGroundPhoto()
+const fetchPhotoWithFallback = photoHook.fetchPhotoWithFallback;
+const PhotoAuthorSource = photoHook.photoAuthor;
+const base64Image = photoHook.base64Image;
 
 // State Management
 const quoteText = ref('God is to be trusted, even when His providence seems to contradict His promise.')
@@ -230,7 +235,6 @@ const bgMode = ref('photo')
 const selectedColor = ref('paper')
 const selectedOverlay = ref('dark-gradient')
 const imageSearchTerm = ref('landscape')
-const base64Image = ref('')
 const isImageLoading = ref(false)
 const isExporting = ref(false)
 const showCreditOnExport = ref(true)
@@ -346,43 +350,9 @@ const fetchPhotography = async () => {
   const query = imageSearchTerm.value.toLowerCase().trim()
   isImageLoading.value = true
   bgMode.value = 'photo'
-
-  try {
-    const openverseEndpoint = `https://api.openverse.org/v1/images/?q=${encodeURIComponent(query)}&license_type=custom,cc0,pdm&page_size=20`
-    const ovRes = await fetch(openverseEndpoint)
-    if (ovRes.ok) {
-      const ovData = await ovRes.json()
-      if (ovData.results?.length > 0) {
-        const chosen = ovData.results[Math.floor(Math.random() * ovData.results.length)]
-        photoAuthor.value = {
-          name: chosen.creator || 'Openverse Contributor',
-          license: (chosen.license || 'CC0').toUpperCase(),
-          sourceUrl: chosen.foreign_landing_url || chosen.url
-        }
-        await loadExternalImageAsBase64(chosen.url)
-        return
-      }
-    }
-  } catch (err) {
-    console.warn('Openverse fallback trigger:', err)
-  }
-
-  await loadExternalImageAsBase64(`https://picsum.photos/id/${Math.floor(Math.random() * 800)}/1080/1080`)
-}
-
-const loadExternalImageAsBase64 = async (url) => {
-  try {
-    const res = await fetch(url)
-    const blob = await res.blob()
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      base64Image.value = reader.result
-      isImageLoading.value = false
-    }
-    reader.readAsDataURL(blob)
-  } catch {
-    isImageLoading.value = false
-  }
+  await fetchPhotoWithFallback(query)
+  photoAuthor.value = { ...PhotoAuthorSource.value }
+  isImageLoading.value = false
 }
 
 const selectTopic = (topic) => {
