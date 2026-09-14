@@ -59,7 +59,6 @@
       </button>
       <CollapsibleSection title="Photo Search & Library" :default-open="false">
         
-          
       <p class="text-xs text-slate-500">
         Find a photo elsewhere.
       </p>
@@ -123,7 +122,7 @@
           </span>
         </div>
         
-        <div class="flex items-center justify-between pt-1 border-t border-slate-200/60">
+        <!-- <div class="flex items-center justify-between pt-1 border-t border-slate-200/60">
           <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-slate-600 select-none">
             <input
               type="checkbox"
@@ -133,7 +132,7 @@
             />
             Include credit line on exported PNG
           </label>
-        </div>
+        </div> -->
       </div>
     </div>
     <div v-else class="space-y-3 pt-2">
