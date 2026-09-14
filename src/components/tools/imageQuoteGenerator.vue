@@ -7,7 +7,7 @@
       <div class="space-y-5">
         <div>
           <h2 class="text-xl font-semibold text-slate-800">Image Quote Generator</h2>
-          <p class="text-sm text-slate-500">Create shareable graphics using Openverse, CC0 photography, or your own uploaded images.</p>
+          <p class="text-sm text-slate-500">Create shareable graphics using free to use photography, or your own uploaded images.</p>
         </div>
 
         <div class="space-y-3">
@@ -119,26 +119,13 @@
             </div>
 
             <!-- Absolute Bottom Credit Attribution (Preview) -->
-            <div 
-              v-if="bgMode === 'photo' && showCreditOnExport && (photoAuthor.name || photoAuthor.license)" 
-              class="absolute bottom-[10px] left-6 right-6 z-10 pointer-events-none flex justify-between items-end text-xs font-sans opacity-70 pt-2 border-t border-current/20"
-            >
-              <span class="text-[9px] opacity-80 truncate max-w-[350px]">
-                Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
-              </span>
-            </div>
-
-            <div 
-              v-if="bgMode === 'userUploadPhoto' && (websiteUrl || instaHandle)" 
-              class="absolute bottom-[10px] left-6 right-6 z-10 pointer-events-none flex justify-between items-end text-[9px] font-sans opacity-70 pt-2 border-t border-current/20"
-            >
-              <span v-if="websiteUrl" class="opacity-80 truncate max-w-[180px]">
-                {{ websiteUrl }}
-              </span>
-              <span v-if="instaHandle" class="opacity-80 truncate max-w-[180px]">
-                Photo: {{ instaHandle }}
-              </span>
-            </div>
+            <QuoteFooter
+          :type="bgMode"
+          :show-credit="showCreditOnExport"
+          :photo-author="photoAuthor"
+          :website-url="websiteUrl"
+          :insta-handle="instaHandle"
+        />
           </div>
         </div>
       </div>
@@ -185,26 +172,14 @@
         </div>
 
         <!-- Absolute Bottom Credit Attribution (Export 1080px) -->
-        <div 
-          v-if="bgMode === 'photo' && showCreditOnExport && (photoAuthor.name || photoAuthor.license)" 
-          class="absolute bottom-[10px] left-[61px] right-[61px] z-10 flex justify-between items-end text-[22px] font-sans opacity-70 border-t border-current/20 text-white pt-4"
-        >
-          <span class="opacity-80 truncate max-w-[350px]">
-            Photo: {{ photoAuthor.name }} ({{ photoAuthor.license }})
-          </span>
-        </div>
-
-        <div 
-          v-if="bgMode === 'userUploadPhoto' && (websiteUrl || instaHandle)" 
-          class="absolute bottom-[10px] left-[61px] right-[61px] z-10 flex justify-between items-end text-[22px] font-sans opacity-70 border-t border-current/20 text-white pt-4"
-        >
-          <span v-if="websiteUrl" class="opacity-80 truncate max-w-[450px]">
-            {{ websiteUrl }}
-          </span>
-          <span v-if="instaHandle" class="opacity-80 truncate max-w-[450px]">
-            Photo: {{ instaHandle }}
-          </span>
-        </div>
+        <QuoteFooter
+          :type="bgMode"
+          :show-credit="showCreditOnExport"
+          :photo-author="photoAuthor"
+          :website-url="websiteUrl"
+          :insta-handle="instaHandle"
+          large
+        />
       </div>
     </div>
 
@@ -324,6 +299,7 @@ const overlayStyles = [
   { id: 'vignette', name: 'Soft Vignette', class: 'bg-black/30 backdrop-brightness-90' }
 ]
 import { quotes } from '../../data/quotes.ts'
+import QuoteFooter from './quotes/QuoteFooter.vue'
 const presets = quotes;
 
 const photoAuthor = ref({ name: '', license: 'CC0 / Public Domain', sourceUrl: '' })
