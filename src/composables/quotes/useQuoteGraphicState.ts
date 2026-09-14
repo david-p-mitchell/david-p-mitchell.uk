@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { quotes } from '../../data/quotes'
 
 export function useQuoteGraphicState() {
-  const quoteText = ref('')
+  const quoteTextSections = ref([{ text: '', bold: false, fontSizeDifference: 0 }])
   const author = ref('')
   const quoteSource = ref('')
   const showQuoteSource = ref(true)
@@ -32,6 +32,9 @@ export function useQuoteGraphicState() {
     license: 'CC0 / Public Domain',
     sourceUrl: ''
   })
+  const addQuoteSection = (text: string, bold: boolean = false) => {
+    quoteTextSections.value.push({ text, bold, fontSizeDifference: 0 })
+  }
 
   const computedRgbaBg = computed(() => {
     if (!enableTextBoxBg.value) return 'transparent'
@@ -57,17 +60,17 @@ export function useQuoteGraphicState() {
     textBoxBgColor.value = '#000000'
   }
   const loadRandomQuote = () => {
-  const pick = quotes[Math.floor(Math.random() * quotes.length)]
-
-  quoteText.value = pick.text
-  author.value = pick.author
-  quoteSource.value = pick.source || pick.years || ''
-}
+        const pick = quotes[Math.floor(Math.random() * quotes.length)]
+            
+        quoteTextSections.value = [{ text: pick.text, bold: false, fontSizeDifference: 0  }]
+        author.value = pick.author
+        quoteSource.value = pick.source || pick.years || ''
+    }
   
 
   return {
     quotes,
-    quoteText,
+    quoteTextSections,
     author,
     quoteSource,
     showQuoteSource,
@@ -97,6 +100,7 @@ export function useQuoteGraphicState() {
     computedRgbaBg,
     hasPhotoBackground,
     resetTextLayout,
-    loadRandomQuote
+    loadRandomQuote,
+    addQuoteSection
   }
 }
