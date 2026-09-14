@@ -15,7 +15,10 @@
           <QuoteSection
             v-model:quoteText="quoteText"
             v-model:author="author"
+            v-model:quoteSource="quoteSource"
+            v-model:showQuoteSource="showQuoteSource"
             @loadRandomQuote="loadRandomQuote"
+
           />
 
           <!-- Section 2: Background Mode & Selection -->
@@ -116,6 +119,13 @@
               >
                 — {{ author }}
               </p>
+              <p
+                v-if="quoteSource && showQuoteSource"
+                :style="{ color: fontColor }"
+                class="text-[11px] font-sans tracking-wider opacity-90 drop-shadow italic text-center !mt-2"
+              >
+                 {{ quoteSource }}
+              </p>
             </div>
 
             <!-- Absolute Bottom Credit Attribution (Preview) -->
@@ -169,6 +179,14 @@
           >
             — {{ author }}
           </p>
+
+          <p
+            v-if="quoteSource"
+            :style="{ color: fontColor }"
+            class="text-[11px] font-sans font-semibold tracking-wider uppercase opacity-90 drop-shadow text-center"
+          >
+            {{ quoteSource }}
+          </p>
         </div>
 
         <!-- Absolute Bottom Credit Attribution (Export 1080px) -->
@@ -203,6 +221,8 @@ const base64Image = photoHook.base64Image;
 // State Management
 const quoteText = ref('God is to be trusted, even when His providence seems to contradict His promise.')
 const author = ref('John Flavel')
+const quoteSource = ref('1627-1691')
+const showQuoteSource = ref(true)
 const fontColor = ref('#FFFFFF')
 const fontSize = ref(22)
 const boxWidth = ref(85)
@@ -342,6 +362,7 @@ const loadRandomQuote = () => {
   console.log('Picked quote:', pick)
   quoteText.value = pick.text
   author.value = pick.author
+  quoteSource.value = pick.source || pick.years || ''
 }
 
 const downloadImage = async () => {
