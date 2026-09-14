@@ -129,8 +129,8 @@
             </div>
 
             <!-- Absolute Bottom Credit Attribution (Preview) -->
-            <QuoteFooter
-          :type="bgMode"
+            <QuoteFooter v-if="hasPhotoBackground"
+          :type="photoFooterType"
           :show-credit="showCreditOnExport"
           :photo-author="photoAuthor"
           :website-url="websiteUrl"
@@ -190,8 +190,8 @@
         </div>
 
         <!-- Absolute Bottom Credit Attribution (Export 1080px) -->
-        <QuoteFooter
-          :type="bgMode"
+        <QuoteFooter v-if="hasPhotoBackground"
+          :type="photoFooterType"
           :show-credit="showCreditOnExport"
           :photo-author="photoAuthor"
           :website-url="websiteUrl"
@@ -204,185 +204,190 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { toPng } from 'html-to-image'
 
 import QuoteSection from './quotes/QuoteSection.vue'
 import BackgroundSection from './quotes/BackgroundSection.vue'
 import OverlayReadabilitySection from './quotes/OverlayReadabilitySection.vue'
 import TypographyLayoutSection from './quotes/TypographyLayoutSection.vue'
-import { useExternalBackGroundPhoto } from '../../composables/useExternalBackGroundPhoto.ts'
-const  photoHook  = useExternalBackGroundPhoto()
-const fetchPhotoWithFallback = photoHook.fetchPhotoWithFallback;
-const PhotoAuthorSource = photoHook.photoAuthor;
-const base64Image = photoHook.base64Image;
+import QuoteFooter from './quotes/QuoteFooter.vue'
 
-// State Management
-const quoteText = ref('')
-const author = ref('')
-const quoteSource = ref('')
-const showQuoteSource = ref(true)
-const fontColor = ref('#FFFFFF')
-const fontSize = ref(22)
-const boxWidth = ref(85)
-const bgMode = ref('photo')
-const selectedColor = ref('paper')
-const selectedOverlay = ref('dark-gradient')
-const imageSearchTerm = ref('landscape')
-const isImageLoading = ref(false)
-const isExporting = ref(false)
-const showCreditOnExport = ref(true)
-const instaHandle = ref('')
-const websiteUrl = ref('')
+import { useQuoteGraphicState } from '../../composables/quotes/useQuoteGraphicState'
+import { useQuoteGraphicDrag } from '../../composables/quotes/useQuoteGraphicDrag'
+import { useQuoteGraphicImages } from '../../composables/quotes/useQuoteGraphicImages'
+import { useQuoteGraphicExport } from '../../composables/quotes/useQuoteGraphicExport'
+
+// --------------------------------------------------
+// Shared graphic state
+// --------------------------------------------------
+
+const {
+  quoteText,
+  author,
+  quoteSource,
+  showQuoteSource,
+
+  fontColor,
+  fontSize,
+  boxWidth,
+
+  bgMode,
+  selectedColor,
+  selectedOverlay,
+  imageSearchTerm,
+
+  isImageLoading,
+  showCreditOnExport,
+
+  instaHandle,
+  websiteUrl,
+
+  enableTextBoxBg,
+  textBoxBgColor,
+  textBoxOpacity,
+
+  photoAuthor,
+
+  computedRgbaBg,
+  hasPhotoBackground,
+
+  resetTextLayout,
+  loadRandomQuote
+} = useQuoteGraphicState()
+
+// --------------------------------------------------
+// Template refs
+// --------------------------------------------------
 
 const exportCard = ref(null)
 const previewContainer = ref(null)
 
-const enableTextBoxBg = ref(true)
-const textBoxBgColor = ref('#000000')
-const textBoxOpacity = ref(45)
+// --------------------------------------------------
+// Dragging
+// --------------------------------------------------
 
-const computedRgbaBg = computed(() => {
-  if (!enableTextBoxBg.value) return 'transparent'
-  const hex = textBoxBgColor.value.replace('#', '')
-  const r = parseInt(hex.substring(0, 2), 16) || 0
-  const g = parseInt(hex.substring(2, 4), 16) || 0
-  const b = parseInt(hex.substring(4, 6), 16) || 0
-  const alpha = textBoxOpacity.value / 100
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`
-})
+const {
+  isDragging,
+  textPos,
+  startDrag
+} = useQuoteGraphicDrag(previewContainer)
 
-const hasPhotoBackground = computed(() => bgMode.value === 'photo' || bgMode.value === 'userUploadPhoto')
+// --------------------------------------------------
+// Images
+// --------------------------------------------------
 
-// Dragging Logic
-const isDragging = ref(false)
-const textPos = ref({ x: 0, y: 0 })
-let dragStart = { x: 0, y: 0 }
-let initialPos = { x: 0, y: 0 }
+const {
+  base64Image,
+  handleFileUpload,
+  fetchPhotography,
+  selectTopic
+} = useQuoteGraphicImages(
+  bgMode,
+  imageSearchTerm,
+  isImageLoading,
+  photoAuthor
+)
 
-const startDrag = (event) => {
-  if (!previewContainer.value) return
-  isDragging.value = true
-  dragStart = { x: event.clientX, y: event.clientY }
-  initialPos = { ...textPos.value }
+// --------------------------------------------------
+// Export
+// --------------------------------------------------
 
-  window.addEventListener('pointermove', onDrag)
-  window.addEventListener('pointerup', stopDrag)
-}
+const {
+  isExporting,
+  downloadImage
+} = useQuoteGraphicExport(exportCard)
 
-const onDrag = (event) => {
-  if (!isDragging.value || !previewContainer.value) return
-  const rect = previewContainer.value.getBoundingClientRect()
-  if (rect.width === 0 || rect.height === 0) return
+// --------------------------------------------------
+// Static options
+// --------------------------------------------------
 
-  const deltaX = event.clientX - dragStart.x
-  const deltaY = event.clientY - dragStart.y
-
-  const percentX = (deltaX / rect.width) * 100
-  const percentY = (deltaY / rect.height) * 100
-
-  textPos.value = {
-    x: Math.min(Math.max(initialPos.x + percentX, -30), 30),
-    y: Math.min(Math.max(initialPos.y + percentY, -30), 30)
-  }
-}
-
-const stopDrag = () => {
-  isDragging.value = false
-  window.removeEventListener('pointermove', onDrag)
-  window.removeEventListener('pointerup', stopDrag)
-}
-
-const resetTextLayout = () => {
-  textPos.value = { x: 0, y: 0 }
-  boxWidth.value = 85
-  fontSize.value = 22
-  textBoxOpacity.value = 45
-  textBoxBgColor.value = '#000000'
-}
-
-// Catalogs and Themes
-const quickTopics = ['landscape', 'mountains', 'forest', 'sea', 'stars', 'vintage']
+const quickTopics = [
+  'landscape',
+  'mountains',
+  'forest',
+  'sea',
+  'stars',
+  'vintage'
+]
 
 const colorThemes = [
-  { id: 'paper', name: 'Warm Paper', btnClass: 'bg-[#FAF7F2] text-[#2C2621]', containerClass: 'bg-[#FAF7F2] text-[#2C2621]' },
-  { id: 'slate', name: 'Slate Dark', btnClass: 'bg-[#0F172A] text-[#F8FAFC]', containerClass: 'bg-[#0F172A] text-[#F8FAFC]' },
-  { id: 'burgundy', name: 'Deep Burgundy', btnClass: 'bg-[#4A1521] text-[#FDF8F5]', containerClass: 'bg-[#4A1521] text-[#FDF8F5]' },
-  { id: 'navy', name: 'Classic Navy', btnClass: 'bg-[#1E293B] text-[#F8FAFC]', containerClass: 'bg-[#1E293B] text-[#F8FAFC]' },
-  { id: 'light', name: 'Minimal Light', btnClass: 'bg-white text-slate-900 border border-slate-200', containerClass: 'bg-white text-slate-900' }
+  {
+    id: 'paper',
+    name: 'Warm Paper',
+    btnClass: 'bg-[#FAF7F2] text-[#2C2621]',
+    containerClass: 'bg-[#FAF7F2] text-[#2C2621]'
+  },
+  {
+    id: 'slate',
+    name: 'Slate Dark',
+    btnClass: 'bg-[#0F172A] text-[#F8FAFC]',
+    containerClass: 'bg-[#0F172A] text-[#F8FAFC]'
+  },
+  {
+    id: 'burgundy',
+    name: 'Deep Burgundy',
+    btnClass: 'bg-[#4A1521] text-[#FDF8F5]',
+    containerClass: 'bg-[#4A1521] text-[#FDF8F5]'
+  },
+  {
+    id: 'navy',
+    name: 'Classic Navy',
+    btnClass: 'bg-[#1E293B] text-[#F8FAFC]',
+    containerClass: 'bg-[#1E293B] text-[#F8FAFC]'
+  },
+  {
+    id: 'light',
+    name: 'Minimal Light',
+    btnClass: 'bg-white text-slate-900 border border-slate-200',
+    containerClass: 'bg-white text-slate-900'
+  }
 ]
 
 const overlayStyles = [
-  { id: 'dark-gradient', name: 'Dark Gradient', class: 'bg-gradient-to-t from-black/85 via-black/40 to-black/60' },
-  { id: 'dark-dim', name: 'Full Dim', class: 'bg-black/50' },
-  { id: 'vignette', name: 'Soft Vignette', class: 'bg-black/30 backdrop-brightness-90' }
+  {
+    id: 'dark-gradient',
+    name: 'Dark Gradient',
+    class: 'bg-gradient-to-t from-black/85 via-black/40 to-black/60'
+  },
+  {
+    id: 'dark-dim',
+    name: 'Full Dim',
+    class: 'bg-black/50'
+  },
+  {
+    id: 'vignette',
+    name: 'Soft Vignette',
+    class: 'bg-black/30 backdrop-brightness-90'
+  }
 ]
-import { quotes } from '../../data/quotes.ts'
-import QuoteFooter from './quotes/QuoteFooter.vue'
-const presets = quotes;
 
-const photoAuthor = ref({ name: '', license: 'CC0 / Public Domain', sourceUrl: '' })
+// --------------------------------------------------
+// Computed theme values
+// --------------------------------------------------
 
-const currentColor = computed(() => colorThemes.find(c => c.id === selectedColor.value) || colorThemes[0])
-const currentOverlay = computed(() => overlayStyles.find(o => o.id === selectedOverlay.value) || overlayStyles[0])
+const currentColor = computed(() =>
+  colorThemes.find(c => c.id === selectedColor.value) ||
+  colorThemes[0]
+)
 
-// Image Handlers
-const handleFileUpload = (event) => {
-  const file = event.target.files[0]
-  if (!file) return
-  isImageLoading.value = true
-  bgMode.value = 'userUploadPhoto'
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    base64Image.value = e.target.result
-    photoAuthor.value = { name: 'User Upload', license: 'Personal Image', sourceUrl: '' }
-    isImageLoading.value = false
-  }
-  reader.readAsDataURL(file)
-}
+const currentOverlay = computed(() =>
+  overlayStyles.find(o => o.id === selectedOverlay.value) ||
+  overlayStyles[0]
+)
 
-const fetchPhotography = async () => {
-  const query = imageSearchTerm.value.toLowerCase().trim()
-  isImageLoading.value = true
-  bgMode.value = 'photo'
-  await fetchPhotoWithFallback(query)
-  photoAuthor.value = { ...PhotoAuthorSource.value }
-  isImageLoading.value = false
-}
+const photoFooterType = computed<'photo' | 'userUploadPhoto'>(() =>
+  bgMode.value === 'userUploadPhoto'
+    ? 'userUploadPhoto'
+    : 'photo'
+)
 
-const selectTopic = (topic) => {
-  imageSearchTerm.value = topic
+// --------------------------------------------------
+// Initialisation
+// --------------------------------------------------
+
+onMounted(() => {
   fetchPhotography()
-}
-
-const loadRandomQuote = () => {
-  console.log('Loading random quote preset...', presets)
-  const pick = presets[Math.floor(Math.random() * presets.length)]
-  console.log('Picked quote:', pick)
-  quoteText.value = pick.text
-  author.value = pick.author
-  quoteSource.value = pick.source || pick.years || ''
-}
-
-const downloadImage = async () => {
-  if (!exportCard.value) return
-  isExporting.value = true
-  try {
-    const dataUrl = await toPng(exportCard.value, { pixelRatio: 1, width: 1080, height: 1080, cacheBust: true })
-    const link = document.createElement('a')
-    link.download = `quote-graphic-${Date.now()}.png`
-    link.href = dataUrl
-    link.click()
-  } catch (err) {
-    console.error('Failed to export:', err)
-  } finally {
-    isExporting.value = false
-  }
-}
-
-onMounted(() => { 
-  fetchPhotography();
-  loadRandomQuote();
-  })
+  loadRandomQuote()
+})
 </script>
