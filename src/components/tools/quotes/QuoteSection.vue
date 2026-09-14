@@ -6,6 +6,7 @@
       <div>
         <p class="text-black">
         {{ quoteTextSections.length > 1 ? 'Quote Sections' : 'Quote Section' }}
+        {{ quoteTextSections }}
         </p>
         <label class="block text-xs font-medium text-slate-600 mb-1">Quote or Scripture</label>
         <div v-for="(section, index) in quoteTextSections" :key="index" class="mb-2">
@@ -23,6 +24,20 @@
           type="button"
           class="ml-2 py-1 px-2 hover:bg-red-200 text-black border border-slate-300 text-xs font-medium rounded-lg transition">
           Bold
+        </button>
+        <button
+          v-if="quoteTextSections.length > 1"
+          @click="quoteTextSections[index].fontSizeDifference += 1; $emit('update:quoteTextSections', quoteTextSections)"
+          type="button"
+          class="ml-2 py-1 px-2 hover:bg-red-200 text-black border border-slate-300 text-xs font-medium rounded-lg transition">
+          Up
+        </button>
+        <button
+          v-if="quoteTextSections.length > 1"
+          @click="quoteTextSections[index].fontSizeDifference -= 1; $emit('update:quoteTextSections', quoteTextSections)"
+          type="button"
+          class="ml-2 py-1 px-2 hover:bg-red-200 text-black border border-slate-300 text-xs font-medium rounded-lg transition">
+          Down
         </button>
         </div>
         <button
