@@ -53,8 +53,24 @@
     </div>
 
     <!-- Photo Picker & Library Search -->
-    <div v-else-if="bgMode === 'photo'" class="space-y-3 pt-2">
-      <div>
+    <div v-else-if="bgMode === 'photo'" class="space-y-3">
+      <button @click="$emit('fetchPhotography')" :disabled="isImageLoading" class="w-full px-4 py-2 bg-blue-200 text-black hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition disabled:opacity-50">
+        {{ isImageLoading ? 'Fetching photo...' : 'Fetch New Random Photo' }}
+      </button>
+
+      <p class="text-xs text-slate-500">
+        Find a photo elsewhere.
+      </p>
+      <p class="text-xs text-slate-500">
+         Here are some free stock photo sites you can use to find a photo, download the file and use the upload feature to use it. 
+      </p>
+      <p class="text-xs text-slate-500">
+        <strong>Make sure you give credit to the author if you use their photo!</strong>
+      </p>
+      <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer" class="w-full flex justify-center p-3 bg-neutral-100 rounded-xl text-slate-800 border border-black hover:text-slate-400 text-xs font-medium transition" > Unsplash </a>
+      <a href="https://www.pexels.com/" target="_blank" rel="noopener noreferrer" class="w-full flex justify-center p-3 bg-slate-50 rounded-xl text-slate-950 border border-slate-950 hover:text-slate-400 text-xs font-medium transition" > Pexels </a>
+      <a href="https://pixabay.com/" target="_blank" rel="noopener noreferrer" class="w-full flex justify-center p-3 bg-black rounded-xl text-slate-200 border hover:text-slate-400 text-xs font-medium transition" > Pixabay </a>
+      <!-- <div>
         <div class="flex justify-between items-center mb-1">
           <label class="text-xs font-medium text-slate-600">Search Photography</label>
           <span v-if="isImageLoading" class="text-xs text-blue-600 animate-pulse">Fetching photo...</span>
@@ -75,9 +91,9 @@
             Search
           </button>
         </form>
-      </div>
+      </div> -->
 
-      <div class="flex flex-wrap gap-1.5">
+      <!-- <div class="flex flex-wrap gap-1.5">
         <button
           v-for="topic in quickTopics"
           :key="topic"
@@ -87,7 +103,7 @@
         >
           {{ topic }}
         </button>
-      </div>
+      </div> -->
       
       <!-- Photo Attribution Info -->
       <div v-if="photoAuthor.name|| photoAuthor.license" class="p-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs space-y-1">
