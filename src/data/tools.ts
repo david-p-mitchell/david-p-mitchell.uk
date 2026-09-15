@@ -28,7 +28,13 @@ export const tools: Tool[] = [
 //     href: "/tools/quoteImageCreator",
 //     icon: "📸",
 //   },
-     
+     {
+      title: "Image Quote Generator",
+      description:
+        "A tool to help you create beautiful quote images for social media and other purposes.",
+      href: "/tools/image-quote-generator",
+      icon: "📸",
+     },
   {
     title: "Sanctifying Sundays Tool",
     description:
