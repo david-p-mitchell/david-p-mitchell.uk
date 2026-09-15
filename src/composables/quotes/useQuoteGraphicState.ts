@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { quotes } from '../../data/quotes'
 
 export function useQuoteGraphicState() {
@@ -19,9 +19,25 @@ export function useQuoteGraphicState() {
   const isImageLoading = ref(false)
   const isExporting = ref(false)
   const showCreditOnExport = ref(true)
-
   const instaHandle = ref('')
   const websiteUrl = ref('')
+
+   if (typeof window !== 'undefined') {
+    instaHandle.value = localStorage.getItem('quoteGraphic.instaHandle') || ''
+    websiteUrl.value = localStorage.getItem('quoteGraphic.websiteUrl') || ''
+  }
+
+  watch(instaHandle, (value) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('quoteGraphic.instaHandle', value)
+    }
+  })
+
+  watch(websiteUrl, (value) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('quoteGraphic.websiteUrl', value)
+    }
+  })
 
   const enableTextBoxBg = ref(true)
   const textBoxBgColor = ref('#000000')
