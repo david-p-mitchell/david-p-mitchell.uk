@@ -6,7 +6,6 @@
       <div>
         <p class="text-black">
         {{ quoteTextSections.length > 1 ? 'Quote Sections' : 'Quote Section' }}
-        {{ quoteTextSections }}
         </p>
         <label class="block text-xs font-medium text-slate-600 mb-1">Quote or Scripture</label>
         <div v-for="(section, index) in quoteTextSections" :key="index" class="mb-2">
