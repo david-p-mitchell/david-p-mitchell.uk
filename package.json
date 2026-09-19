@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev-prebuild": "npx tsx --env-file=.env ./src/scripts/fetch-playlist.ts && npx tsx --env-file=.env ./src/scripts/fetch-health-data.ts && npx tsx --env-file=.env ./src/scripts/prebuild.ts",
-    "prebuild": "npx tsx ./src/scripts/fetch-playlist.ts && npx tsx ./src/scripts/fetch-health-data.ts && npx tsx ./src/scripts/prebuild.ts",
+    "dev-prebuild": "npx tsx --env-file=.env ./scripts/fetch-playlist.ts && npx tsx --env-file=.env ./scripts/fetch-health-data.ts && npx tsx --env-file=.env ./scripts/prebuild.ts",
+    "prebuild": "npx tsx ./scripts/fetch-playlist.ts && npx tsx ./scripts/fetch-health-data.ts && npx tsx ./scripts/prebuild.ts",
     "dev": "npm run dev-prebuild && astro dev",
     "build": "npm run prebuild && astro build",
     "preview": "astro preview",
