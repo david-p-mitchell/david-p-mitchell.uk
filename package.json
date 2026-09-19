@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "prebuild": "node scripts/fetch-playlist.js && npx tsx scripts/prebuild.ts",
-    "dev": "node scripts/fetch-playlist.js && npx tsx --env-file=.env scripts/prebuild.ts && astro dev",
+    "prebuild": "npx tsx --env-file=.env ./src/scripts/fetch-health-data.ts && npx tsx --env-file=.env ./src/scripts/fetch-health-data.ts && npx tsx --env-file=.env ./src/scripts/prebuild.ts",
+    "dev": "npm run prebuild && astro dev",
     "build": "npm run prebuild && astro build",
     "preview": "astro preview",
     "astro": "astro"
