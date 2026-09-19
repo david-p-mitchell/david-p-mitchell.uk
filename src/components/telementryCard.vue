@@ -51,7 +51,16 @@
         <!-- Fitness Stat -->
         <div class="px-1 rounded-lg bg-slate-800/50 border border-slate-700/50">
           <span class="text-xs text-amber-400 font-mono">Exercise</span>
-          <div class="text-md font-bold mt-1 text-white">{{ runningKm }} km</div>
+          <p class="text-[0.7rem]">Miles</p>
+          <div class="flex gap-2 items-baseline">
+            <div class="text-[0.7rem] font-bold mt-1 text-white">{{ health?.monthToDate.distanceMiles }}</div>
+            <div class="text-[0.7rem] mt-1 text-white">{{ (health?.monthToDate.distanceMiles/(new Date().getDate())).toFixed(2) }}</div>
+          </div>
+          <p class="text-[0.65rem]">Active Zone Minutes</p>
+          <div class="flex gap-2 items-baseline">
+            <div class="text-[0.8rem] font-bold mt-1 text-white">{{ health?.monthToDate.activeZoneMinutes }}</div>
+            <div class="text-[0.8rem] mt-1 text-white">{{ (health?.monthToDate.activeZoneMinutes/(new Date().getDate())).toFixed(2) }} </div>
+          </div>  
         </div>
 
         <!-- Faith Stat -->
@@ -70,6 +79,7 @@
 import { ref } from 'vue';
 import type { CommitBreakdown } from '../lib/github';
 import type { BookOverallProgress } from '../../composables/useBibleReadingProgress'
+import type { ActivitySummary } from '../types/health';
 
 function getMonthNameFromDate(monthNumber: number): string {
   const date = new Date(2000, monthNumber - 1, 1);
@@ -79,7 +89,7 @@ function getMonthNameFromDate(monthNumber: number): string {
 defineProps<{
   commits: CommitBreakdown;
   month: number;
-  runningKm?: number;
+  health?: ActivitySummary;
   bibleProgress?: BookOverallProgress;
 }>();
 
