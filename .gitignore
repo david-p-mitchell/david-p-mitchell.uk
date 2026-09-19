@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 src/data/videos.json
 src/data/commits.json
+src/data/health.json
