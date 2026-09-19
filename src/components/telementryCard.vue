@@ -19,14 +19,16 @@
         <div class="px-2 sm:px-3 sm:pt-2 rounded-lg bg-slate-800/50 border border-slate-700/50 max-w-full">
   <!-- Top Stat Header -->
   <div class="flex flex-wrap items-center justify-between gap-2">
+    <div class="flex gap-2">
     <div class="flex flex-col">
       <span class="text-xs text-emerald-400 font-mono font-semibold leading-tight">Code Commits</span>
-      <span class="text-[0.65rem] text-emerald-400/80 font-mono leading-none">(main branch)</span>
+      <span class="text-[0.65rem] text-emerald-400/80 font-mono leading-none">(main)</span>
     </div>
     
     <div class="flex items-baseline gap-1 text-right">
       <span class="text-xs sm:text-base font-bold text-white">{{ commits.totals.allBranches }}</span>
       <span class="text-xs font-medium text-slate-400">({{ commits.totals.mainBranch }})</span>
+    </div>
     </div>
   </div>
 
