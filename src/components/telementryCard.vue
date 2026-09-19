@@ -50,16 +50,21 @@
 
         <!-- Fitness Stat -->
         <div class="px-1 rounded-lg bg-slate-800/50 border border-slate-700/50">
+          <div class="flex mt-1">
           <span class="text-xs text-amber-400 font-mono">Exercise</span>
-          <p class="text-[0.7rem]">Miles</p>
-          <div class="flex gap-2 items-baseline">
-            <div class="text-[0.7rem] font-bold mt-1 text-white">{{ health?.monthToDate.distanceMiles }}</div>
-            <div class="text-[0.7rem] mt-1 text-white">{{ (health?.monthToDate.distanceMiles/(new Date().getDate())).toFixed(2) }}</div>
+          <span class="text-[0.5rem] text-amber-400 font-mono ml-0.5">*roughly</span>
           </div>
-          <p class="text-[0.65rem]">Active Zone Minutes</p>
           <div class="flex gap-2 items-baseline">
-            <div class="text-[0.8rem] font-bold mt-1 text-white">{{ health?.monthToDate.activeZoneMinutes }}</div>
-            <div class="text-[0.8rem] mt-1 text-white">{{ (health?.monthToDate.activeZoneMinutes/(new Date().getDate())).toFixed(2) }} </div>
+          <p class="text-[0.65rem]">Miles</p>
+          
+            <div class="text-[0.6rem] font-bold mt-1 text-white">{{ health?.monthToDate.distanceMiles }}</div>
+            <div class="text-[0.6rem] mt-1 text-white">({{ (health?.monthToDate.distanceMiles/(new Date().getDate())).toFixed(2) }})</div>
+          </div>
+  
+          <p class="text-[0.65rem] mt-2">Active Zone Mins</p>
+          <div class="flex gap-2 items-baseline">
+            <div class="text-[0.6rem] font-bold mt-1 text-white">{{ health?.monthToDate.activeZoneMinutes }}</div>
+            <div class="text-[0.6rem] mt-1 text-white">({{ (health?.monthToDate.activeZoneMinutes/(new Date().getDate())).toFixed(2) }}) per day </div>
           </div>  
         </div>
 
