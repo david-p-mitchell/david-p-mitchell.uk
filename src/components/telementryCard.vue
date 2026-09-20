@@ -6,7 +6,7 @@
       @click="isOpen = !isOpen"
       class="md:hidden w-full text-center py-1 text-[0.5rem] font-mono text-neutral-50/80 border-b border-gold/30 flex items-center justify-center gap-1"
     >
-      <span>{{ isOpen ? 'Hide "Stats for ' + getMonthNameFromDate(month) : 'Show Stats for ' + getMonthNameFromDate(month) }}</span>
+      <span>{{ isOpen ? 'Hide Stats for ' + getMonthNameFromDate(month) : 'Show Stats for ' + getMonthNameFromDate(month) }}</span>
       <span class="text-[10px]">{{ isOpen ? '▲' : '▼' }}</span>
     </button>
 
