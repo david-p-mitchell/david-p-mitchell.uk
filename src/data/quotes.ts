@@ -21,7 +21,7 @@ export const quotes: Quote[] = [
         text: "God is too good to be unkind and He is too wise to be mistaken. And when we cannot trace His hand, we must trust His heart.",
         author: "Charles Spurgeon",
         imgAuthor: "https://images.gr-assets.com/authors/1283124007p8/2876959.jpg",
-        years: "1834–1892",
+        years: "1834-1892",
         tags: ["God", "wisdom", "trust"]
     },
     {
@@ -77,7 +77,7 @@ export const quotes: Quote[] = [
         tags: ["faith", "repentance"]
     },
     {
-     id:10,
+        id:10,
         text:"God has chosen us. Our status is not a matter of our worthiness, but of His love.",
         author: "Sinclair Ferguson",
         tags: ["status", "standing", "GodsLove"]
@@ -89,12 +89,15 @@ export const quotes: Quote[] = [
         tags: ["God", "KnowingGod", "privilege"]
     },
     {
-      id:12,
-      text: "If I could hear Christ praying for me in the next room, I would not fear a million enemies. Yet distance makes no difference. He is praying for me.",
-      author: "Robert Murray M’Cheyne",
-      tags:["Prayer", "Intercession"]
+        id:12,
+        text: "If I could hear Christ praying for me in the next room, I would not fear a million enemies. Yet distance makes no difference. He is praying for me.",
+        author: "Robert Murray M'Cheyne",
+        tags:["Prayer", "Intercession"]
+    },
+    {
+        id:13,
+        text: "Some people think God does not like to be troubled with our constent coming and asking. The way to trouble God is not to come at all.",
+        author: "D.L. Moody",
+        tags:["Prayer", "Intercession"]
     }
-
-
-    
 ];
