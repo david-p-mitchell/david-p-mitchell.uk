@@ -19,7 +19,7 @@
             v-model:showQuoteSource="showQuoteSource"
             @loadRandomQuote="loadRandomQuote"
             @addQuoteSection="addQuoteSection"
-            @removeQuoteSection="quoteTextSections.length > 1 ? (index: number) => quoteTextSections.splice(index, 1) : null"
+            @removeQuoteSection="removeQuoteSection"
           />
 
           <!-- Section 2: Background Mode & Selection -->
@@ -114,14 +114,14 @@
                 :style="{
                   fontSize: `${fontSize + section.fontSizeDifference}px`,
                   lineHeight: 1.35,
-                  color: fontColor
+                  color: fontColor,
                 }"
                 :class="[
                   'font-serif tracking-wide leading-relaxed drop-shadow-md text-center',
                   section?.bold ? 'font-bold' : ''
                 ]"
               >
-                {{ section.text }}
+                {{ section.text ? section.text + ' ' : '\u00A0' }}
               </p>
               <p
                 v-if="author"
@@ -149,11 +149,16 @@
         />
           </div>
         </div>
+        <input
+            type="text"
+            class="w-full mt-4 rounded-lg border-slate-200 bg-slate-50 p-3 text-sm text-slate-800 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 outline-none transition"
+            />
       </div>
 
     </div>
 
     <!-- Hidden Export Render Card (1080x1080) -->
+    <!-- Every px value below is the preview's px value multiplied by exportScale -->
     <div class="fixed top-[-9999px] left-[-9999px] pointer-events-none overflow-hidden">
       <div
         ref="exportCard"
@@ -164,37 +169,63 @@
         <div v-if="hasPhotoBackground" :class="['absolute inset-0', currentOverlay.class]"></div>
 
         <!-- Absolute Top Quote Decoration -->
-        <div class="absolute top-[61px] left-[61px] z-10 opacity-40 text-7xl font-serif">“</div>
+        <div
+          class="absolute z-10 opacity-40 font-serif"
+          :style="{
+            top: `${24 * exportScale}px`,
+            left: `${24 * exportScale}px`,
+            fontSize: `${36 * exportScale}px`,
+            lineHeight: 1
+          }"
+        >“</div>
 
-        <!-- Draggable Text Card Scaled for High-Res -->
+        <!-- Text Card scaled for high-res -->
         <div 
           :style="{ 
             left: `calc(50% + ${textPos.x}%)`,
             top: `calc(50% + ${textPos.y}%)`,
             transform: 'translate(-50%, -50%)',
             width: `${boxWidth}%`,
-            backgroundColor: computedRgbaBg
+            backgroundColor: computedRgbaBg,
+            padding: `${16 * exportScale}px`,
+            borderRadius: `${12 * exportScale}px`,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: `${12 * exportScale}px`
           }"
-          class="absolute z-10 space-y-[31px] p-[41px] rounded-2xl text-center"
+          class="absolute z-10 text-center"
         >
-          <p v-for="(section, index) in quoteTextSections" :key="index"
-            :style="{ fontSize: `${fontSize * 2.571}px`, lineHeight: 1.35, color: fontColor }"
-            class="font-serif font-medium tracking-wide leading-relaxed drop-shadow-md text-center"
-          >
-            {{ section.text }}
+          <p v-for="(section, index) in quoteTextSections"
+              :key="index"
+              :style="{
+                fontSize: `${(fontSize + section.fontSizeDifference) * exportScale}px`,
+                lineHeight: 1.35,
+                color: fontColor,
+              }"
+              :class="[
+                'font-serif tracking-wide leading-relaxed drop-shadow-md text-center',
+                section?.bold ? 'font-bold' : ''
+              ]"
+            >
+            {{ section.text ? section.text + ' ' : '\u00A0' }}
           </p>
           <p
             v-if="author"
-            :style="{ color: fontColor }"
-            class="text-[31px] font-sans font-semibold tracking-wider uppercase opacity-90 drop-shadow text-center"
+            :style="{ color: fontColor, fontSize: `${12 * exportScale}px` }"
+            class="font-sans font-semibold tracking-wider uppercase opacity-90 drop-shadow text-center"
           >
             — {{ author }}
           </p>
 
+          <!-- Preview uses gap 12px but mt-2 (8px) here, so pull it up by 4px (scaled) -->
           <p
             v-if="quoteSource && showQuoteSource"
-            :style="{ color: fontColor }"
-            class="text-[24px] font-sans tracking-wider opacity-90 drop-shadow italic text-center !mt-2"
+            :style="{
+              color: fontColor,
+              fontSize: `${11 * exportScale}px`,
+              marginTop: `${-4 * exportScale}px`
+            }"
+            class="font-sans tracking-wider opacity-90 drop-shadow italic text-center"
           >
               {{ quoteSource }}
           </p>
@@ -216,7 +247,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 import QuoteSection from './quotes/QuoteSection.vue'
 import BackgroundSection from './quotes/BackgroundSection.vue'
@@ -273,7 +304,19 @@ const {
 // --------------------------------------------------
 
 const exportCard = ref(null)
-const previewContainer = ref(null)
+const previewContainer = ref<HTMLElement | null>(null)
+
+// --------------------------------------------------
+// Preview -> export scaling
+// --------------------------------------------------
+
+const EXPORT_SIZE = 1080
+const previewWidth = ref(420)
+
+// Scale factor applied to every px value in the export card
+const exportScale = computed(() => EXPORT_SIZE / Math.max(previewWidth.value, 1))
+
+let resizeObserver: ResizeObserver | null = null
 
 // --------------------------------------------------
 // Dragging
@@ -309,6 +352,16 @@ const {
   isExporting,
   downloadImage
 } = useQuoteGraphicExport(exportCard)
+
+// --------------------------------------------------
+// Quote section handlers
+// --------------------------------------------------
+
+function removeQuoteSection(index: number) {
+  if (quoteTextSections.value.length > 1) {
+    quoteTextSections.value.splice(index, 1)
+  }
+}
 
 // --------------------------------------------------
 // Static options
@@ -401,5 +454,17 @@ const photoFooterType = computed<'photo' | 'userUploadPhoto'>(() =>
 onMounted(() => {
   fetchPhotography()
   loadRandomQuote()
+
+  if (previewContainer.value) {
+    previewWidth.value = previewContainer.value.clientWidth
+    resizeObserver = new ResizeObserver(([entry]) => {
+      previewWidth.value = entry.contentRect.width
+    })
+    resizeObserver.observe(previewContainer.value)
+  }
+})
+
+onBeforeUnmount(() => {
+  resizeObserver?.disconnect()
 })
 </script>

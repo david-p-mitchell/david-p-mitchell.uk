@@ -58,7 +58,46 @@ const todayVerse = verses?.[safeIndex] ?? { verse: "Default verse text", referen
         <DailyVideo videos={videos} />
       </div>
       <div class="col-span-1 md:col-span-2">
-        <Reading books={books} />
+        
+        <div class="bg-card border border-border dark:border-gold/40 border-3 rounded-xl sm:rounded-lg lg:rounded-2xl overflow-hidden flex flex-col h-[350px]">
+
+  <a
+    href="/tools/image-quote-generator"
+    class="group relative flex flex-col h-full rounded-xl
+           bg-white dark:bg-card shadow-sm
+           transition-all duration-300
+           hover:-translate-y-2 hover:shadow-xl
+           hover:border-blue-300 dark:hover:border-blue-500"
+  >
+    <p class="font-mono text-xs uppercase tracking-widest text-gold-muted mt-4 ml-4">
+      Latest Picture Quote
+    </p>
+
+    <!-- Image area fills all remaining space -->
+    <div class="flex-1 min-h-0 p-2">
+      <img
+        src="/images/quotes/quote-graphic-1790809431611.png"
+        alt="Latest quote graphic"
+        class="h-full w-full object-contain origin-top
+               transition-transform duration-300 ease-out
+               group-hover:scale-[0.9] group-focus-visible:scale-[0.9]"
+      />
+    </div>
+
+    <!-- Overlaid link: out of the flow, so it doesn't shrink the image at rest -->
+    <div
+      class="absolute inset-x-0 bottom-3 text-center text-sm font-medium
+             text-blue-600 dark:text-gold
+             opacity-0 translate-y-2
+             group-hover:opacity-100 group-hover:translate-y-0
+             group-focus-visible:opacity-100 group-focus-visible:translate-y-0
+             transition duration-300"
+    >
+      Create your own →
+    </div>
+  </a>
+</div>
+        <!-- <Reading books={books} /> -->
       </div>
       <div class="col-span-1 hidden md:flex md:col-span-2 gap-2 animate-fade-up [animation-delay:160ms]">
       <BibleDevDevotion /> 

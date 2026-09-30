@@ -50,6 +50,16 @@ const props = withDefaults(defineProps<Props>(), {
       >
         📸 {{ photoAuthor.name }} ({{ photoAuthor.license }})
       </span>
+      <span
+        v-if="websiteUrl"
+        :class="[
+          'justify-end opacity-80',
+          large ? 'max-w-[450px]' : 'max-w-[180px]'
+        ]"
+      >
+        {{ websiteUrl }}
+      </span>
+      
     </template>
 
     <!-- User-upload attribution -->
