@@ -37,7 +37,7 @@ function getCodeLineCount(code?: string) {
 }
 
 const lineCount = featured ? getCodeLineCount(featured.data.code) : 0;
-const allowedLineCount = 10
+const allowedLineCount = 20
 ---
 
 <section class="w-full rounded-xl border border-border dark:border-gold/40 bg-card flex">
@@ -63,7 +63,7 @@ const allowedLineCount = 10
             {featured.data.summary}
           </h3>
 
-          <p class={`${lineCount < allowedLineCount ? 'mb-4' : ''} text-blue-300`}>
+          <p class={`${lineCount < allowedLineCount ? 'mb-1' : ''} text-blue-300`}>
             {featured.data.verse}
           </p>
         </div>
@@ -78,7 +78,7 @@ const allowedLineCount = 10
           </p>
           <a
             href={`/devotions/${featured.id}`}
-            class="mt-2 text-blue-300 hover:underline text-sm min-w-[130px] text-right"
+            class="mt-2 text-blue-300 hover:underline text-sm min-w-[130px] text-right max-y-[20px]"
           >
             Read devotion →
           </a>
@@ -86,8 +86,15 @@ const allowedLineCount = 10
       </div>
 
       {featured.data.code && lineCount < allowedLineCount && (
-        <div class="mt-3 overflow-hidden rounded-lg border border-border">
-          <Code code={featured.data.code} lang="csharp" />
+        <div class="rounded-lg border border-border">
+          <Code
+            code={featured.data.code}
+            lang="csharp"
+            class:list={[
+              'max-h-[200px] pr-12',
+              lineCount < 10 ? 'text-md' : 'text-[11px]',
+            ]}
+          />
         </div>
       )}
     </article>
