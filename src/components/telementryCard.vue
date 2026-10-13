@@ -6,7 +6,7 @@
       @click="isOpen = !isOpen"
       class="md:hidden w-full text-center py-1 text-[0.5rem] font-mono text-neutral-50/80 border-b border-gold/30 flex items-center justify-center gap-1"
     >
-      <span>{{ isOpen ? 'Hide "Stats for ' + getMonthNameFromDate(month) : 'Show Stats for ' + getMonthNameFromDate(month) }}</span>
+      <span>{{ isOpen ? 'Hide Stats for ' + getMonthNameFromDate(month) : 'Show Stats for ' + getMonthNameFromDate(month) }}</span>
       <span class="text-[10px]">{{ isOpen ? '▲' : '▼' }}</span>
     </button>
 
@@ -19,14 +19,16 @@
         <div class="px-2 sm:px-3 sm:pt-2 rounded-lg bg-slate-800/50 border border-slate-700/50 max-w-full">
   <!-- Top Stat Header -->
   <div class="flex flex-wrap items-center justify-between gap-2">
+    <div class="flex gap-2">
     <div class="flex flex-col">
       <span class="text-xs text-emerald-400 font-mono font-semibold leading-tight">Code Commits</span>
-      <span class="text-[0.65rem] text-emerald-400/80 font-mono leading-none">(main branch)</span>
+      <span class="text-[0.65rem] text-emerald-400/80 font-mono leading-none">(main)</span>
     </div>
     
     <div class="flex items-baseline gap-1 text-right">
       <span class="text-xs sm:text-base font-bold text-white">{{ commits.totals.allBranches }}</span>
       <span class="text-xs font-medium text-slate-400">({{ commits.totals.mainBranch }})</span>
+    </div>
     </div>
   </div>
 
@@ -50,8 +52,22 @@
 
         <!-- Fitness Stat -->
         <div class="px-1 rounded-lg bg-slate-800/50 border border-slate-700/50">
+          <div class="flex mt-1">
           <span class="text-xs text-amber-400 font-mono">Exercise</span>
-          <div class="text-md font-bold mt-1 text-white">{{ runningKm }} km</div>
+          <span class="text-[0.5rem] text-amber-400 font-mono ml-0.5">*roughly</span>
+          </div>
+          <div class="flex gap-2 items-baseline">
+          <p class="text-[0.65rem]">Miles</p>
+          
+            <div class="text-[0.6rem] font-bold mt-1 text-white">{{ health?.monthToDate.distanceMiles }}</div>
+            <div class="text-[0.6rem] mt-1 text-white">({{ (health?.monthToDate.distanceMiles/(new Date().getDate())).toFixed(2) }})</div>
+          </div>
+  
+          <p class="text-[0.65rem] mt-2">Active Zone Mins</p>
+          <div class="flex gap-2 items-baseline">
+            <div class="text-[0.6rem] font-bold mt-1 text-white">{{ health?.monthToDate.activeZoneMinutes }}</div>
+            <div class="text-[0.6rem] mt-1 text-white">({{ (health?.monthToDate.activeZoneMinutes/(new Date().getDate())).toFixed(2) }}) per day </div>
+          </div>  
         </div>
 
         <!-- Faith Stat -->
@@ -70,6 +86,7 @@
 import { ref } from 'vue';
 import type { CommitBreakdown } from '../lib/github';
 import type { BookOverallProgress } from '../../composables/useBibleReadingProgress'
+import type { ActivitySummary } from '../types/health';
 
 function getMonthNameFromDate(monthNumber: number): string {
   const date = new Date(2000, monthNumber - 1, 1);
@@ -79,7 +96,7 @@ function getMonthNameFromDate(monthNumber: number): string {
 defineProps<{
   commits: CommitBreakdown;
   month: number;
-  runningKm?: number;
+  health?: ActivitySummary;
   bibleProgress?: BookOverallProgress;
 }>();
 

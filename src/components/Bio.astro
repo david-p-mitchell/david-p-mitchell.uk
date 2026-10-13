@@ -13,7 +13,7 @@ export const prerender = true;
 import TelemetryCard from './telementryCard.vue';
 import { getMonthlyCommitBreakdown } from '../lib/github';
 
-
+import activitySummary from '../data/health.json';
 import commitData from '../data/commits.json';
 // Static or DB-driven values for other metrics
 const runningKm = 0;
@@ -75,7 +75,7 @@ const bibleProgress = calculateBibleProgress();
     <TelemetryCard 
       month={new Date().getMonth()}
       commits={commitData} 
-      runningKm={runningKm} 
+      health={activitySummary} 
       bibleProgress={bibleProgress} 
       client:visible 
       />

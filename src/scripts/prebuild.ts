@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { getMonthlyCommitBreakdown } from "../src/lib/github";
+import { getMonthlyCommitBreakdown } from "../../src/lib/github";
 
 async function buildCommitData() {
   
