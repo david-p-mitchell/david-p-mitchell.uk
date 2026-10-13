@@ -7,6 +7,7 @@ export type Book = {
   img?: string;
   tags?: string[];
   show?: boolean;
+  lastRead?: Date;
 }
 export const books : Book[] = [
   {
@@ -69,8 +70,9 @@ export const books : Book[] = [
 {
   title: "Write It On Their Hearts: Practical Help For Discipling Your Kids",
   author: "Chris & Melissa Swain",
-  progress: 12,
-  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1644252666i/60342260.jpg"
+  progress: 23,
+  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1644252666i/60342260.jpg",
+lastRead: new Date("2026-10-14")
 }
 
 
