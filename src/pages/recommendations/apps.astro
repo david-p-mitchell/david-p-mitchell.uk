@@ -66,7 +66,7 @@ const costStyles: Record<NonNullable<App["cost"]>, { label: string; classes: str
           rel={isExternal(app.href) ? "noopener noreferrer" : undefined}
           class="group block rounded-xl border border-slate-300 dark:border-gray-700
                  bg-white dark:bg-gray-800
-                 p-6 shadow-sm
+                 pt-6 px-4 shadow-sm
                  transition-all duration-300
                  hover:-translate-y-1
                  hover:shadow-xl
@@ -74,30 +74,30 @@ const costStyles: Record<NonNullable<App["cost"]>, { label: string; classes: str
                  dark:hover:border-blue-500"
         >
           <div
-class:list={[
-  "flex items-center justify-center h-14 mb-5 mx-auto text-2xl",
+            class:list={[
+            "flex items-center justify-center h-14 mb-5 mx-auto text-2xl",
 
-  // Logo sizing
-  hasImage(app) && app.isCircleLogo && "w-14 rounded-full overflow-hidden",
-  hasImage(app) && !app.isCircleLogo && "w-fit max-w-full rounded-lg px-3",
+            // Logo sizing
+            hasImage(app) && app.isCircleLogo && "w-14 rounded-full overflow-hidden",
+            hasImage(app) && !app.isCircleLogo && "w-fit max-w-full rounded-lg px-3",
 
-  // Apply custom background colour
-  bgClass(app),
+            // Apply custom background colour
+            bgClass(app),
 
-  // Wide logo with no custom colour: white backing in dark mode
-  hasImage(app) &&
-    !app.isCircleLogo &&
-    !bgClass(app) &&
-    "dark:bg-white",
+            // Wide logo with no custom colour: white backing in dark mode
+            hasImage(app) &&
+                !app.isCircleLogo &&
+                !bgClass(app) &&
+                "dark:bg-white",
 
-  // Emoji / SVG icon without an image: blue circle by default
-  !hasImage(app) &&
-    !app.backgroundColor &&
-    "w-14 rounded-full bg-blue-100 dark:bg-blue-900/50",
+            // Emoji / SVG icon without an image: blue circle by default
+            !hasImage(app) &&
+                !app.backgroundColor &&
+                "w-14 rounded-full bg-blue-100 dark:bg-blue-900/50",
 
-  // Keep icons without images circular
-  !hasImage(app) && "w-14 rounded-full",
-]}
+            // Keep icons without images circular
+            !hasImage(app) && "w-14 rounded-full",
+            ]}
           >
             {
               hasImage(app) ? (
@@ -136,7 +136,7 @@ class:list={[
           )}
 
           {app.cost && (
-            <div class="flex flex-col items-center gap-1 mb-3">
+            <div class="flex flex-col items-center gap-1 mb-3 min-h-[3.5rem]">
               <span
                 class:list={[
                   "inline-block rounded-full px-2.5 py-0.5 text-xs font-medium",
@@ -161,21 +161,32 @@ class:list={[
           </p>
 
           {app.disclaimer && (
-            <p
-              class="mt-4 rounded-lg border border-amber-200 bg-amber-50
-                     dark:border-amber-700/50 dark:bg-amber-900/20
-                     px-3 py-2 text-xs leading-relaxed text-left
-                     text-amber-900 dark:text-amber-200"
+            <details
+                class="mt-4 rounded-lg border border-amber-200 bg-red-50
+                    dark:border-amber-700/50 dark:bg-red-500/40
+                    text-amber-900 dark:text-amber-50"
             >
-              <span class="font-semibold">Note:</span> {app.disclaimer}
-            </p>
-          )}
+                <summary
+                class="cursor-pointer select-none px-3 py-2 text-xs font-semibold
+                        hover:bg-amber-100/70 dark:hover:bg-amber-900/30
+                        rounded-lg"
+                >
+                Disclaimer
+                </summary>
+
+                <div class="px-3 pb-2 text-xs leading-relaxed text-left">
+                {app.disclaimer.map((line) => (
+                    <p class="mb-2 last:mb-0">{line}</p>
+                ))}
+                </div>
+            </details>
+            )}
 
           <div
             class="mt-5 text-center text-sm font-medium
                    text-blue-600 dark:text-gold
                    opacity-0 group-hover:opacity-100
-                   transition"
+                   transition mb-2"
           >
             {isExternal(app.href) ? "Visit app ↗" : "Open app →"}
           </div>
