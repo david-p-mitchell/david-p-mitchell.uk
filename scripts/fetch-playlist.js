@@ -29,13 +29,22 @@ do {
     }
 
     videos.push(
-        ...json.items.map(v => ({
+    ...json.items
+        .filter(v => {
+            const title = v.snippet?.title;
+            return (
+                title !== 'Private video' &&
+                title !== 'Deleted video' &&
+                v.snippet?.thumbnails?.high?.url
+            );
+        })
+        .map(v => ({
             id: v.snippet.resourceId.videoId,
             title: v.snippet.title,
             published: v.snippet.publishedAt,
             thumbnail: v.snippet.thumbnails.high.url
         }))
-    );
+);
 
     pageToken = json.nextPageToken ?? "";
 
