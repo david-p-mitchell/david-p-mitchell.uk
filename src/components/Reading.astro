@@ -64,6 +64,7 @@ const { books } = Astro.props;
                 ></div>
               </div>
               <span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{book.progress}%</span>
+<span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{book?.lastRead}%</span>
             </div>
           )}
         </div>
