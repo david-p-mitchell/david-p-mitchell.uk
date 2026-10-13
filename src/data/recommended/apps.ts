@@ -9,7 +9,7 @@ export interface App {
   imgSrc?: string;
   producers?: string;
   backgroundColor?: string;
-  disclaimer?: string;
+  disclaimer?: string[];
   cost?: "free" | "freemium" | "paid";
   costNote?: string;
 }
@@ -65,8 +65,9 @@ export const apps: App[] = [
     costNote: "A free version with limited features is available, but most resources must be bought.",
     disclaimer:
       ["Logos is a paid software, but there is a free version with limited features.",
-        "Whilst I recommend the software, many of the resources are not free, and many of the resources are not from a reformed perspective. Please check the content before using it."
-      ].join(" "),
+        "Whilst I recommend the software, many of the resources are not free, and many of the resources are not from a reformed perspective.",
+        "Please check the content before using it."
+      ],
   },
   {
     title: "Desiring God || Solid Joys",
