@@ -47,7 +47,7 @@ function progressColor(progress: number): string {
     {data.map((item) => (
       <div
         class="flex flex-col items-center w-[14px] gap-1"
-        title={`${item.book}: ${item.progress}% (${item.totalVerses} verses)`}
+        title={`${item.book.bookName}: ${item.progress}% (${item.totalVerses} verses)`}
       >
         <div class="flex items-end" style={`height: ${BAR_MAX_HEIGHT}px`}>
           <div
