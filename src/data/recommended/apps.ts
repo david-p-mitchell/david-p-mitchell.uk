@@ -42,17 +42,6 @@ export const apps: App[] = [
     cost: "free",
   },
   {
-    title: "I'll Be Honest",
-    description:
-      "Listen to or download messages from I'll Be Honest, organised by series, topic and speaker.",
-    href: "https://illbehonest.com",
-    icon: "🎧",
-    hasOwnImage: true,
-    imgSrc: "https://illbehonest.com/wp-content/uploads/2024/11/cropped-illbehonest-512.webp",
-    isCircleLogo: true,
-    cost: "free",
-  },
-  {
     title: "Logos Bible Software",
     description:
       "A digital library and study platform with commentaries, original language tools and powerful search for serious Bible study.",
@@ -68,6 +57,17 @@ export const apps: App[] = [
         "Whilst I recommend the software, many of the resources are not free, and many of the resources are not from a reformed perspective.",
         "Please check the content before using it."
       ],
+  },
+  {
+    title: "I'll Be Honest",
+    description:
+      "Listen to or download messages from I'll Be Honest, organised by series, topic and speaker.",
+    href: "https://illbehonest.com",
+    icon: "🎧",
+    hasOwnImage: true,
+    imgSrc: "https://illbehonest.com/wp-content/uploads/2024/11/cropped-illbehonest-512.webp",
+    isCircleLogo: true,
+    cost: "free",
   },
   {
     title: "Desiring God || Solid Joys",
