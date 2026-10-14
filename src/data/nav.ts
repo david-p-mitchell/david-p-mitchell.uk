@@ -9,7 +9,7 @@ export const links: NavLink[] = [
     
     children: [
       { label: "Media", href: "/recommendations/media" },
-      // { label: "Apps", href: "/recommendations/apps" },
+      { label: "Apps", href: "/recommendations/apps" },
       // { label: "Books", href: "/recommendations/books" },
       
       // { label: "Websites", href: "/recommendations/websites" },
