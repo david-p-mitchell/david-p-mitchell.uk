@@ -2,6 +2,7 @@
 import BibleReading from "./BibleReading.astro";
 import readings from "../data/bibleReading.ts";
 import type { Book } from '../data/books'
+import  RelativeDate from "./RelativeDate.vue";
 interface Props {
   books: Book[];
 }
@@ -42,6 +43,9 @@ const { books } = Astro.props;
 
         <div class="flex flex-col gap-1.5 flex-1 min-w-0">
           <p class="font-display font-semibold text-sm text-text-primary leading-snug">{book.title}</p>
+          <div class="flex">
+            
+          
           <p class="font-display text-xs text-gray-100 pr-2">
             {book.author}
             { (book.tags?.length ?? 0) > 0 && (
@@ -54,17 +58,29 @@ const { books } = Astro.props;
               </span>
             )}
           </p>
-
+          
+          </div>
+          { book.lastRead &&
+            <p  class="font-display text-xs text-gray-100 pr-2">
+              Last Read:&nbsp;
+              <RelativeDate client:load date={book?.lastRead} />
+            </p>
+          }
           {book.progress !== undefined && (
             <div class="flex items-center gap-2 mt-0.5">
               <div class="flex-1 h-1 bg-border rounded-full overflow-hidden">
+                <div class="flex">
                 <div
                   class="h-full bg-gold rounded-full transition-all duration-700"
                   style={`width: ${book.progress}%`}
-                ></div>
+                >
+
+                </div>
+
+                </div>
               </div>
               <span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{book.progress}%</span>
-<span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{book?.lastRead}%</span>
+
             </div>
           )}
         </div>
