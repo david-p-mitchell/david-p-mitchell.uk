@@ -50,7 +50,13 @@ const readings : Reading[] = [
         book: "Judges",
         progress: 7.4,
         lastRead: "2026-10-19"
-    }
+    },
+    {
+        book: "Lamentations",
+        progress: 14.3,
+        lastRead: "2026-10-22"
+    },
+  
 ]
 
 export default readings
