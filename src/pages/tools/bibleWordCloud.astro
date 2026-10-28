@@ -1,0 +1,11 @@
+---
+// src/pages/bible-progress.astro
+import BaseLayout from '../../layouts/BaseLayout.astro'; // adjust to your actual layout path
+import BibleWordCloud  from '../../components/bible/bibleWordCloud.vue';
+---
+
+<BaseLayout title="Bible Word Cloud">
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <BibleWordCloud client:load />
+  </main>
+</BaseLayout>
