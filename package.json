@@ -16,7 +16,7 @@
   "dependencies": {
     "@astrojs/vue": "^7.0.3",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.3.8",
+    "astro": "^7.4.2",
     "chart.js": "^4.5.1",
     "dotenv": "^18.0.7",
     "qrcode": "^1.5.4",
