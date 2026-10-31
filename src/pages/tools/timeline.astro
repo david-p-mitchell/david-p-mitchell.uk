@@ -1,0 +1,10 @@
+---
+// Example page: src/pages/tools/timeline.astro
+// Swap the Layout import for whatever your other tool pages use.
+import Layout from '../../layouts/Layout.astro'
+import ChristianTimeline from '../../components/tools/christianTimeline.vue'
+---
+
+<Layout title="Timeline: Abraham to Spurgeon">
+  <ChristianTimeline client:load />
+</Layout>
