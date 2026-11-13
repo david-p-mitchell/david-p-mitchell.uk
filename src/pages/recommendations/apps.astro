@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { apps } from '../../data/recommended/apps.ts';
+import type { App } from '../../data/recommended/apps.ts';
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const hasImage = (app: App) => app.hasOwnImage && !!app.imgSrc;
+
+// Tailwind only generates classes it can see written out in full, so
+// `bg-${color}` would be stripped from the build. Add new colours here.
+const bgClasses: Record<string, string> = {
+  "white": "bg-white",
+  "black": "bg-black",
+  "gray-100": "bg-gray-100",
+  "gray-800": "bg-gray-800",
+  "blue-100": "bg-blue-100",
+  "blue-500": "bg-blue-500",
+  "blue-600": "bg-blue-600",
+  "yellow-400": "bg-yellow-400",
+  "yellow-500": "bg-yellow-500",
+  "amber-500": "bg-amber-500",
+  "red-500": "bg-red-500",
+  "green-500": "bg-green-500",
+  "purple-500": "bg-purple-500",
+"emerald-200": "bg-emerald-200",
+};
+const bgClass = (app: App) => {
+  if (!app.backgroundColor) return "";
+  return bgClasses[app.backgroundColor] ?? "";
+};
+
+// Cost badge labels and colours (full class names so Tailwind keeps them).
+const costStyles: Record<NonNullable<App["cost"]>, { label: string; classes: string }> = {
+  free: {
+    label: "Free",
+    classes: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+  },
+  freemium: {
+    label: "Free + extras",
+    classes: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  },
+  paid: {
+    label: "Paid",
+    classes: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  },
+};
+---
+
+<BaseLayout title="Recommended Apps">
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    <section class="text-center mb-12">
+      <h1 class="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+        Recommended Apps
+      </h1>
+
+      <p class="text-gray-600 dark:text-gray-300 max-w-xl mx-auto text-lg">
+        Apps I recommend to support your Christian Walk / Life.
+      </p>
+    </section>
+
+    <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {apps.map((app) => (
+        <a
+          href={app.href}
+          target={isExternal(app.href) ? "_blank" : undefined}
+          rel={isExternal(app.href) ? "noopener noreferrer" : undefined}
+          class="group block rounded-xl border border-slate-300 dark:border-gray-700
+                 bg-white dark:bg-gray-800
+                 pt-6 px-4 shadow-sm
+                 transition-all duration-300
+                 hover:-translate-y-1
+                 hover:shadow-xl
+                 hover:border-blue-300
+                 dark:hover:border-blue-500"
+        >
+          <div
+            class:list={[
+            "flex items-center justify-center h-14 mb-5 mx-auto text-2xl",
+
+            // Logo sizing
+            hasImage(app) && app.isCircleLogo && "w-14 rounded-full overflow-hidden",
+            hasImage(app) && !app.isCircleLogo && "w-fit max-w-full rounded-lg px-3",
+
+            // Apply custom background colour
+            bgClass(app),
+
+            // Wide logo with no custom colour: white backing in dark mode
+            hasImage(app) &&
+                !app.isCircleLogo &&
+                !bgClass(app) &&
+                "dark:bg-white",
+
+            // Emoji / SVG icon without an image: blue circle by default
+            !hasImage(app) &&
+                !app.backgroundColor &&
+                "w-14 rounded-full bg-blue-100 dark:bg-blue-900/50",
+
+            // Keep icons without images circular
+            !hasImage(app) && "w-14 rounded-full",
+            ]}
+          >
+            {
+              hasImage(app) ? (
+                <img
+                  src={app.imgSrc}
+                  alt={`${app.title} logo`}
+                  loading="lazy"
+                  class:list={[
+                    app.isCircleLogo
+                      ? "w-full h-full object-cover"
+                      : "h-full w-auto max-w-full object-contain",
+                  ]}
+                />
+              ) : app.iconIsSVG ? (
+                <Fragment set:html={app.icon} />
+              ) : (
+                <span>{app.icon}</span>
+              )
+            }
+          </div>
+
+          <h2
+            class:list={[
+              "text-xl font-semibold text-gray-900 dark:text-white text-center",
+              "group-hover:text-blue-600 dark:group-hover:text-gold transition border-b-1 border-gray-200 dark:border-gray-100 pt-1",
+              app.producers ? "mb-1" : "mb-3",
+            ]}
+          >
+            {app.title}
+          </h2>
+
+          {app.producers && (
+            <p class="text-xs tracking-wide text-gray-500 dark:text-gray-200 text-center mb-3 ">
+              By {app.producers}
+            </p>
+          )}
+
+          {app.cost && (
+            <div class="flex flex-col items-center gap-1 mb-3 min-h-[3.5rem]">
+              <span
+                class:list={[
+                  "inline-block rounded-full px-2.5 py-0.5 text-xs font-medium",
+                  costStyles[app.cost].classes,
+                ]}
+              >
+                {costStyles[app.cost].label}
+              </span>
+              {app.costNote && (
+                <span class="text-xs text-gray-500 dark:text-gray-400 text-center">
+                  {app.costNote}
+                </span>
+              )}
+            </div>
+          )}
+
+          <p
+            class="text-gray-600 dark:text-gray-300
+                   text-center text-sm leading-relaxed"
+          >
+            {app.description}
+          </p>
+
+          {app.disclaimer && (
+            <details
+                class="mt-4 rounded-lg border border-amber-200 bg-red-50
+                    dark:border-amber-700/50 dark:bg-red-500/40
+                    text-amber-900 dark:text-amber-50"
+            >
+                <summary
+                class="cursor-pointer select-none px-3 py-2 text-xs font-semibold
+                        hover:bg-amber-100/70 dark:hover:bg-amber-900/30
+                        rounded-lg"
+                >
+                Disclaimer
+                </summary>
+
+                <div class="px-3 pb-2 text-xs leading-relaxed text-left">
+                {app.disclaimer.map((line) => (
+                    <p class="mb-2 last:mb-0">{line}</p>
+                ))}
+                </div>
+            </details>
+            )}
+
+          <div
+            class="mt-5 text-center text-sm font-medium
+                   text-blue-600 dark:text-gold
+                   opacity-0 group-hover:opacity-100
+                   transition mb-2"
+          >
+            {isExternal(app.href) ? "Visit app ↗" : "Open app →"}
+          </div>
+        </a>
+      ))}
+    </section>
+  </main>
+</BaseLayout>

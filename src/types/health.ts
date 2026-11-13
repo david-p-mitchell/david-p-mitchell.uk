@@ -17,4 +17,5 @@ export interface ActivitySummary {
   updatedAt: string;
   today: DailyActivity;
   monthToDate: MonthToDateActivity;
+  error?: boolean;
 }
