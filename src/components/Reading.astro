@@ -52,15 +52,15 @@ const { books } = Astro.props;
         )}
 
         <div class="flex flex-col gap-1.5 flex-1 min-w-0">
-  <div>
-    <p class="font-display leading-snug">
-  <span class="font-semibold text-sm text-text-primary">{book.title}</span>
-  {book.subTitle && (
-    <span class="text-[10px]">{book.subTitle}</span>
-  )}
-</p>
-  </div>
-          <p class="font-display text-xs text-gray-100 pr-2">
+          <div>
+            <p class="font-display leading-snug">
+              <span class="font-semibold text-[13px] text-text-primary">{book.title}</span>
+              {book.subTitle && (
+                <p class="text-[10px]">{book.subTitle}</p>
+              )}
+            </p>
+          </div>
+          <p class="font-display text-[11px] text-gray-100 pr-2">
             {book.author}
             { (book.tags?.length ?? 0) > 0 && (
               <span class="flex flex-wrap gap-2 mt-2 w-full">
