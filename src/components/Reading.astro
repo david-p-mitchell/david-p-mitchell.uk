@@ -20,7 +20,17 @@ const { books } = Astro.props;
     readings?.length > 0 ? "max-h-[130px]" : "max-h-[400px]"
   }`}
 >
-    {books.filter((book) => book.show ?? true).sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0)).map(book => (
+    {books
+  .filter((book) => book.show ?? true)
+  .sort((a, b) => {
+    const aDate = a.lastRead ? new Date(a.lastRead).getTime() : 0;
+    const bDate = b.lastRead ? new Date(b.lastRead).getTime() : 0;
+
+    if (bDate !== aDate) return bDate - aDate;
+
+    return (b.progress ?? 0) - (a.progress ?? 0);
+  })
+  .map(book => (
       <li class="flex items-start gap-4">
 
         <!-- Book spine block -->
@@ -42,7 +52,14 @@ const { books } = Astro.props;
         )}
 
         <div class="flex flex-col gap-1.5 flex-1 min-w-0">
-          <p class="font-display font-semibold text-sm text-text-primary leading-snug">{book.title}</p>
+  <div>
+    <p class="font-display leading-snug">
+  <span class="font-semibold text-sm text-text-primary">{book.title}</span> &nbsp;
+  {book.subTitle && (
+    <span class="text-[10px]">{book.subTitle}</span>
+  )}
+</p>
+  </div>
           
             
           
@@ -67,18 +84,12 @@ const { books } = Astro.props;
           {book.progress !== undefined && (
             <div class="flex items-center gap-2 mt-0.5">
               <div class="flex-1 h-1 bg-border rounded-full overflow-hidden">
-                <div class="flex">
                 <div
                   class="h-full bg-gold rounded-full transition-all duration-700"
                   style={`width: ${book.progress}%`}
-                >
-
-                </div>
-
-                </div>
+                />
               </div>
               <span class="font-mono text-xs text-text-muted shrink-0 pr-2 md:pr-0">{book.progress}%</span>
-
             </div>
           )}
         </div>
