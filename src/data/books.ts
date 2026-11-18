@@ -44,7 +44,7 @@ export const books : Book[] = [
     coverColor: "#cfcfcf",
     img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1774114537i/250080968.jpg",
     tags: ["Confession of Faith", "1689", "Baptist", "Reformed"],
-    show: false
+    show: true
   },
   {
     title: "Power through Prayer",
@@ -65,7 +65,8 @@ export const books : Book[] = [
   title: "Evangelical Holiness",
   author: "Ian H. Murray",
   progress: 57,
-  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1387718426i/18843195.jpg"
+  img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1387718426i/18843195.jpg",
+  show:false
 },
 {
   title: "Write It On Their Hearts: Practical Help For Discipling Your Kids",
@@ -73,6 +74,13 @@ export const books : Book[] = [
   progress: 23,
   img: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1644252666i/60342260.jpg",
 lastRead: new Date("2026-10-14")
+},
+{
+  title: "Cessationism and the Sufficiency of Scripture: Why Apostles, Prophets, and Tongues Have Ended and the Bible Is Enough",
+  author: "Joshua Chipchase",
+  progress: 17,
+  img: "https://www.wtsbooks.com/cdn/shop/files/9781527114524.jpg?v=1794923320&width=675",
+  lastRead: new Date("2026-11-18")
 }
 
 
