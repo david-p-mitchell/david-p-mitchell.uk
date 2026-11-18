@@ -1,6 +1,7 @@
 
 export type Book = {
   title: string;
+  subTitle?: string;
   author: string;
   progress?: number; // 0–100
   coverColor?: string;
@@ -76,7 +77,8 @@ export const books : Book[] = [
 lastRead: new Date("2026-10-14")
 },
 {
-  title: "Cessationism and the Sufficiency of Scripture: Why Apostles, Prophets, and Tongues Have Ended and the Bible Is Enough",
+  title: "Cessationism and the Sufficiency of Scripture:",
+  subTitle: "Why Apostles, Prophets, and Tongues Have Ended and the Bible Is Enough",
   author: "Joshua Chipchase",
   progress: 17,
   img: "https://www.wtsbooks.com/cdn/shop/files/9781527114524.jpg?v=1794923320&width=675",
